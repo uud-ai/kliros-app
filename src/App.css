@@ -368,3 +368,379 @@ body {
 [data-theme="kliros-night"] .date-picker {
   color-scheme: dark;
 }
+/* ===== Стили для поиска ===== */
+
+.search-panel {
+  max-width: 760px;
+  margin: 0 auto 1rem;
+  padding: 0 1.5rem;
+}
+
+.search-input-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font-family: 'PT Serif', Georgia, serif;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--ink);
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.search-close {
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  opacity: 0.6;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.search-close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.search-results {
+  margin-top: 0.75rem;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--bg);
+}
+
+.search-results-header {
+  padding: 0.5rem 1rem;
+  font-family: 'Bitter', serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--red);
+  border-bottom: 1px solid var(--rule);
+  background: rgba(156, 28, 28, 0.03);
+}
+
+.search-no-results {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--ink);
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.search-result-item {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background: rgba(156, 28, 28, 0.04);
+}
+
+.search-result-meta {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.3rem;
+  font-family: 'Bitter', serif;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.search-result-section {
+  color: var(--red);
+  font-weight: 600;
+}
+
+.search-result-role {
+  color: var(--ink);
+  opacity: 0.7;
+}
+
+.search-result-text {
+  font-family: 'PT Serif', Georgia, serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-text mark {
+  background: rgba(156, 28, 28, 0.2);
+  color: var(--red);
+  font-weight: 600;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Подсветка при переходе к найденному элементу */
+.prayer.search-highlight {
+  animation: highlight-flash 2s ease-out;
+}
+
+@keyframes highlight-flash {
+  0% {
+    background: rgba(156, 28, 28, 0.15);
+    box-shadow: 0 0 0 3px rgba(156, 28, 28, 0.2);
+  }
+  100% {
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+/* Адаптивность для темной темы */
+[data-theme="dark"] .search-input-container,
+[data-theme="kliros-night"] .search-input-container {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .search-close:hover,
+[data-theme="kliros-night"] .search-close:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .search-results-header,
+[data-theme="kliros-night"] .search-results-header {
+  background: rgba(224, 102, 102, 0.05);
+}
+
+[data-theme="dark"] .search-result-item:hover,
+[data-theme="kliros-night"] .search-result-item:hover {
+  background: rgba(224, 102, 102, 0.06);
+}
+
+[data-theme="dark"] .search-result-text mark,
+[data-theme="kliros-night"] .search-result-text mark {
+  background: rgba(224, 102, 102, 0.25);
+  color: var(--red);
+}
+/* ===== Плавающая кнопка закладок ===== */
+
+.bookmarks-fab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  color: var(--red);
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bookmarks-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.bookmarks-fab:active {
+  transform: translateY(0);
+}
+
+[data-theme="dark"] .bookmarks-fab,
+[data-theme="kliros-night"] .bookmarks-fab {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== Подложка при открытой панели ===== */
+
+.bookmarks-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 49;
+  animation: fade-in 0.2s ease-out;
+}
+
+[data-theme="dark"] .bookmarks-backdrop,
+[data-theme="kliros-night"] .bookmarks-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== Панель закладок ===== */
+
+.bookmarks-panel {
+  position: fixed;
+  bottom: 5.5rem;
+  right: 1.5rem;
+  width: 320px;
+  max-height: 70vh;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 51;
+  display: flex;
+  flex-direction: column;
+  animation: slide-up 0.25s ease-out;
+  overflow: hidden;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bookmarks-header {
+  padding: 0.85rem 1.1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--red);
+  border-bottom: 1px solid var(--rule);
+  letter-spacing: 0.02em;
+}
+
+.bookmarks-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 0.4rem 0;
+}
+
+.bookmark-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.65rem 1.1rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'PT Serif', Georgia, serif;
+  font-size: 0.95rem;
+  color: var(--ink);
+  transition: background 0.15s, border-left-color 0.15s;
+  border-left: 3px solid transparent;
+}
+
+.bookmark-item:hover {
+  background: rgba(156, 28, 28, 0.06);
+  border-left-color: var(--red);
+}
+
+[data-theme="dark"] .bookmark-item:hover,
+[data-theme="kliros-night"] .bookmark-item:hover {
+  background: rgba(224, 102, 102, 0.08);
+}
+
+.bookmark-title {
+  flex: 1;
+}
+
+.bookmark-count {
+  font-family: 'Bitter', serif;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 10px;
+  background: rgba(156, 28, 28, 0.1);
+  color: var(--red);
+  font-weight: 600;
+  margin-left: 0.75rem;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+[data-theme="dark"] .bookmark-count,
+[data-theme="kliros-night"] .bookmark-count {
+  background: rgba(224, 102, 102, 0.15);
+}
+
+/* ===== Подсветка секции при переходе ===== */
+
+.section-title.section-highlight {
+  animation: section-flash 2s ease-out;
+}
+
+@keyframes section-flash {
+  0% {
+    background: rgba(156, 28, 28, 0.1);
+    padding-left: 1rem;
+    border-radius: 6px;
+  }
+  100% {
+    background: transparent;
+    padding-left: 0;
+  }
+}
+
+/* ===== Адаптация для телефона ===== */
+
+@media (max-width: 640px) {
+  .bookmarks-fab {
+    bottom: 1rem;
+    right: 1rem;
+    width: 52px;
+    height: 52px;
+  }
+
+  .bookmarks-panel {
+    bottom: 4.5rem;
+    right: 1rem;
+    left: 1rem;
+    width: auto;
+    max-height: 60vh;
+  }
+}
+
+/* ===== Скрываем кнопку при печати ===== */
+
+@media print {
+  .bookmarks-fab,
+  .bookmarks-panel,
+  .bookmarks-backdrop {
+    display: none !important;
+  }
+}

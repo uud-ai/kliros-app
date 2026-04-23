@@ -18,7 +18,7 @@ function toDocId(date) {
   return `${year}-${month}-${day}`;
 }
 
-// Человекочитаемая подпись дня, если в документе нет своей dateLabel
+// Человекочитаемая подпись дня
 function humanLabel(date) {
   const days = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
   const months = ["января", "февраля", "марта", "апреля", "мая", "июня",
@@ -26,24 +26,49 @@ function humanLabel(date) {
   return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
 }
 
-// Сдвиг даты на n дней (положительное — вперёд, отрицательное — назад)
+// Сдвиг даты на n дней
 function shiftDate(date, days) {
   const result = new Date(date);
   result.setDate(result.getDate() + days);
   return result;
 }
 
-function App() {
-  // По умолчанию показываем воскресенье 26 апреля 2026 — день, который у нас в базе
-  const [selectedDate, setSelectedDate] = useState(new Date(2026, 3, 26));
+// Подстановка переменных {{oktoih.tropar}} → реальный текст
+function substituteVariables(text, variables) {
+  if (!text || typeof text !== 'string') return text;
+  return text.replace(/\{\{([^}]+)\}\}/g, (match, variablePath) => {
+    const [type, key] = variablePath.split('.');
+    if (type === 'oktoih' && variables && variables[key]) {
+      return variables[key];
+    }
+    return match;
+  });
+}
 
+// Подсветка найденного текста в результатах поиска
+function highlightMatch(text, searchTerm) {
+  if (!searchTerm) return text;
+  const escaped = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${escaped})`, 'gi');
+  return text.replace(regex, '<mark>$1</mark>');
+}
+
+function App() {
+  // ===== Состояние =====
+  const [selectedDate, setSelectedDate] = useState(new Date(2026, 3, 26));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [day, setDay] = useState(null);
+  const [templates, setTemplates] = useState({});
+  const [variables, setVariables] = useState({});
   const [activeService, setActiveService] = useState("liturgy");
   const [theme, setTheme] = useState("light");
   const [fontSize, setFontSize] = useState(1.2);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
+  const [showBookmarks, setShowBookmarks] = useState(false);
 
+  // ===== Эффекты: тема и размер шрифта =====
   useEffect(() => {
     document.body.dataset.theme = theme;
   }, [theme]);
@@ -52,19 +77,77 @@ function App() {
     document.documentElement.style.setProperty("--prayer-size", fontSize + "rem");
   }, [fontSize]);
 
-  // Загружаем документ каждый раз, когда меняется выбранная дата
+  // ===== Загрузка дня + шаблонов + переменных =====
   useEffect(() => {
     async function loadDay() {
       setLoading(true);
       setError(null);
       setDay(null);
+
       try {
         const docId = toDocId(selectedDate);
         const snapshot = await getDoc(doc(db, "days", docId));
-        if (snapshot.exists()) {
-          setDay(snapshot.data());
-        } else {
+
+        if (!snapshot.exists()) {
           setDay(null);
+          setLoading(false);
+          return;
+        }
+
+        const dayData = snapshot.data();
+        setDay(dayData);
+
+        const templateIds = new Set();
+        const variableIds = new Set();
+
+        if (dayData.services) {
+          Object.values(dayData.services).forEach((templateId) => {
+            if (templateId && typeof templateId === "string") {
+              templateIds.add(templateId);
+            }
+          });
+        }
+
+        if (dayData.variables && dayData.variables.oktoih_source) {
+          variableIds.add(dayData.variables.oktoih_source);
+        }
+
+        const templateIdsToLoad = [...templateIds].filter((id) => !templates[id]);
+        const variableIdsToLoad = [...variableIds].filter((id) => !variables[id]);
+
+        const promises = [];
+
+        if (templateIdsToLoad.length > 0) {
+          promises.push(
+            ...templateIdsToLoad.map((id) =>
+              getDoc(doc(db, "templates", id)).then((snap) => ({ type: 'template', id, snap }))
+            )
+          );
+        }
+
+        if (variableIdsToLoad.length > 0) {
+          promises.push(
+            ...variableIdsToLoad.map((id) =>
+              getDoc(doc(db, "templates", id)).then((snap) => ({ type: 'variable', id, snap }))
+            )
+          );
+        }
+
+        if (promises.length > 0) {
+          const results = await Promise.all(promises);
+
+          const newTemplates = { ...templates };
+          const newVariables = { ...variables };
+
+          results.forEach(({ type, id, snap }) => {
+            if (snap.exists()) {
+              if (type === 'template') newTemplates[id] = snap.data();
+              else if (type === 'variable') newVariables[id] = snap.data();
+            }
+          });
+
+          setTemplates(newTemplates);
+          setVariables(newVariables);
         }
       } catch (e) {
         setError("Ошибка загрузки: " + e.message);
@@ -73,8 +156,10 @@ function App() {
       }
     }
     loadDay();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDate]);
 
+  // ===== Производные значения =====
   const cycleTheme = () => {
     const next = { light: "dark", dark: "kliros-night", "kliros-night": "light" };
     setTheme(next[theme]);
@@ -95,24 +180,91 @@ function App() {
     return groups;
   };
 
-  // Проверяем, является ли выбранная дата сегодняшней
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const selected = new Date(selectedDate);
   selected.setHours(0, 0, 0, 0);
   const isToday = selected.getTime() === today.getTime();
 
-  // Подпись даты: если в документе нет dateLabel — формируем сами
   const dateLabel = day?.dateLabel || humanLabel(selectedDate);
 
-  const activeItems = day?.[activeService] || [];
+  // Получаем активный шаблон и переменные
+  const activeTemplateId = day?.services?.[activeService];
+  const activeTemplate = activeTemplateId ? templates[activeTemplateId] : null;
+  const variableSource = day?.variables?.oktoih_source;
+  const activeVariables = variableSource ? variables[variableSource] : null;
+
+  // Формируем массив реплик с подстановкой переменных
+  let activeItems = [];
+  if (activeTemplate?.items) {
+    activeItems = activeTemplate.items.map((item) => {
+      if (item.variable_type === 'oktoih' && activeVariables) {
+        const substitutedText = substituteVariables(item.text, activeVariables);
+        const finalText = substitutedText === item.text && item.fallback
+          ? item.fallback
+          : substitutedText;
+        return { ...item, text: finalText };
+      }
+      return item;
+    });
+  }
+
   const groups = groupBySection(activeItems);
 
+  // ===== Поиск =====
+  const searchResults = (() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q || !activeItems.length) return [];
+
+    const results = [];
+    activeItems.forEach((item, index) => {
+      if (!item.text || !item.role || !item.section) return;
+      const textMatch = item.text.toLowerCase().includes(q);
+      const roleMatch = item.role.toLowerCase().includes(q);
+      const sectionMatch = item.section.toLowerCase().includes(q);
+      if (textMatch || roleMatch || sectionMatch) {
+        results.push({
+          ...item,
+          index,
+          highlightedText: highlightMatch(item.text, q),
+        });
+      }
+    });
+    return results;
+  })();
+
+  const scrollToItem = (index) => {
+    const element = document.querySelector(`[data-item-index="${index}"]`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      element.classList.add('search-highlight');
+      setTimeout(() => element.classList.remove('search-highlight'), 2000);
+    }
+    setShowSearch(false);
+    setSearchQuery("");
+  };
+
+  // ===== Закладки =====
+  const scrollToSection = (sectionName) => {
+    const elements = document.querySelectorAll('.section-title');
+    for (const el of elements) {
+      if (el.textContent === sectionName) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.classList.add('section-highlight');
+        setTimeout(() => el.classList.remove('section-highlight'), 2000);
+        break;
+      }
+    }
+    setShowBookmarks(false);
+  };
+
+  // ===== Рендеринг =====
   return (
     <div className="app">
       <div className="topbar">
         <div className="brand">Клирос</div>
         <div className="topbar-tools">
+          <button className="icon-btn" onClick={() => setShowSearch(!showSearch)} title="Поиск">🔍</button>
           <button className="icon-btn" onClick={() => setFontSize(Math.max(0.9, fontSize - 0.1))} title="Меньше">А−</button>
           <button className="icon-btn" onClick={() => setFontSize(Math.min(2.0, fontSize + 0.1))} title="Больше">А+</button>
           <button className="icon-btn" onClick={cycleTheme} title="Тема">{themeIcon}</button>
@@ -120,10 +272,7 @@ function App() {
       </div>
 
       <div className="date-nav">
-        <button
-          className="date-nav-btn"
-          onClick={() => setSelectedDate(shiftDate(selectedDate, -1))}
-        >
+        <button className="date-nav-btn" onClick={() => setSelectedDate(shiftDate(selectedDate, -1))}>
           ← Вчера
         </button>
         <button
@@ -133,10 +282,7 @@ function App() {
         >
           Сегодня
         </button>
-        <button
-          className="date-nav-btn"
-          onClick={() => setSelectedDate(shiftDate(selectedDate, 1))}
-        >
+        <button className="date-nav-btn" onClick={() => setSelectedDate(shiftDate(selectedDate, 1))}>
           Завтра →
         </button>
         <input
@@ -171,6 +317,63 @@ function App() {
         )}
       </div>
 
+      {showSearch && (
+        <div className="search-panel">
+          <div className="search-input-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Поиск по службе... (Аминь, Херувимская, Помилуй)"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              autoFocus
+            />
+            <button
+              className="search-close"
+              onClick={() => {
+                setShowSearch(false);
+                setSearchQuery("");
+              }}
+              title="Закрыть поиск"
+            >
+              ✕
+            </button>
+          </div>
+
+          {searchQuery && (
+            <div className="search-results">
+              {searchResults.length === 0 ? (
+                <div className="search-no-results">
+                  Ничего не найдено по запросу «{searchQuery}»
+                </div>
+              ) : (
+                <>
+                  <div className="search-results-header">
+                    Найдено: {searchResults.length}
+                  </div>
+                  {searchResults.map((result, idx) => (
+                    <div
+                      key={idx}
+                      className="search-result-item"
+                      onClick={() => scrollToItem(result.index)}
+                    >
+                      <div className="search-result-meta">
+                        <span className="search-result-section">{result.section}</span>
+                        <span className="search-result-role">{result.role}</span>
+                      </div>
+                      <div
+                        className="search-result-text"
+                        dangerouslySetInnerHTML={{ __html: result.highlightedText }}
+                      />
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="service-tabs">
         {SERVICES.map((svc) => (
           <button
@@ -192,7 +395,7 @@ function App() {
           </div>
         ) : groups.length === 0 ? (
           <div className="empty-service">
-            Эта служба пока не добавлена в базу.
+            Эта служба пока не добавлена.
             <br />
             Скоро появится.
           </div>
@@ -201,7 +404,11 @@ function App() {
             <div key={idx}>
               <h2 className="section-title">{group.section}</h2>
               {group.items.map((item, j) => (
-                <div key={j} className="prayer">
+                <div
+                  key={j}
+                  className="prayer"
+                  data-item-index={activeItems.indexOf(item)}
+                >
                   <span className="prayer-role">{item.role}</span>
                   <p className="prayer-text">{item.text}</p>
                 </div>
@@ -210,6 +417,40 @@ function App() {
           ))
         )}
       </div>
+
+      {/* Плавающая кнопка закладок */}
+      {groups.length > 0 && (
+        <button
+          className="bookmarks-fab"
+          onClick={() => setShowBookmarks(!showBookmarks)}
+          title="Закладки по службе"
+          aria-label="Закладки"
+        >
+          {showBookmarks ? "✕" : "📑"}
+        </button>
+      )}
+
+      {/* Панель закладок */}
+      {showBookmarks && groups.length > 0 && (
+        <>
+          <div className="bookmarks-backdrop" onClick={() => setShowBookmarks(false)} />
+          <div className="bookmarks-panel">
+            <div className="bookmarks-header">Закладки</div>
+            <div className="bookmarks-list">
+              {groups.map((group, idx) => (
+                <button
+                  key={idx}
+                  className="bookmark-item"
+                  onClick={() => scrollToSection(group.section)}
+                >
+                  <span className="bookmark-title">{group.section}</span>
+                  <span className="bookmark-count">{group.items.length}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
