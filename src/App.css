@@ -188,9 +188,18 @@ body {
   font-size: var(--prayer-size);
   line-height: 1.7;
   margin: 0;
-  text-align: justify;
+  text-align: left;
   hyphens: auto;
   color: var(--ink);
+  /* Фикс ударений на iOS Safari:
+     - text-align: left (не justify) — чтобы Safari не растягивал пробелы между буквой и акутом
+     - font-variant-ligatures: normal — явно включаем лигатуры GPOS для правильного позиционирования комбинирующего акута U+0301
+     - word-spacing: 0 — страхует от искусственного растягивания пробелов
+     - text-rendering: optimizeLegibility — качественный рендеринг с кернингом */
+  font-variant-ligatures: normal;
+  -webkit-font-variant-ligatures: normal;
+  word-spacing: 0;
+  text-rendering: optimizeLegibility;
 }
 
 /* Состояния загрузки и ошибок */
