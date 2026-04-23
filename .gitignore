@@ -23,3 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .firebase
+
+# Firebase Admin SDK credentials - NEVER commit!
+service-account.json
+*-firebase-adminsdk-*.json
