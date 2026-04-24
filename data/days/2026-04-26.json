@@ -9,6 +9,7 @@
   "period": "Пентикоста́рий",
   "fasting": "Разреше́ние на вся",
   "services": {
+    "vespers": "vespers-sunday",
     "liturgy": "liturgy-sunday-with-variables"
   },
   "variables": {
