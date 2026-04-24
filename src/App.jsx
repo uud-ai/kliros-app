@@ -33,6 +33,27 @@ function shiftDate(date, days) {
   return result;
 }
 
+// ===== Работа с localStorage =====
+// Безопасное чтение из localStorage (возвращает fallback при любой ошибке)
+function loadSetting(key, fallback) {
+  try {
+    const value = localStorage.getItem(`kliros:${key}`);
+    if (value === null) return fallback;
+    return JSON.parse(value);
+  } catch {
+    return fallback;
+  }
+}
+
+// Безопасная запись в localStorage
+function saveSetting(key, value) {
+  try {
+    localStorage.setItem(`kliros:${key}`, JSON.stringify(value));
+  } catch {
+    // Ошибка записи игнорируется — настройки просто не сохранятся
+  }
+}
+
 // Подстановка переменных {{oktoih.tropar}} → реальный текст
 function substituteVariables(text, variables) {
   if (!text || typeof text !== 'string') return text;
@@ -61,21 +82,27 @@ function App() {
   const [day, setDay] = useState(null);
   const [templates, setTemplates] = useState({});
   const [variables, setVariables] = useState({});
-  const [activeService, setActiveService] = useState("liturgy");
-  const [theme, setTheme] = useState("light");
-  const [fontSize, setFontSize] = useState(1.2);
+  const [activeService, setActiveService] = useState(() => loadSetting("activeService", "liturgy"));
+  const [theme, setTheme] = useState(() => loadSetting("theme", "light"));
+  const [fontSize, setFontSize] = useState(() => loadSetting("fontSize", 1.2));
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [showBookmarks, setShowBookmarks] = useState(false);
 
-  // ===== Эффекты: тема и размер шрифта =====
+  // ===== Эффекты: применение темы и сохранение настроек =====
   useEffect(() => {
     document.body.dataset.theme = theme;
+    saveSetting("theme", theme);
   }, [theme]);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--prayer-size", fontSize + "rem");
+    saveSetting("fontSize", fontSize);
   }, [fontSize]);
+
+  useEffect(() => {
+    saveSetting("activeService", activeService);
+  }, [activeService]);
 
   // ===== Загрузка дня + шаблонов + переменных =====
   useEffect(() => {
