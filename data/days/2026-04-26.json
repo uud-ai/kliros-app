@@ -10,6 +10,7 @@
   "fasting": "Разреше́ние на вся",
   "services": {
     "vespers": "vespers-sunday",
+    "matins": "matins-sunday",
     "liturgy": "liturgy-sunday-with-variables"
   },
   "variables": {

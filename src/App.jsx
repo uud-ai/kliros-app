@@ -34,7 +34,6 @@ function shiftDate(date, days) {
 }
 
 // ===== Работа с localStorage =====
-// Безопасное чтение из localStorage (возвращает fallback при любой ошибке)
 function loadSetting(key, fallback) {
   try {
     const value = localStorage.getItem(`kliros:${key}`);
@@ -45,12 +44,11 @@ function loadSetting(key, fallback) {
   }
 }
 
-// Безопасная запись в localStorage
 function saveSetting(key, value) {
   try {
     localStorage.setItem(`kliros:${key}`, JSON.stringify(value));
   } catch {
-    // Ошибка записи игнорируется — настройки просто не сохранятся
+    // ошибка записи игнорируется
   }
 }
 
@@ -207,6 +205,67 @@ function App() {
     return groups;
   };
 
+  // ===== Рендер канона =====
+  // Рендер одной "части" канона (ирмос, тропарь, катавасия и т.д.)
+  const renderCanonPart = (part, idx, canonVariables) => {
+    let text = part.text || "";
+    if (canonVariables) {
+      const substituted = substituteVariables(text, canonVariables);
+      text = substituted === text && part.fallback ? part.fallback : substituted;
+    } else if (part.fallback) {
+      text = part.fallback;
+    }
+
+    const typeClassMap = {
+      irmos: "canon-irmos",
+      tropar: "canon-tropar",
+      bogorodichen: "canon-bogorodichen",
+      katavasia: "canon-katavasia",
+    };
+
+    // Припев отображаем особо — курсивом, без заголовка-роли
+    if (part.type === "refrain_heading") {
+      return (
+        <div key={idx} className="canon-refrain">
+          <span className="canon-refrain-label">{part.label || "Припев:"}</span>{" "}
+          <span className="canon-refrain-text">{text}</span>
+        </div>
+      );
+    }
+
+    const className = typeClassMap[part.type] || "canon-part";
+
+    return (
+      <div key={idx} className={`prayer ${className}`}>
+        <span className="prayer-role">{part.label}</span>
+        <p className="prayer-text">{text}</p>
+      </div>
+    );
+  };
+
+  // Рендер одной песни канона
+  const renderCanonOde = (ode, canonVariables) => {
+    return (
+      <div key={ode.ode} className="canon-ode">
+        <h3 className="canon-ode-title">{ode.title}</h3>
+        {ode.parts && ode.parts.map((part, idx) => renderCanonPart(part, idx, canonVariables))}
+      </div>
+    );
+  };
+
+  // Рендер всего канона
+  const renderCanon = (item, canonVariables) => {
+    if (!item.canon || !item.canon.structure) return null;
+    return (
+      <div className="canon">
+        {item.canon.title && (
+          <div className="canon-subtitle">{item.canon.title}</div>
+        )}
+        {item.canon.structure.map((ode) => renderCanonOde(ode, canonVariables))}
+      </div>
+    );
+  };
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const selected = new Date(selectedDate);
@@ -225,6 +284,9 @@ function App() {
   let activeItems = [];
   if (activeTemplate?.items) {
     activeItems = activeTemplate.items.map((item) => {
+      // Канон обрабатывается отдельно — не трогаем его поля
+      if (item.is_canon) return item;
+
       if (item.variable_type === 'oktoih' && activeVariables) {
         const substitutedText = substituteVariables(item.text, activeVariables);
         const finalText = substitutedText === item.text && item.fallback
@@ -245,6 +307,8 @@ function App() {
 
     const results = [];
     activeItems.forEach((item, index) => {
+      // Пропускаем каноны из поиска (пока)
+      if (item.is_canon) return;
       if (!item.text || !item.role || !item.section) return;
       const textMatch = item.text.toLowerCase().includes(q);
       const roleMatch = item.role.toLowerCase().includes(q);
@@ -430,16 +494,30 @@ function App() {
           groups.map((group, idx) => (
             <div key={idx}>
               <h2 className="section-title">{group.section}</h2>
-              {group.items.map((item, j) => (
-                <div
-                  key={j}
-                  className="prayer"
-                  data-item-index={activeItems.indexOf(item)}
-                >
-                  <span className="prayer-role">{item.role}</span>
-                  <p className="prayer-text">{item.text}</p>
-                </div>
-              ))}
+              {group.items.map((item, j) => {
+                // Если элемент — канон, рисуем особо
+                if (item.is_canon && item.canon) {
+                  return (
+                    <div
+                      key={j}
+                      data-item-index={activeItems.indexOf(item)}
+                    >
+                      {renderCanon(item, activeVariables)}
+                    </div>
+                  );
+                }
+                // Обычная реплика
+                return (
+                  <div
+                    key={j}
+                    className="prayer"
+                    data-item-index={activeItems.indexOf(item)}
+                  >
+                    <span className="prayer-role">{item.role}</span>
+                    <p className="prayer-text">{item.text}</p>
+                  </div>
+                );
+              })}
             </div>
           ))
         )}
