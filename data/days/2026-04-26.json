@@ -4,15 +4,15 @@
     "dayOfWeek": "sunday"
   },
   "dateLabel": "Воскресенье, 26 апреля 2026",
-  "feastName": "Неде́ля 5-я по Па́сце, о самаряны́ни",
-  "tone": 4,
-  "period": "Попра́зднство Преполове́ния",
+  "feastName": "Неде́ля 3-я по Па́сце, святы́х жён-мироно́сиц",
+  "tone": 2,
+  "period": "Пентикоста́рий",
   "fasting": "Разреше́ние на вся",
   "services": {
-  "liturgy": "liturgy-sunday-with-variables"
-},
+    "liturgy": "liturgy-sunday-with-variables"
+  },
   "variables": {
-    "glas": 1,
-    "oktoih_source": "oktoih-variables-glas1"
+    "glas": 2,
+    "oktoih_source": "oktoih-variables-glas2"
   }
 }

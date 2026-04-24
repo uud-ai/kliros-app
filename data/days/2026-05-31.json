@@ -1,0 +1,19 @@
+{
+    "_meta": {
+      "date": "2026-05-31",
+      "dayOfWeek": "sunday"
+    },
+    "dateLabel": "Воскресенье, 31 мая 2026",
+    "feastName": "Святая Пятидеся́тница. День Святы́я Тро́ицы",
+    "tone": null,
+    "period": "Пятидеся́тница",
+    "fasting": "Разреше́ние на вся",
+    "services": {
+      "liturgy": "liturgy-sunday-with-variables"
+    },
+    "variables": {
+      "glas": 7,
+      "oktoih_source": "oktoih-variables-glas7",
+      "special_service": "pentecost"
+    }
+  }

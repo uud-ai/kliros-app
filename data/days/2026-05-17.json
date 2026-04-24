@@ -1,0 +1,18 @@
+{
+    "_meta": {
+      "date": "2026-05-17",
+      "dayOfWeek": "sunday"
+    },
+    "dateLabel": "Воскресенье, 17 мая 2026",
+    "feastName": "Неде́ля 6-я по Па́сце, о слепо́м",
+    "tone": 5,
+    "period": "Пентикоста́рий",
+    "fasting": "Разреше́ние на вся",
+    "services": {
+      "liturgy": "liturgy-sunday-with-variables"
+    },
+    "variables": {
+      "glas": 5,
+      "oktoih_source": "oktoih-variables-glas5"
+    }
+  }

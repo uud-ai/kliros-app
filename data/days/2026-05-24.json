@@ -1,0 +1,18 @@
+{
+    "_meta": {
+      "date": "2026-05-24",
+      "dayOfWeek": "sunday"
+    },
+    "dateLabel": "Воскресенье, 24 мая 2026",
+    "feastName": "Неде́ля 7-я по Па́сце, святы́х отце́в I Вселе́нскаго Собо́ра",
+    "tone": 6,
+    "period": "Пентикоста́рий",
+    "fasting": "Разреше́ние на вся",
+    "services": {
+      "liturgy": "liturgy-sunday-with-variables"
+    },
+    "variables": {
+      "glas": 6,
+      "oktoih_source": "oktoih-variables-glas6"
+    }
+  }

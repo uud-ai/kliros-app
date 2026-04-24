@@ -1,0 +1,18 @@
+{
+    "_meta": {
+      "date": "2026-06-07",
+      "dayOfWeek": "sunday"
+    },
+    "dateLabel": "Воскресенье, 7 июня 2026",
+    "feastName": "Неде́ля 1-я по Пятидеся́тнице, всех святы́х",
+    "tone": 8,
+    "period": "По Пятидеся́тнице",
+    "fasting": "Разреше́ние на вся",
+    "services": {
+      "liturgy": "liturgy-sunday-with-variables"
+    },
+    "variables": {
+      "glas": 8,
+      "oktoih_source": "oktoih-variables-glas8"
+    }
+  }

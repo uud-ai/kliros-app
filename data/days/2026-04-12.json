@@ -1,0 +1,19 @@
+{
+    "_meta": {
+      "date": "2026-04-12",
+      "dayOfWeek": "sunday"
+    },
+    "dateLabel": "Воскресенье, 12 апреля 2026",
+    "feastName": "Свята́я Па́сха. Све́тлое Христо́во Воскресе́ние",
+    "tone": null,
+    "period": "Па́сха",
+    "fasting": "Разреше́ние на вся",
+    "services": {
+      "liturgy": "liturgy-sunday-with-variables"
+    },
+    "variables": {
+      "glas": 1,
+      "oktoih_source": "oktoih-variables-glas1",
+      "special_service": "pascha"
+    }
+  }
