@@ -909,3 +909,63 @@ body {
 [data-theme="kliros-night"] .bookmark-subitem:hover {
   background: rgba(224, 102, 102, 0.06);
 }
+/* ===== Подвкладки часов ===== */
+
+.hour-subtabs {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 0.5rem 0 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dotted var(--rule);
+}
+
+.hour-subtab {
+  background: transparent;
+  border: none;
+  padding: 0.4rem 0.75rem;
+  font-family: 'Bitter', serif;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: color 0.15s, opacity 0.15s;
+  position: relative;
+}
+
+.hour-subtab:hover:not(.disabled) {
+  color: var(--red);
+}
+
+.hour-subtab.active {
+  color: var(--red);
+  font-weight: 600;
+}
+
+.hour-subtab.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.6rem;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+.hour-subtab.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+@media (max-width: 600px) {
+  .hour-subtabs {
+    gap: 0.75rem;
+  }
+  .hour-subtab {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}

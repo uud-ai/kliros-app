@@ -86,6 +86,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [showBookmarks, setShowBookmarks] = useState(false);
+  const [activeHour, setActiveHour] = useState(() => loadSetting("activeHour", "3"));
 
   // ===== Эффекты: применение темы и сохранение настроек =====
   useEffect(() => {
@@ -101,6 +102,10 @@ function App() {
   useEffect(() => {
     saveSetting("activeService", activeService);
   }, [activeService]);
+
+  useEffect(() => {
+    saveSetting("activeHour", activeHour);
+  }, [activeHour]);
 
   // ===== Загрузка дня + шаблонов + переменных =====
   useEffect(() => {
@@ -126,9 +131,18 @@ function App() {
         const variableIds = new Set();
 
         if (dayData.services) {
-          Object.values(dayData.services).forEach((templateId) => {
-            if (templateId && typeof templateId === "string") {
-              templateIds.add(templateId);
+          Object.values(dayData.services).forEach((templateValue) => {
+            // Если это строка — обычная служба
+            if (typeof templateValue === "string") {
+              templateIds.add(templateValue);
+            }
+            // Если это объект (например, hours: { "1": "...", "3": "..." }) — собираем все шаблоны
+            else if (typeof templateValue === "object" && templateValue !== null) {
+              Object.values(templateValue).forEach((subTemplateId) => {
+                if (typeof subTemplateId === "string") {
+                  templateIds.add(subTemplateId);
+                }
+              });
             }
           });
         }
@@ -286,8 +300,14 @@ function App() {
 
   const dateLabel = day?.dateLabel || humanLabel(selectedDate);
 
-  // Получаем активный шаблон и переменные
-  const activeTemplateId = day?.services?.[activeService];
+  // Получаем активный шаблон (для часов — выбираем подшаблон по выбранному часу)
+  let activeTemplateId = null;
+  const serviceValue = day?.services?.[activeService];
+  if (typeof serviceValue === "string") {
+    activeTemplateId = serviceValue;
+  } else if (activeService === "hours" && serviceValue && typeof serviceValue === "object") {
+    activeTemplateId = serviceValue[activeHour];
+  }
   const activeTemplate = activeTemplateId ? templates[activeTemplateId] : null;
   const variableSource = day?.variables?.oktoih_source;
   const activeVariables = variableSource ? variables[variableSource] : null;
@@ -491,7 +511,7 @@ function App() {
         </div>
       )}
 
-      <div className="service-tabs">
+<div className="service-tabs">
         {SERVICES.map((svc) => (
           <button
             key={svc.key}
@@ -502,6 +522,26 @@ function App() {
           </button>
         ))}
       </div>
+
+      {/* Подвкладки для Часов */}
+      {activeService === "hours" && day?.services?.hours && typeof day.services.hours === "object" && (
+        <div className="hour-subtabs">
+          {["1", "3", "6", "9"].map((hour) => {
+            const isAvailable = !!day.services.hours[hour];
+            return (
+              <button
+                key={hour}
+                className={`hour-subtab ${activeHour === hour ? "active" : ""} ${isAvailable ? "" : "disabled"}`}
+                onClick={() => isAvailable && setActiveHour(hour)}
+                disabled={!isAvailable}
+                title={isAvailable ? `Час ${hour}-й` : `${hour}-й час не добавлен`}
+              >
+                {hour}-й час
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       <div className="service-body">
         {!day ? (
