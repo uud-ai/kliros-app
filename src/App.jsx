@@ -197,10 +197,22 @@ function App() {
     let current = null;
     items.forEach((item) => {
       if (!current || current.section !== item.section) {
-        current = { section: item.section, items: [] };
+        current = { section: item.section, items: [], subBookmarks: [] };
         groups.push(current);
       }
       current.items.push(item);
+
+      // Если элемент — канон, собираем песни как подзакладки
+      if (item.is_canon && item.canon && item.canon.structure) {
+        item.canon.structure.forEach((ode) => {
+          if (ode.title) {
+            current.subBookmarks.push({
+              title: ode.title,
+              partsCount: (ode.parts || []).length,
+            });
+          }
+        });
+      }
     });
     return groups;
   };
@@ -340,6 +352,20 @@ function App() {
     const elements = document.querySelectorAll('.section-title');
     for (const el of elements) {
       if (el.textContent === sectionName) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.classList.add('section-highlight');
+        setTimeout(() => el.classList.remove('section-highlight'), 2000);
+        break;
+      }
+    }
+    setShowBookmarks(false);
+  };
+
+  // Прокрутка к конкретной песни канона
+  const scrollToCanonOde = (odeTitle) => {
+    const elements = document.querySelectorAll('.canon-ode-title');
+    for (const el of elements) {
+      if (el.textContent === odeTitle) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         el.classList.add('section-highlight');
         setTimeout(() => el.classList.remove('section-highlight'), 2000);
@@ -535,7 +561,7 @@ function App() {
         </button>
       )}
 
-      {/* Панель закладок */}
+     {/* Панель закладок */}
       {showBookmarks && groups.length > 0 && (
         <>
           <div className="bookmarks-backdrop" onClick={() => setShowBookmarks(false)} />
@@ -543,14 +569,29 @@ function App() {
             <div className="bookmarks-header">Закладки</div>
             <div className="bookmarks-list">
               {groups.map((group, idx) => (
-                <button
-                  key={idx}
-                  className="bookmark-item"
-                  onClick={() => scrollToSection(group.section)}
-                >
-                  <span className="bookmark-title">{group.section}</span>
-                  <span className="bookmark-count">{group.items.length}</span>
-                </button>
+                <div key={idx}>
+                  <button
+                    className="bookmark-item"
+                    onClick={() => scrollToSection(group.section)}
+                  >
+                    <span className="bookmark-title">{group.section}</span>
+                    <span className="bookmark-count">{group.items.length}</span>
+                  </button>
+                  {group.subBookmarks && group.subBookmarks.length > 0 && (
+                    <div className="bookmark-sublist">
+                      {group.subBookmarks.map((sub, subIdx) => (
+                        <button
+                          key={subIdx}
+                          className="bookmark-item bookmark-subitem"
+                          onClick={() => scrollToCanonOde(sub.title)}
+                        >
+                          <span className="bookmark-title">{sub.title}</span>
+                          <span className="bookmark-count">{sub.partsCount}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           </div>

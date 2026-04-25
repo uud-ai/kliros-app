@@ -869,3 +869,43 @@ body {
     margin-right: -0.5rem;
   }
 }
+
+/* ===== Подзакладки (песни канона) ===== */
+
+.bookmark-sublist {
+  margin-left: 1.5rem;
+  border-left: 1px dashed var(--rule);
+  padding-left: 0.25rem;
+}
+
+.bookmark-subitem {
+  font-size: 0.85rem;
+  font-style: italic;
+  padding-left: 1rem !important;
+  color: var(--ink-soft);
+}
+
+.bookmark-subitem .bookmark-title {
+  font-style: italic;
+}
+
+.bookmark-subitem .bookmark-count {
+  font-size: 0.65rem;
+  background: rgba(156, 28, 28, 0.06);
+  padding: 0.05rem 0.4rem;
+}
+
+[data-theme="dark"] .bookmark-subitem .bookmark-count,
+[data-theme="kliros-night"] .bookmark-subitem .bookmark-count {
+  background: rgba(224, 102, 102, 0.08);
+}
+
+.bookmark-subitem:hover {
+  background: rgba(156, 28, 28, 0.04);
+  border-left-color: var(--red-soft);
+}
+
+[data-theme="dark"] .bookmark-subitem:hover,
+[data-theme="kliros-night"] .bookmark-subitem:hover {
+  background: rgba(224, 102, 102, 0.06);
+}
