@@ -12,8 +12,10 @@
     "vespers": "vespers-sunday",
     "matins": "matins-sunday",
     "hours": {
+      "1": "hours-1",
       "3": "hours-3",
-      "6": "hours-6"
+      "6": "hours-6",
+      "9": "hours-9"
     },
     "liturgy": "liturgy-sunday-with-variables"
   },
