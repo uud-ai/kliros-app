@@ -187,7 +187,7 @@ body {
   font-family: var(--font-body);
   font-size: var(--prayer-size);
   line-height: 1.7;
-  margin: 0;
+  margin: 0 0 1rem 0;
   text-align: left;
   hyphens: auto;
   color: var(--ink);
@@ -200,6 +200,12 @@ body {
   -webkit-font-variant-ligatures: normal;
   word-spacing: 0;
   text-rendering: optimizeLegibility;
+}
+
+/* Последний абзац внутри реплики — без нижнего отступа,
+   чтобы не было лишнего места перед следующей секцией */
+.prayer .prayer-text:last-child {
+  margin-bottom: 0;
 }
 
 /* Состояния загрузки и ошибок */

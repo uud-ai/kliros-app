@@ -264,7 +264,9 @@ function App() {
     return (
       <div key={idx} className={`prayer ${className}`}>
         <span className="prayer-role">{part.label}</span>
-        <p className="prayer-text">{text}</p>
+        {(text || "").split(/\n\n+/).map((paragraph, pIdx) => (
+          <p key={pIdx} className="prayer-text">{paragraph}</p>
+        ))}
       </div>
     );
   };
@@ -572,17 +574,19 @@ function App() {
                     </div>
                   );
                 }
-                // Обычная реплика
-                return (
-                  <div
-                    key={j}
-                    className="prayer"
-                    data-item-index={activeItems.indexOf(item)}
-                  >
-                    <span className="prayer-role">{item.role}</span>
-                    <p className="prayer-text">{item.text}</p>
-                  </div>
-                );
+               // Обычная реплика
+               return (
+                <div
+                  key={j}
+                  className="prayer"
+                  data-item-index={activeItems.indexOf(item)}
+                >
+                  <span className="prayer-role">{item.role}</span>
+                  {(item.text || "").split(/\n\n+/).map((paragraph, pIdx) => (
+                    <p key={pIdx} className="prayer-text">{paragraph}</p>
+                  ))}
+                </div>
+              );
               })}
             </div>
           ))
