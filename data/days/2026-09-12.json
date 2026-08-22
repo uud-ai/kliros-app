@@ -1,0 +1,19 @@
+{
+  "dateLabel": "Суббота, 12 сентября 2026",
+  "feastName": "Перенесе́ние моще́й блгв. вел. кн. Алекса́ндра Не́вского",
+  "period": "Минея. Сентябрь",
+  "tone": 5,
+  "rank": "polyeleos",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos"
+  },
+  "variables": {
+    "glas": 5,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas5-sat",
+      "minea": "09-12"
+    }
+  }
+}

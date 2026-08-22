@@ -1,0 +1,19 @@
+{
+  "dateLabel": "Пятница, 11 сентября 2026",
+  "feastName": "Усекнове́ние главы́ Проро́ка, Предте́чи и Крести́теля Госпо́дня Иоа́нна",
+  "period": "Минея. Сентябрь",
+  "tone": 5,
+  "rank": "vigil",
+  "services": {
+    "vespers": "vespers-vigil",
+    "matins": "matins-vigil",
+    "liturgy": "liturgy-ferial-polyeleos"
+  },
+  "variables": {
+    "glas": 5,
+    "sources": {
+      "oktoih": "oktoih-feast-09-11",
+      "minea": "09-11"
+    }
+  }
+}

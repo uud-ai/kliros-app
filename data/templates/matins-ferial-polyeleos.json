@@ -43,40 +43,40 @@
       "fallback": "Богоро́дичен отпусти́тельный, по гла́су тропаря́ (текст будет добавлен)."
     },
 
-    { "section": "Кафизмы", "role": "Предуведомление", "text": "Чита́ются две рядовы́е кафи́змы по чреде́ Псалти́ри, с седа́льнами Окто́иха ме́жду ни́ми (седа́льны псалти́рные не зави́сят от ра́нга слу́жбы)." },
+    { "section": "Кафизмы", "role": "Предуведомление", "text": "Чита́ются две рядовы́е кафи́змы по чреде́ Псалти́ри. На полиеле́йной слу́жбе седа́льны по кафи́змам — святому (не Окто́иха): Октоих на э́том ра́нге в седа́льнах уже́ не уча́ствует." },
     {
       "section": "Седальны по 1-й кафизме",
       "role": "Лик",
-      "text": "{{oktoih.sedalen_after_kafisma_1}}",
-      "variable_type": "oktoih",
-      "variable_key": "sedalen_after_kafisma_1",
-      "fallback": "Седа́лен по 1-й кафи́зме, гла́са и дня седми́цы (текст будет добавлен)."
+      "text": "{{minea.sedalen_kafisma_1}}",
+      "variable_type": "minea",
+      "variable_key": "sedalen_kafisma_1",
+      "fallback": "Седа́лен святому по 1-м стихосло́вии (текст будет добавлен)."
     },
     { "section": "Седальны по 1-й кафизме", "role": "Лик", "text": "Сла́ва, и ны́не:" },
     {
       "section": "Седальны по 1-й кафизме",
       "role": "Богородичен",
-      "text": "{{oktoih.sedalen_after_kafisma_1_bogorodichen}}",
-      "variable_type": "oktoih",
-      "variable_key": "sedalen_after_kafisma_1_bogorodichen",
-      "fallback": "Богоро́дичен седа́льна по 1-й кафи́зме (текст будет добавлен)."
+      "text": "{{minea.sedalen_kafisma_1_bogorodichen}}",
+      "variable_type": "minea",
+      "variable_key": "sedalen_kafisma_1_bogorodichen",
+      "fallback": "Богоро́дичен седа́льна по 1-й кафи́зме, Мине́и (текст будет добавлен)."
     },
     {
       "section": "Седальны по 2-й кафизме",
       "role": "Лик",
-      "text": "{{oktoih.sedalen_after_kafisma_2}}",
-      "variable_type": "oktoih",
-      "variable_key": "sedalen_after_kafisma_2",
-      "fallback": "Седа́лен по 2-й кафи́зме, гла́са и дня седми́цы (текст будет добавлен)."
+      "text": "{{minea.sedalen_kafisma_2}}",
+      "variable_type": "minea",
+      "variable_key": "sedalen_kafisma_2",
+      "fallback": "Седа́лен святому по 2-й кафи́зме (текст будет добавлен)."
     },
     { "section": "Седальны по 2-й кафизме", "role": "Лик", "text": "Сла́ва, и ны́не:" },
     {
       "section": "Седальны по 2-й кафизме",
       "role": "Богородичен",
-      "text": "{{oktoih.sedalen_after_kafisma_2_bogorodichen}}",
-      "variable_type": "oktoih",
-      "variable_key": "sedalen_after_kafisma_2_bogorodichen",
-      "fallback": "Богоро́дичен седа́льна по 2-й кафи́зме (текст будет добавлен)."
+      "text": "{{minea.sedalen_kafisma_2_bogorodichen}}",
+      "variable_type": "minea",
+      "variable_key": "sedalen_kafisma_2_bogorodichen",
+      "fallback": "Богоро́дичен седа́льна по 2-й кафи́зме, Мине́и (текст будет добавлен)."
     },
 
     { "section": "Полиелей", "role": "Предуведомление", "text": "Пое́тся полиеле́й — псалмы́ 134-й («Хвали́те и́мя Госпо́дне») и 135-й («Испове́дайтеся Го́сподеви»), с припе́вом «Аллилу́иа» (на прихо́дских слу́жбах ча́сто в сокращённом ви́де)." },
@@ -95,6 +95,15 @@
       "variable_type": "minea",
       "variable_key": "sedalen_polyeleos",
       "fallback": "Седа́лен по полиеле́и, святому (текст будет добавлен)."
+    },
+    { "section": "Седален по полиелеи", "role": "Лик", "text": "Сла́ва, и ны́не:" },
+    {
+      "section": "Седален по полиелеи",
+      "role": "Богородичен",
+      "text": "{{minea.sedalen_polyeleos_bogorodichen}}",
+      "variable_type": "minea",
+      "variable_key": "sedalen_polyeleos_bogorodichen",
+      "fallback": "Богоро́дичен седа́льна по полиеле́и, Мине́и (текст будет добавлен)."
     },
     { "section": "Степенна", "role": "Чтец", "text": "Степе́нна, 1-й антифо́н 4-го гла́са: От ю́ности моея́ мно́зи бо́рют мя стра́сти, но Сам мя заступи́, и спаси́, Спа́се мой." },
 
@@ -162,10 +171,18 @@
           },
           {
             "ode": "after_3",
-            "title": "Малая ектения, седален, кондак и икос по 3-й песни",
+            "title": "Малая ектения и седален по 3-й песни",
             "parts": [
               { "type": "tropar", "label": "Диакон", "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию." },
               { "type": "tropar", "label": "Седален святому", "text": "{{minea.sedalen_after_ode3}}", "fallback": "Седа́лен святому по 3-й пе́сни (текст будет добавлен)." },
+              { "type": "tropar", "label": "Слава, и ныне. Богородичен", "text": "{{minea.sedalen_after_ode3_bogorodichen}}", "fallback": "Богоро́дичен седа́льна по 3-й пе́сни, Мине́и (текст будет добавлен)." }
+            ]
+          },
+          {
+            "ode": "after_6",
+            "title": "Малая ектения, кондак и икос по 6-й песни (песни 4–8 опущены показательно)",
+            "parts": [
+              { "type": "tropar", "label": "Диакон", "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию." },
               { "type": "tropar", "label": "Кондак святому", "text": "{{minea.kondak}}", "fallback": "Конда́к святому (текст будет добавлен)." },
               { "type": "tropar", "label": "Икос", "text": "{{minea.ikos}}", "fallback": "И́кос святому (текст будет добавлен)." }
             ]
@@ -195,6 +212,15 @@
       "variable_type": "minea",
       "variable_key": "svetilen",
       "fallback": "Свети́лен святому (текст будет добавлен)."
+    },
+    { "section": "Светилен", "role": "Лик", "text": "Сла́ва, и ны́не:" },
+    {
+      "section": "Светилен",
+      "role": "Богородичен",
+      "text": "{{minea.svetilen_bogorodichen}}",
+      "variable_type": "minea",
+      "variable_key": "svetilen_bogorodichen",
+      "fallback": "Богоро́дичен свети́льна, Мине́и (текст будет добавлен)."
     },
 
     { "section": "Хвалитные псалмы", "role": "Предуведомление", "text": "Пса́лмы 148–150, «Вся́кое дыха́ние да хва́лит Го́спода»." },
