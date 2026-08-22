@@ -67,6 +67,33 @@ function substituteVariables(text, sourcesByType) {
   });
 }
 
+// Выбор тропаря(ей) и кондака часа в зависимости от знака службы дня.
+// day.rank отсутствует → воскресенье/будний день без праздника: тропарь и кондак
+// воскресные (Октоих), как было раньше.
+// day.rank задан → будний день с памятью святого: тропарь и кондак берутся из Минеи.
+// Если в этот день два святых (в Минее заполнены tropar2/kondak2), читаются оба
+// тропаря ("тропарь 1-го, Слава: тропарь 2-го, И ныне: Богородичен часа"), а кондаки
+// чередуются по часам: 1-й час — кондак 1-го святого, 3-й — 2-го, 6-й — снова 1-го,
+// 9-й — снова 2-го (общее правило Часослова о кондаках при памяти двух святых).
+function getHoursPropers(day, sourcesByType, hourNumber) {
+  const minea = sourcesByType.minea;
+  const oktoih = sourcesByType.oktoih;
+
+  if (day?.rank && minea?.tropar) {
+    if (minea.tropar2 && minea.kondak2) {
+      const kondak = (hourNumber === 3 || hourNumber === 9) ? minea.kondak2 : minea.kondak;
+      return { tropars: [minea.tropar, minea.tropar2], kondak };
+    }
+    return { tropars: [minea.tropar], kondak: minea.kondak };
+  }
+
+  if (oktoih?.tropar_resurrectional) {
+    return { tropars: [oktoih.tropar_resurrectional], kondak: oktoih.kondak_resurrectional };
+  }
+
+  return { tropars: [], kondak: null };
+}
+
 // Подсветка найденного текста в результатах поиска
 function highlightMatch(text, searchTerm) {
   if (!searchTerm) return text;
@@ -334,21 +361,57 @@ function App() {
     if (id && variables[id]) sourcesByType[type] = variables[id];
   });
 
+  // Тропарь(и) и кондак часа — зависят от знака службы дня (см. getHoursPropers)
+  const hoursPropers = activeService === "hours"
+    ? getHoursPropers(day, sourcesByType, Number(activeHour))
+    : null;
+
   // Формируем массив реплик с подстановкой переменных
   let activeItems = [];
   if (activeTemplate?.items) {
-    activeItems = activeTemplate.items.map((item) => {
+    activeItems = activeTemplate.items.flatMap((item) => {
       // Канон обрабатывается отдельно — не трогаем его поля
-      if (item.is_canon) return item;
+      if (item.is_canon) return [item];
+
+      // Тропарь(и) дня на часах: один или два, в зависимости от знака службы
+      if (item.hours_tropar) {
+        const tropars = hoursPropers?.tropars || [];
+        if (tropars.length === 0) {
+          return [{ ...item, text: item.fallback || "Тропа́рь дня, гла́са (текст будет добавлен)." }];
+        }
+        if (tropars.length === 1) {
+          return [{ ...item, text: tropars[0] }];
+        }
+        return [
+          { ...item, text: tropars[0] },
+          { ...item, text: "Сла́ва:\n\n" + tropars[1] },
+        ];
+      }
+
+      // Богородичен часа: "Слава, и ныне" если тропарь один, "И ныне" если тропаря два
+      // (Слава уже сказана перед вторым тропарём)
+      if (item.hours_bogorodichen) {
+        const twoTropars = (hoursPropers?.tropars || []).length >= 2;
+        const prefix = twoTropars
+          ? "И ны́не и при́сно, и во ве́ки веко́в. Ами́нь.\n\n"
+          : "Сла́ва Отцу́, и Сы́ну, и Свято́му Ду́ху, и ны́не и при́сно, и во ве́ки веко́в. Ами́нь.\n\n";
+        return [{ ...item, text: prefix + item.bogorodichen_text }];
+      }
+
+      // Кондак дня на часах: воскресный, святому, либо чередование при двух святых
+      if (item.hours_kondak) {
+        const kondakText = hoursPropers?.kondak || item.fallback || "Конда́к дня, гла́са (текст будет добавлен).";
+        return [{ ...item, text: kondakText }];
+      }
 
       if (item.variable_type && sourcesByType[item.variable_type]) {
         const substitutedText = substituteVariables(item.text, sourcesByType);
         const finalText = substitutedText === item.text && item.fallback
           ? item.fallback
           : substitutedText;
-        return { ...item, text: finalText };
+        return [{ ...item, text: finalText }];
       }
-      return item;
+      return [item];
     });
   }
 
