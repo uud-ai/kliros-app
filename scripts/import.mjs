@@ -61,12 +61,14 @@ async function main() {
   console.log(`   Проект: ${serviceAccount.project_id}`);
 
   const templatesCount = await importFolder('./data/templates', 'templates');
+  const mineaCount = await importFolder('./data/minea', 'minea');
   const daysCount = await importFolder('./data/days', 'days');
 
   console.log('');
   console.log('═══════════════════════════════════════');
   console.log(`✅ Готово! Загружено:`);
   console.log(`   • templates: ${templatesCount}`);
+  console.log(`   • minea:     ${mineaCount}`);
   console.log(`   • days:      ${daysCount}`);
   console.log('═══════════════════════════════════════');
 

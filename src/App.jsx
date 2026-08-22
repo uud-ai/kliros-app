@@ -52,13 +52,16 @@ function saveSetting(key, value) {
   }
 }
 
-// Подстановка переменных {{oktoih.tropar}} → реальный текст
-function substituteVariables(text, variables) {
+// Подстановка переменных {{namespace.key}} → реальный текст.
+// sourcesByType — карта { oktoih: {...}, minea: {...} }: пространство имён
+// плейсхолдера ({{oktoih.x}} / {{minea.x}}) определяет, откуда брать текст.
+function substituteVariables(text, sourcesByType) {
   if (!text || typeof text !== 'string') return text;
   return text.replace(/\{\{([^}]+)\}\}/g, (match, variablePath) => {
     const [type, key] = variablePath.split('.');
-    if (type === 'oktoih' && variables && variables[key]) {
-      return variables[key];
+    const source = sourcesByType && sourcesByType[type];
+    if (source && source[key]) {
+      return source[key];
     }
     return match;
   });
@@ -128,7 +131,6 @@ function App() {
         setDay(dayData);
 
         const templateIds = new Set();
-        const variableIds = new Set();
 
         if (dayData.services) {
           Object.values(dayData.services).forEach((templateValue) => {
@@ -147,12 +149,21 @@ function App() {
           });
         }
 
-        if (dayData.variables && dayData.variables.oktoih_source) {
-          variableIds.add(dayData.variables.oktoih_source);
+        // Источники переменных по пространствам имён: { oktoih: "...", minea: "..." }.
+        // Старое поле variables.oktoih_source поддерживается как алиас sources.oktoih.
+        const variableSources = { ...(dayData.variables?.sources || {}) };
+        if (dayData.variables?.oktoih_source && !variableSources.oktoih) {
+          variableSources.oktoih = dayData.variables.oktoih_source;
         }
+        // minea хранится в отдельной коллекции Firestore, остальные пространства
+        // имён (сейчас только oktoih) — в той же коллекции "templates", что и шаблоны.
+        const variableCollectionByType = { minea: "minea" };
+        const variableEntries = Object.entries(variableSources)
+          .filter(([, id]) => !!id)
+          .map(([type, id]) => [variableCollectionByType[type] || "templates", id]);
 
         const templateIdsToLoad = [...templateIds].filter((id) => !templates[id]);
-        const variableIdsToLoad = [...variableIds].filter((id) => !variables[id]);
+        const variableIdsToLoad = variableEntries.filter(([, id]) => !variables[id]);
 
         const promises = [];
 
@@ -166,8 +177,8 @@ function App() {
 
         if (variableIdsToLoad.length > 0) {
           promises.push(
-            ...variableIdsToLoad.map((id) =>
-              getDoc(doc(db, "templates", id)).then((snap) => ({ type: 'variable', id, snap }))
+            ...variableIdsToLoad.map(([collectionName, id]) =>
+              getDoc(doc(db, collectionName, id)).then((snap) => ({ type: 'variable', id, snap }))
             )
           );
         }
@@ -311,8 +322,17 @@ function App() {
     activeTemplateId = serviceValue[activeHour];
   }
   const activeTemplate = activeTemplateId ? templates[activeTemplateId] : null;
-  const variableSource = day?.variables?.oktoih_source;
-  const activeVariables = variableSource ? variables[variableSource] : null;
+
+  // Источники переменных по пространствам имён ({{oktoih.x}}, {{minea.x}}).
+  // variables.oktoih_source — старое поле, поддерживается как алиас sources.oktoih.
+  const variableSources = { ...(day?.variables?.sources || {}) };
+  if (day?.variables?.oktoih_source && !variableSources.oktoih) {
+    variableSources.oktoih = day.variables.oktoih_source;
+  }
+  const sourcesByType = {};
+  Object.entries(variableSources).forEach(([type, id]) => {
+    if (id && variables[id]) sourcesByType[type] = variables[id];
+  });
 
   // Формируем массив реплик с подстановкой переменных
   let activeItems = [];
@@ -321,8 +341,8 @@ function App() {
       // Канон обрабатывается отдельно — не трогаем его поля
       if (item.is_canon) return item;
 
-      if (item.variable_type === 'oktoih' && activeVariables) {
-        const substitutedText = substituteVariables(item.text, activeVariables);
+      if (item.variable_type && sourcesByType[item.variable_type]) {
+        const substitutedText = substituteVariables(item.text, sourcesByType);
         const finalText = substitutedText === item.text && item.fallback
           ? item.fallback
           : substitutedText;
@@ -570,7 +590,7 @@ function App() {
                       key={j}
                       data-item-index={activeItems.indexOf(item)}
                     >
-                      {renderCanon(item, activeVariables)}
+                      {renderCanon(item, sourcesByType)}
                     </div>
                   );
                 }

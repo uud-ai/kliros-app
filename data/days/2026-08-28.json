@@ -1,0 +1,12 @@
+{
+    "dateLabel": "Пятница, 28 августа 2026",
+    "feastName": "Успе́ние Пресвяты́я Влады́чицы на́шея Богоро́дицы и Присноде́вы Мари́и",
+    "period": "Минея. Август",
+    "tone": null,
+    "fasting": "Разреше́ние на ры́бу и вино́",
+    "services": {
+      "liturgy": "liturgy-uspenie",
+      "matins": "matins-uspenie",
+      "vespers": "vespers-uspenie"
+    }
+  }

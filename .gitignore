@@ -27,3 +27,4 @@ dist-ssr
 # Firebase Admin SDK credentials - NEVER commit!
 service-account.json
 *-firebase-adminsdk-*.json
+.vercel

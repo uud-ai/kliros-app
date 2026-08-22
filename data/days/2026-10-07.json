@@ -1,0 +1,20 @@
+{
+  "dateLabel": "Среда, 7 октября 2026",
+  "feastName": "Святы́я первому́ченицы и равноапо́стольныя Фе́клы",
+  "period": "Минея. Октябрь",
+  "tone": 1,
+  "rank": "six-verse",
+  "fasting": "Пост",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse"
+  },
+  "variables": {
+    "glas": 1,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas1-wed",
+      "minea": "10-07"
+    }
+  }
+}
