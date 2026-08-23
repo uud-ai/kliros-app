@@ -436,6 +436,63 @@ body {
   background: var(--bg);
 }
 
+.temple-panel {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 1rem 1.25rem 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.temple-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Bitter', serif;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.temple-panel-hint {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.temple-type-select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'PT Serif', Georgia, serif;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.temple-field-label {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-bottom: 0.75rem;
+}
+
+.temple-textarea {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'PT Serif', Georgia, serif;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
 .search-results-header {
   padding: 0.5rem 1rem;
   font-family: 'Bitter', serif;

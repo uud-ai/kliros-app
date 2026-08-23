@@ -67,6 +67,97 @@ function substituteVariables(text, sourcesByType) {
   });
 }
 
+// Дни седмицы для "Тропарей дневных" (Date.getDay(): 0=вс..6=сб).
+// Среда и пятница используют один и тот же (крестный) набор.
+const ENTRANCE_DAY_KEYS = ["sun", "mon", "tue", "wed_fri", "thu", "wed_fri", "sat"];
+
+const PREDSTATELSTVO_BOGORODICHEN =
+  "Предста́тельство христиа́н непосты́дное, хода́тайство ко Творцу́ непрело́жное, не пре́зри гре́шных моле́ний гла́сы, но предвари́, я́ко Блага́я, на по́мощь нас, ве́рно зову́щих Ти: ускори́ на моли́тву и потщи́ся на умоле́ние, предста́тельствующи при́сно, Богоро́дице, чту́щих Тя.";
+
+// Устав о тропарях и кондаках по входе на будничной Литургии (Типикон, гл. 52):
+// зависит от дня седмицы, святого дня (Минея) и посвящения храма
+// (Господский / Богородичный / святого). Без указанного храма (по умолчанию)
+// даёт корректный упрощённый вариант: тропарь(и)/кондак(и) дня и святого,
+// на "И ныне" — общий Богородичен "Предстательство христиан".
+// Возвращает null, пока не загружены "тропари дневные" (liturgy-day-tropars).
+function buildEntranceItems(weekdayIdx, minea, dayTropars, temple) {
+  if (!dayTropars) return null;
+  const dayKey = ENTRANCE_DAY_KEYS[weekdayIdx];
+  const dayData = dayTropars[dayKey];
+  if (!dayData) return null;
+  const isCrossDay = dayKey === "wed_fri";
+  const isSaturday = dayKey === "sat";
+
+  const hasTemple = !!(temple && temple.type !== "none" && (temple.tropar || temple.kondak));
+  const isLordTemple = hasTemple && temple.type === "lord";
+  const isTheotokosTemple = hasTemple && temple.type === "theotokos";
+  const isSaintTemple = hasTemple && temple.type === "saint";
+
+  const saintTropar = minea?.tropar || null;
+  const saintKondak = minea?.kondak || null;
+
+  const tropars = [];
+  const kondaks = [];
+
+  if (!isCrossDay) {
+    if ((isLordTemple || isTheotokosTemple) && temple.tropar) tropars.push(temple.tropar);
+    if (dayKey === "thu") {
+      if (dayData.tropar_apostles) tropars.push(dayData.tropar_apostles);
+      if (dayData.tropar_nikolai) tropars.push(dayData.tropar_nikolai);
+    } else if (dayData.tropar) {
+      tropars.push(dayData.tropar);
+    }
+    if (isSaintTemple && temple.tropar) tropars.push(temple.tropar);
+    if (saintTropar) tropars.push(saintTropar);
+
+    if (dayKey === "thu") {
+      if (dayData.kondak_apostles) kondaks.push(dayData.kondak_apostles);
+    } else if (dayData.kondak) {
+      kondaks.push(dayData.kondak);
+    }
+    if (isSaintTemple && temple.kondak) kondaks.push(temple.kondak);
+    if (dayKey === "thu" && dayData.kondak_nikolai) kondaks.push(dayData.kondak_nikolai);
+    if (saintKondak) kondaks.push(saintKondak);
+  } else {
+    // Среда/пятница — Кресту (тропарь храма Господского не поётся, т.к. первым
+    // всегда идёт тропарь Кресту — Господский тропарь не может быть дважды).
+    tropars.push(dayData.tropar);
+    if ((isTheotokosTemple || isSaintTemple) && temple.tropar) tropars.push(temple.tropar);
+    if (saintTropar) tropars.push(saintTropar);
+
+    if (!isLordTemple) kondaks.push(dayData.kondak);
+    if (isSaintTemple && temple.kondak) kondaks.push(temple.kondak);
+    if (saintKondak) kondaks.push(saintKondak);
+  }
+
+  const zaupokoyKondak = isSaturday ? dayTropars.sat?.kondak_za_usopshikh : null;
+  const inyneKondak =
+    (isLordTemple || isTheotokosTemple) && temple.kondak ? temple.kondak : PREDSTATELSTVO_BOGORODICHEN;
+
+  const items = [];
+  tropars.forEach((text, i) => {
+    if (i > 0 && i === tropars.length - 1) {
+      items.push({ section: "Тропарь по входе", role: "Лик", text: "Сла́ва:" });
+    }
+    items.push({ section: "Тропарь по входе", role: "Лик", text });
+  });
+
+  kondaks.forEach((text, i) => {
+    if (i > 0 && i === kondaks.length - 1 && !zaupokoyKondak) {
+      items.push({ section: "Кондак", role: "Лик", text: "Сла́ва:" });
+    }
+    items.push({ section: "Кондак", role: "Лик", text });
+  });
+  if (zaupokoyKondak) {
+    items.push({ section: "Кондак", role: "Лик", text: "Сла́ва:" });
+    items.push({ section: "Кондак", role: "Лик", text: zaupokoyKondak });
+  }
+  items.push({ section: "Кондак", role: "Лик", text: "И ны́не:" });
+  items.push({ section: "Кондак", role: "Лик", text: inyneKondak });
+
+  return items;
+}
+
 // Подсветка найденного текста в результатах поиска
 function highlightMatch(text, searchTerm) {
   if (!searchTerm) return text;
@@ -90,6 +181,10 @@ function App() {
   const [showSearch, setShowSearch] = useState(false);
   const [showBookmarks, setShowBookmarks] = useState(false);
   const [activeHour, setActiveHour] = useState(() => loadSetting("activeHour", "3"));
+  const [templeType, setTempleType] = useState(() => loadSetting("templeType", "none"));
+  const [templeTropar, setTempleTropar] = useState(() => loadSetting("templeTropar", ""));
+  const [templeKondak, setTempleKondak] = useState(() => loadSetting("templeKondak", ""));
+  const [showTemple, setShowTemple] = useState(false);
 
   // ===== Эффекты: применение темы и сохранение настроек =====
   useEffect(() => {
@@ -109,6 +204,28 @@ function App() {
   useEffect(() => {
     saveSetting("activeHour", activeHour);
   }, [activeHour]);
+
+  useEffect(() => {
+    saveSetting("templeType", templeType);
+  }, [templeType]);
+
+  useEffect(() => {
+    saveSetting("templeTropar", templeTropar);
+  }, [templeTropar]);
+
+  useEffect(() => {
+    saveSetting("templeKondak", templeKondak);
+  }, [templeKondak]);
+
+  // Тропари и кондаки дневные (устав о входе на Литургии) — общий справочник,
+  // не зависит от даты, загружается один раз.
+  useEffect(() => {
+    getDoc(doc(db, "templates", "liturgy-day-tropars")).then((snap) => {
+      if (snap.exists()) {
+        setTemplates((prev) => ({ ...prev, "liturgy-day-tropars": snap.data() }));
+      }
+    });
+  }, []);
 
   // ===== Загрузка дня + шаблонов + переменных =====
   useEffect(() => {
@@ -186,18 +303,24 @@ function App() {
         if (promises.length > 0) {
           const results = await Promise.all(promises);
 
-          const newTemplates = { ...templates };
-          const newVariables = { ...variables };
+          const fetchedTemplates = {};
+          const fetchedVariables = {};
 
           results.forEach(({ type, id, snap }) => {
             if (snap.exists()) {
-              if (type === 'template') newTemplates[id] = snap.data();
-              else if (type === 'variable') newVariables[id] = snap.data();
+              if (type === 'template') fetchedTemplates[id] = snap.data();
+              else if (type === 'variable') fetchedVariables[id] = snap.data();
             }
           });
 
-          setTemplates(newTemplates);
-          setVariables(newVariables);
+          // Функциональная форма — чтобы не затереть данные, подгруженные
+          // параллельно другим эффектом (например, "тропари дневные").
+          if (Object.keys(fetchedTemplates).length > 0) {
+            setTemplates((prev) => ({ ...prev, ...fetchedTemplates }));
+          }
+          if (Object.keys(fetchedVariables).length > 0) {
+            setVariables((prev) => ({ ...prev, ...fetchedVariables }));
+          }
         }
       } catch (e) {
         setError("Ошибка загрузки: " + e.message);
@@ -334,21 +457,44 @@ function App() {
     if (id && variables[id]) sourcesByType[type] = variables[id];
   });
 
+  // Тропари/кондаки по входе на будничной Литургии — вычисляются по уставу
+  // (день седмицы + Минея + настройка храма), а не берутся из шаблона.
+  const temple = { type: templeType, tropar: templeTropar.trim(), kondak: templeKondak.trim() };
+  const entranceItems = buildEntranceItems(
+    selectedDate.getDay(),
+    sourcesByType.minea,
+    templates["liturgy-day-tropars"],
+    temple
+  );
+
   // Формируем массив реплик с подстановкой переменных
   let activeItems = [];
   if (activeTemplate?.items) {
-    activeItems = activeTemplate.items.map((item) => {
+    activeItems = activeTemplate.items.flatMap((item) => {
       // Канон обрабатывается отдельно — не трогаем его поля
-      if (item.is_canon) return item;
+      if (item.is_canon) return [item];
+
+      if (item.is_entrance_troparia) {
+        if (entranceItems) return entranceItems;
+        // Пока справочник тропарей дневных не загружен — показываем только святого дня
+        const fallback = [];
+        if (sourcesByType.minea?.tropar) {
+          fallback.push({ section: "Тропарь по входе", role: "Лик", text: sourcesByType.minea.tropar });
+        }
+        if (sourcesByType.minea?.kondak) {
+          fallback.push({ section: "Кондак", role: "Лик", text: sourcesByType.minea.kondak });
+        }
+        return fallback;
+      }
 
       if (item.variable_type && sourcesByType[item.variable_type]) {
         const substitutedText = substituteVariables(item.text, sourcesByType);
         const finalText = substitutedText === item.text && item.fallback
           ? item.fallback
           : substitutedText;
-        return { ...item, text: finalText };
+        return [{ ...item, text: finalText }];
       }
-      return item;
+      return [item];
     });
   }
 
@@ -424,6 +570,7 @@ function App() {
         <div className="brand">Клирос</div>
         <div className="topbar-tools">
           <button className="icon-btn" onClick={() => setShowSearch(!showSearch)} title="Поиск">🔍</button>
+          <button className="icon-btn" onClick={() => setShowTemple(!showTemple)} title="Храм (тропари и кондаки по входе)">🏛</button>
           <button className="icon-btn" onClick={() => setFontSize(Math.max(0.9, fontSize - 0.1))} title="Меньше">А−</button>
           <button className="icon-btn" onClick={() => setFontSize(Math.min(2.0, fontSize + 0.1))} title="Больше">А+</button>
           <button className="icon-btn" onClick={cycleTheme} title="Тема">{themeIcon}</button>
@@ -529,6 +676,54 @@ function App() {
                 </>
               )}
             </div>
+          )}
+        </div>
+      )}
+
+      {showTemple && (
+        <div className="search-panel temple-panel">
+          <div className="temple-panel-header">
+            <span>Тропарь и кондак храма (по входе на Литургии)</span>
+            <button className="search-close" onClick={() => setShowTemple(false)} title="Закрыть">✕</button>
+          </div>
+          <div className="temple-panel-hint">
+            Посвящение прихода не выводится из календаря — укажите его один раз, и тропарь/кондак храма
+            будут вставляться на своё место по уставу (Типикон, гл. 52) вместе с тропарём дня седмицы
+            и тропарём/кондаком святого дня. Действует на будничной Литургии.
+          </div>
+          <select
+            className="temple-type-select"
+            value={templeType}
+            onChange={(e) => setTempleType(e.target.value)}
+          >
+            <option value="none">Храм не указан</option>
+            <option value="lord">Господский (Спасителю, Господским праздникам)</option>
+            <option value="theotokos">Богородичный</option>
+            <option value="saint">Святого</option>
+          </select>
+          {templeType !== "none" && (
+            <>
+              <label className="temple-field-label">
+                Тропарь храма
+                <textarea
+                  className="temple-textarea"
+                  rows={3}
+                  value={templeTropar}
+                  onChange={(e) => setTempleTropar(e.target.value)}
+                  placeholder="Текст тропаря престольного праздника"
+                />
+              </label>
+              <label className="temple-field-label">
+                Кондак храма
+                <textarea
+                  className="temple-textarea"
+                  rows={3}
+                  value={templeKondak}
+                  onChange={(e) => setTempleKondak(e.target.value)}
+                  placeholder="Текст кондака престольного праздника"
+                />
+              </label>
+            </>
           )}
         </div>
       )}
