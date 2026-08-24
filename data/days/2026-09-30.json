@@ -1,0 +1,26 @@
+{
+  "dateLabel": "Среда, 30 сентября 2026",
+  "feastName": "Мцц. Ве́ры, Наде́жды, Любо́ви и ма́тере их Софи́и",
+  "period": "Минея. Сентябрь",
+  "tone": 8,
+  "rank": "six-verse",
+  "fasting": "Пост",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 8,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas8-wed",
+      "minea": "09-30"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Вторник, 13 октября 2026",
+  "feastName": "Пренесе́ние моще́й святи́теля Михаи́ла, пе́рваго митрополи́та Ки́евскаго и всея́ Росси́и чудотво́рца",
+  "period": "Минея. Октябрь",
+  "tone": 2,
+  "rank": "polyeleos",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 2,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas2-tue",
+      "minea": "10-13"
+    }
+  }
+}

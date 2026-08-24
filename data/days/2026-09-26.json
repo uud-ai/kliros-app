@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Суббота, 26 сентября 2026",
+  "feastName": "Обновле́ние хра́ма Воскресе́ния Христо́ва в Иерусали́ме. Предпра́зднство Воздви́жения Честна́го и Животворя́щего Креста́ Госпо́дня. Сщмч. Корни́лий со́тник",
+  "period": "Минея. Сентябрь",
+  "tone": 7,
+  "rank": "doxology",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-doxology",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 7,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas7-sat",
+      "minea": "09-26"
+    }
+  }
+}

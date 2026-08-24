@@ -1,0 +1,26 @@
+{
+  "dateLabel": "Пятница, 2 октября 2026",
+  "feastName": "Блгв. вел. кн., страстотерпца И́горя Черни́говскаго и Ки́евскаго. Мчч. Трофи́ма, Савва́тия и Доримедо́нта. Блгв. вел. кн. Фео́дора Смоле́нскаго и ча́д его́ Дави́да и Константи́на Яросла́вских",
+  "period": "Минея. Октябрь",
+  "tone": 8,
+  "rank": "polyeleos",
+  "fasting": "Пост",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 8,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas8-fri",
+      "minea": "10-02"
+    }
+  }
+}

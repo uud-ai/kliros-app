@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Четверг, 24 сентября 2026",
+  "feastName": "Прп. Силуа́на Афо́нскаго. Прп. Феодо́ры Александри́йския и сщмч. Автоно́ма, епи́скопа Итали́йскаго",
+  "period": "Минея. Сентябрь",
+  "tone": 7,
+  "rank": "vigil",
+  "services": {
+    "vespers": "vespers-vigil",
+    "matins": "matins-vigil",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 7,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas7-thu",
+      "minea": "09-24"
+    }
+  }
+}

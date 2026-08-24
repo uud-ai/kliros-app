@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Понедельник, 14 сентября 2026",
+  "feastName": "Начало инди́кта, си́речь но́ваго ле́та, и прп. Симео́на Сто́лпника",
+  "period": "Минея. Сентябрь",
+  "tone": 6,
+  "rank": "doxology",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-doxology",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 6,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas6-mon",
+      "minea": "09-14"
+    }
+  }
+}

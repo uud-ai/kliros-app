@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Вторник, 6 октября 2026",
+  "feastName": "Зача́тие честна́го, сла́внаго проро́ка, Предте́чи и Крести́теля Госпо́дня Иоа́нна",
+  "period": "Минея. Октябрь",
+  "tone": 1,
+  "rank": "doxology",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-doxology",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 1,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas1-tue",
+      "minea": "10-06"
+    }
+  }
+}

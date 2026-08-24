@@ -1,0 +1,11 @@
+{
+  "dateLabel": "Понедельник, 21 сентября 2026",
+  "feastName": "Рождество́ Пресвяты́я Влады́чицы на́шея Богоро́дицы и Присноде́вы Мари́и",
+  "period": "Минея. Сентябрь",
+  "tone": null,
+  "services": {
+    "liturgy": "liturgy-rozhdestvo-bogoroditsy",
+    "matins": "matins-rozhdestvo-bogoroditsy",
+    "vespers": "vespers-rozhdestvo-bogoroditsy"
+  }
+}

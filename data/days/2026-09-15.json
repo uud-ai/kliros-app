@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Вторник, 15 сентября 2026",
+  "feastName": "Прпп. Анто́ния и Феодо́сия Пече́рских",
+  "period": "Минея. Сентябрь",
+  "tone": 6,
+  "rank": "ferial",
+  "services": {
+    "vespers": "vespers-ferial",
+    "matins": "matins-ferial",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 6,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas6-tue",
+      "minea": "09-15"
+    }
+  }
+}

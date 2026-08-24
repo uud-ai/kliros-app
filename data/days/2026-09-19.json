@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Суббота, 19 сентября 2026",
+  "feastName": "Воспомина́ние бы́вшаго чудесе́ в Колосса́ех, е́же есть в Хо́нех, от Архистрати́га Михаи́ла",
+  "period": "Минея. Сентябрь",
+  "tone": 6,
+  "rank": "doxology",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-doxology",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 6,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas6-sat",
+      "minea": "09-19"
+    }
+  }
+}

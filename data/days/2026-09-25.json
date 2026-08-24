@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Пятница, 25 сентября 2026",
+  "feastName": "Отда́ние пра́здника Рождества́ Пресвяты́я Богоро́дицы. Пренесе́ние моще́й пра́веднаго Симео́на Верхоту́рскаго",
+  "period": "Минея. Сентябрь",
+  "tone": 7,
+  "rank": "polyeleos",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 7,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas7-fri",
+      "minea": "09-25"
+    }
+  }
+}

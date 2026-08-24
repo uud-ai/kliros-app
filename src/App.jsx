@@ -790,13 +790,16 @@ function App() {
                   );
                 }
                // Обычная реплика
+               const itemIndex = activeItems.indexOf(item);
+               const prevItem = activeItems[itemIndex - 1];
+               const showRole = !prevItem || prevItem.role !== item.role;
                return (
                 <div
                   key={j}
                   className="prayer"
-                  data-item-index={activeItems.indexOf(item)}
+                  data-item-index={itemIndex}
                 >
-                  <span className="prayer-role">{item.role}</span>
+                  {showRole && <span className="prayer-role">{item.role}</span>}
                   {(item.text || "").split(/\n\n+/).map((paragraph, pIdx) => (
                     <p key={pIdx} className="prayer-text">{paragraph}</p>
                   ))}

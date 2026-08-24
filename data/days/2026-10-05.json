@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Понедельник, 5 октября 2026",
+  "feastName": "Сщмч. Фо́ки, еп. Синопи́йскаго. Ап. от 70-ти Кодра́та. Прор. Ио́ны. Прп. Ио́ны пресви́тера. Прп. Мака́рия Жабы́нскаго. Прп. Ио́ны Яшезе́рскаго",
+  "period": "Минея. Октябрь",
+  "tone": 1,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 1,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas1-mon",
+      "minea": "10-05"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Воскресенье, 20 сентября 2026",
+  "feastName": "Предпра́зднство Рождества́ Пресвяты́я Богоро́дицы. Святи́теля Иоа́нна, архиепи́скопа Новгоро́дского",
+  "period": "Минея. Сентябрь",
+  "tone": 7,
+  "rank": "sunday-with-saint",
+  "services": {
+    "vespers": "vespers-sunday-with-saint",
+    "matins": "matins-sunday-with-saint",
+    "liturgy": "liturgy-sunday-with-variables",
+    "hours": {
+      "1": "hours-1-sunday-with-saint",
+      "3": "hours-3-sunday-with-saint",
+      "6": "hours-6-sunday-with-saint",
+      "9": "hours-9-sunday-with-saint"
+    }
+  },
+  "variables": {
+    "glas": 7,
+    "sources": {
+      "oktoih": "oktoih-variables-glas7",
+      "minea": "09-20"
+    }
+  }
+}

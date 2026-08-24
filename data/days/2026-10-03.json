@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Суббота, 3 октября 2026",
+  "feastName": "Святы́й великому́ченик Евста́фий Плаки́да, супру́га его́ Феопи́стия и ча́да его́ Ага́пий и Феопи́ст",
+  "period": "Минея. Октябрь",
+  "tone": 8,
+  "rank": "polyeleos",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 8,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas8-sat",
+      "minea": "10-03"
+    }
+  }
+}
