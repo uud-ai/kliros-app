@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "note": "Шаблон data/templates/oktoih-weekday-glas2-sat.json для рядового октоиха субботы гласа 2 в проекте пока не создан (готовы только субботние варианты гласов 1, 5, 6, 7, 8 — см. oktoih-weekday-glas{1,5,6,7,8}-sat.json); ссылка ниже указывает на этот ещё не существующий файл. Переменные части службы мч. Парамона (см. data/minea/12-12.json) от этого не зависят и уже полностью готовы."
+  },
+  "dateLabel": "Суббота, 12 декабря 2026",
+  "feastName": "Мч. Парамо́н и с ним 370 му́чеников",
+  "period": "Минея. Ноябрь",
+  "tone": 2,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 2,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas2-sat",
+      "minea": "12-12"
+    }
+  }
+}
