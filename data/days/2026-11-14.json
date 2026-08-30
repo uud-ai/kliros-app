@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Суббота, 14 ноября 2026",
+  "feastName": "Свв. бессре́бреников Космы́ и Дамиа́на Аси́йских. Собо́р всех святы́х Безсре́бреников",
+  "period": "Минея. Ноябрь",
+  "tone": 6,
+  "rank": "polyeleos",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 6,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas6-sat",
+      "minea": "11-14"
+    }
+  }
+}
