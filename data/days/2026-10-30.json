@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Пятница, 30 октября 2026",
+  "feastName": "Св. прор. Оси́и. Прмч. Андре́я Кри́тскаго. Пренесе́ние моще́й прав. Ла́заря Четверодне́внаго",
+  "period": "Минея. Октябрь",
+  "tone": 4,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 4,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas4-fri",
+      "minea": "10-30"
+    }
+  }
+}
