@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Четверг, 29 октября 2026",
+  "feastName": "Мч. Ло́нгина со́тника, и́же при Кресте́ Госпо́дни",
+  "period": "Минея. Октябрь",
+  "tone": 4,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 4,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas4-thu",
+      "minea": "10-29"
+    }
+  }
+}
