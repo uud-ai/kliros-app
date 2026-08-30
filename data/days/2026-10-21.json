@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Среда, 21 октября 2026",
+  "feastName": "Прп. Пелаги́и. Прп. Три́фона Вя́тскаго. Прп. Досифе́я Верхнеостро́вскаго",
+  "period": "Минея. Октябрь",
+  "tone": 3,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 3,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas3-wed",
+      "minea": "10-21"
+    }
+  }
+}
