@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Понедельник, 30 ноября 2026",
+  "feastName": "Свт. Григо́рия, епи́скопа Неокесари́йского, чудотво́рца",
+  "period": "Минея. Ноябрь",
+  "tone": 1,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 1,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas1-mon",
+      "minea": "11-30"
+    }
+  }
+}
