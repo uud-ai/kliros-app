@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Понедельник, 26 октября 2026",
+  "feastName": "Пра́зднование Ивeрской ико́ны Бо́жией Ма́тери. Мчч. Ка́рпа, Папи́лы, Агафодо́ра и мц. Агафони́ки",
+  "period": "Минея. Октябрь",
+  "tone": 4,
+  "rank": "polyeleos",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 4,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas4-mon",
+      "minea": "10-26"
+    }
+  }
+}
