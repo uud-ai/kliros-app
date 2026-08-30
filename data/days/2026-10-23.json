@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Пятница, 23 октября 2026",
+  "feastName": "Мчч. Евла́мпия и Евлампи́и. Свт. Васи́лия (Вассиа́на), чудотво́рца",
+  "period": "Минея. Октябрь",
+  "tone": 3,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 3,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas3-fri",
+      "minea": "10-23"
+    }
+  }
+}
