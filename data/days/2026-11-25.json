@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Среда, 25 ноября 2026",
+  "feastName": "Свт. Иоа́нна Ми́лостивого, патриа́рха Александри́йского, и прп. Ни́ла По́стника",
+  "period": "Минея. Ноябрь",
+  "tone": 8,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 8,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas8-wed",
+      "minea": "11-25"
+    }
+  }
+}
