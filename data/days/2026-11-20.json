@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Пятница, 20 ноября 2026",
+  "feastName": "Свв. 33 му́чеников в Мелити́не. Прп. Ла́заря Галиси́йского",
+  "period": "Минея. Ноябрь",
+  "tone": 7,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 7,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas7-fri",
+      "minea": "11-20"
+    }
+  }
+}
