@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Суббота, 28 ноября 2026",
+  "feastName": "Мчч. и испп. Гу́рия, Само́на и Ави́ва",
+  "period": "Минея. Ноябрь",
+  "tone": 8,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 8,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas8-sat",
+      "minea": "11-28"
+    }
+  }
+}
