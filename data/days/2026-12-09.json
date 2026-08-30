@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Среда, 9 декабря 2026",
+  "feastName": "Свт. Инноке́нтий, епи́скоп Ирку́тский, чудотво́рец",
+  "period": "Минея. Ноябрь",
+  "tone": 2,
+  "rank": "polyeleos",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 2,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas2-wed",
+      "minea": "12-09"
+    }
+  }
+}
