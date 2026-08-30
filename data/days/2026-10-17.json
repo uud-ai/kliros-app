@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "note": "17 октября 2026 — суббота, глас 2. Шаблон data/templates/oktoih-weekday-glas2-sat.json для рядового октоиха субботы гласа 2 в проекте пока не создан (готовы только субботние варианты гласов 1, 5, 6, 7, 8 — см. oktoih-weekday-glas{1,5,6,7,8}-sat.json); ссылка ниже указывает на этот ещё не существующий файл. Переменные части службы святителей Гурия и Варсонофия (см. data/minea/10-17.json) от этого не зависят и уже полностью готовы."
+  },
+  "dateLabel": "Суббота, 17 октября 2026",
+  "feastName": "Обре́тение моще́й свт. Гу́рия, архиеп. Каза́нскаго, и Варсоно́фия, еп. Тверска́го, чудотво́рцев",
+  "period": "Минея. Октябрь",
+  "tone": 2,
+  "rank": "polyeleos",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 2,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas2-sat",
+      "minea": "10-17"
+    }
+  }
+}
