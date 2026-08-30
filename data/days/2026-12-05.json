@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Суббота, 5 декабря 2026",
+  "feastName": "Блгв. вел. кн. Михаи́л Яросла́вич Тверско́й",
+  "period": "Минея. Ноябрь",
+  "tone": 1,
+  "rank": "polyeleos",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 1,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas1-sat",
+      "minea": "12-05"
+    }
+  }
+}
