@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Понедельник, 23 ноября 2026",
+  "feastName": "Свв. апо́столов Ера́ста, Оли́мпа, Родио́на, Сосипа́тра, Куа́рта и Те́ртия",
+  "period": "Минея. Ноябрь",
+  "tone": 8,
+  "rank": "six-verse",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 8,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas8-mon",
+      "minea": "11-23"
+    }
+  }
+}
