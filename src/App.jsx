@@ -765,7 +765,7 @@ function App() {
           <div className="empty-service">
             В базе пока нет данных для этой даты.
             <br />
-            Попробуйте воскресенье 26 апреля 2026.
+            Попробуйте выбрать другой день.
           </div>
         ) : groups.length === 0 ? (
           <div className="empty-service">
