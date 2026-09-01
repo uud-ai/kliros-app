@@ -133,8 +133,8 @@ const NAMED_DAYS = [
   { offset: -18, kind: "weekday", name: "Мари́ино стоя́ние (кано́н прп. Андре́я Кри́тского целико́м)", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY },
   { offset: -15, kind: "saturday", name: "Суббо́та Ака́фиста. Похвала́ Пресвято́й Богоро́дицы", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_SATURDAY_REDUCED },
   { offset: -14, kind: "sunday", name: "Неде́ля 5-я Вели́кого поста́, прп. Мари́и Еги́петской", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_SUNDAY_NO_MINEA, contentKey: "great-lent-sunday-5" },
-  { offset: -8, kind: "saturday", name: "Ла́зарева суббо́та", period: "Вели́кий пост", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
-  { offset: -7, kind: "sunday", name: "Неде́ля ва́ий (Вход Госпо́день в Иерусали́м)", period: "Вели́кий пост", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
+  { offset: -8, kind: "saturday", name: "Ла́зарева суббо́та", period: "Вели́кий пост", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-lazarus-saturday", matins: "matins-lazarus-saturday", liturgy: "liturgy-lazarus-saturday" } },
+  { offset: -7, kind: "sunday", name: "Неде́ля ва́ий (Вход Госпо́день в Иерусали́м)", period: "Вели́кий пост", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-palm-sunday", matins: "matins-palm-sunday", liturgy: "liturgy-palm-sunday" } },
   { offset: -6, kind: "weekday", name: "Вели́кий Понеде́льник", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
   { offset: -5, kind: "weekday", name: "Вели́кий Вто́рник", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
   { offset: -4, kind: "weekday", name: "Вели́кая Среда́", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
@@ -294,6 +294,30 @@ export function planLentenSundayService(date) {
       glas,
       sources: { oktoih: `oktoih-variables-glas${glas}`, triod: named.contentKey },
     },
+  };
+}
+
+// ===== Дни с полностью самостоятельным (не соединяемым) последованием =====
+// Лазарева суббота и Неделя ваий — по схеме EXCLUDED_OWN_PROPER Октоих и
+// Минея не поются вовсе, поэтому, в отличие от planLentenSundayService, эти
+// шаблоны (см. data/templates/*-lazarus-saturday.json и *-palm-sunday.json)
+// не содержат переменных ({{namespace.key}}) — весь текст фиксирован
+// (supports_variables: false), как и в шаблонах неподвижных двунадесятых
+// праздников (Воздвижение, Успение). "services" для таких дней задаётся
+// прямо в NAMED_DAYS, а не через отдельное поле contentKey.
+export function planFixedProperService(date) {
+  const offset = paschaOffset(date);
+  const named = NAMED_DAYS_BY_OFFSET.get(offset);
+  if (!named || !named.services) return null;
+
+  return {
+    dateLabel: formatDateLabel(date),
+    feastName: named.name,
+    period: named.period,
+    tone: null,
+    fasting: "Разреше́ние на ры́бу",
+    services: { ...named.services },
+    variables: {},
   };
 }
 
