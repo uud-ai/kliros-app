@@ -47,8 +47,10 @@ function atUTCMidnight(date) {
 }
 
 // Пасха пасхального года, которому принадлежит дата (Пасха этого года,
-// либо прошлогодняя, если дата ещё не дошла до неё).
-function paschaForDate(date) {
+// либо прошлогодняя, если дата ещё не дошла до неё). Экспортируется отдельно
+// от computeGlas, т.к. нужна и для отсчёта смещения дня от Пасхи (см.
+// src/lib/triodion.js), а не только для гласа.
+export function paschaForDate(date) {
   const d = atUTCMidnight(date);
   let pascha = computePascha(d.getUTCFullYear());
   if (d.getTime() < pascha.getTime()) {

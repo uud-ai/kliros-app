@@ -1,0 +1,19 @@
+{
+  "dateLabel": "Воскресенье, 15 марта 2026",
+  "feastName": "Неде́ля 3-я Вели́кого поста́, Крестопокло́нная",
+  "period": "Вели́кий пост",
+  "tone": 7,
+  "fasting": "Стро́гий пост",
+  "services": {
+    "vespers": "vespers-lenten-sunday",
+    "matins": "matins-lenten-sunday",
+    "liturgy": "liturgy-lenten-sunday"
+  },
+  "variables": {
+    "glas": 7,
+    "sources": {
+      "oktoih": "oktoih-variables-glas7",
+      "triod": "great-lent-sunday-3"
+    }
+  }
+}

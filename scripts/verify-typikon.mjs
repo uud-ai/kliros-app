@@ -7,7 +7,9 @@
 
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join } from "path";
-import { planDayService, toMonthDayKey, FIXED_GREAT_FEASTS } from "../src/lib/typikon.js";
+import { planDayService, toMonthDayKey } from "../src/lib/typikon.js";
+import { paschaOffset, describeTriodionDay } from "../src/lib/triodion.js";
+import { computePascha } from "../src/lib/paschalion.js";
 
 const DAYS_DIR = "./data/days";
 const MINEA_DIR = "./data/minea";
@@ -37,7 +39,6 @@ function deepEqual(a, b) {
 
 let failures = 0;
 let checked = 0;
-let skipped = 0;
 
 console.log("── Сверка движка с рукописными data/days/*.json (2026) ──\n");
 
@@ -49,27 +50,8 @@ for (const file of dayFiles) {
   if (!y || !m || !d) continue;
 
   const expected = loadJson(join(DAYS_DIR, file));
-
-  // Пропускаем дни переходящего цикла Цветной триоди/Пятидесятницы (вне
-  // области этого движка — там совсем другая книга и другой устав
-  // соединения, не Октоих+Минея): у них есть числовой глас (Октоих
-  // продолжает идти своим чередом), но нет ранга Минеи, и это не
-  // двунадесятый праздник с tone: null.
-  if (expected.rank === undefined && expected.tone !== null) {
-    skipped++;
-    continue;
-  }
-
   const date = new Date(y, m - 1, d);
   const mmdd = toMonthDayKey(date);
-
-  // tone: null и не входит в реестр непереходящих великих праздников —
-  // значит это переходящий праздник/воскресенье Цветной триоди или
-  // Пятидесятницы (Пасха, Троица и т.п.) — вне области этого движка.
-  if (expected.tone === null && !FIXED_GREAT_FEASTS[mmdd]) {
-    skipped++;
-    continue;
-  }
 
   let mineaMeta = null;
   const mineaPath = join(MINEA_DIR, `${mmdd}.json`);
@@ -132,7 +114,7 @@ for (const file of dayFiles) {
   }
 }
 
-console.log(`\nПроверено дней: ${checked}, пропущено (Триодь): ${skipped}, расхождений: ${failures}`);
+console.log(`\nПроверено дней: ${checked}, расхождений: ${failures}`);
 
 // ── Проверка обобщения на другой год ──
 // Берём тот же день/месяц Минеи, но год с другим выравниванием дней
@@ -191,7 +173,93 @@ function FEAST_OVERRIDE(mmdd) {
 
 console.log(`Проверено (2031): ${otherYearChecked}, ошибок: ${otherYearFailures}`);
 
-const totalFailures = failures + otherYearFailures;
+// ── Триодь: обобщение на другой год ──
+// Пасха 2031 приходится на другую дату (13 апреля), чем Пасха 2026
+// (12 апреля) — набор гражданских чисел под каждым переходящим днём другой,
+// но их положение относительно Пасхи (offset) и глас должны совпасть с тем
+// же правилом.
+console.log("\n── Триодь: обобщение на другой год (2031) ──\n");
+
+let triodFailures = 0;
+let triodChecked = 0;
+
+// computePascha возвращает Date в UTC-полночь; чтобы избежать сдвига
+// календарного числа при чтении локальных геттеров (getDay/getFullYear) в
+// часовых поясах западнее UTC, сразу пересобираем её как локальную дату —
+// так же, как это делает остальной код проекта (new Date(y, m-1, d)).
+const paschaUTC2031 = computePascha(2031);
+const pascha2031 = new Date(
+  paschaUTC2031.getUTCFullYear(),
+  paschaUTC2031.getUTCMonth(),
+  paschaUTC2031.getUTCDate()
+);
+
+function addDays(date, days) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+const PENTECOSTARION_SUNDAY_OFFSETS = [0, 7, 14, 21, 28, 35, 42, 49, 56, 63];
+for (const offset of PENTECOSTARION_SUNDAY_OFFSETS) {
+  const date = addDays(pascha2031, offset);
+
+  let result;
+  try {
+    result = planDayService(date, null);
+  } catch (e) {
+    console.log(`✗ offset ${offset}/2031: движок упал: ${e.message}`);
+    triodFailures++;
+    continue;
+  }
+
+  if (!result.ok) {
+    console.log(`✗ offset ${offset}/2031: движок отказался строить план (${result.reason})`);
+    triodFailures++;
+    continue;
+  }
+
+  if (date.getDay() !== 0) {
+    console.log(`✗ offset ${offset}/2031: дата ${date.toDateString()} — не воскресенье`);
+    triodFailures++;
+    continue;
+  }
+
+  const expectedOffset = paschaOffset(date);
+  if (expectedOffset !== offset) {
+    console.log(`✗ offset ${offset}/2031: paschaOffset пересчитал как ${expectedOffset}`);
+    triodFailures++;
+    continue;
+  }
+
+  triodChecked++;
+}
+
+// Границы цикла: за день до Недели о мытаре и фарисее и за день после Недели
+// всех русских святых Триодь уже не должна ничего утверждать (describeTriodionDay
+// -> null) — эти дни целиком в ведении рядового устава typikon.js. А сами
+// крайние даты цикла (offset -70 и 63), наоборот, должны быть описаны.
+const BOUNDARY_CASES = [
+  { label: "до начала (offset -71)", offset: -71, expectNull: true },
+  { label: "после конца (offset 64)", offset: 64, expectNull: true },
+  { label: "начало цикла (offset -70)", offset: -70, expectNull: false },
+  { label: "конец цикла (offset 63)", offset: 63, expectNull: false },
+];
+for (const { label, offset, expectNull } of BOUNDARY_CASES) {
+  const date = addDays(pascha2031, offset);
+  const described = describeTriodionDay(date);
+  const isNull = described == null;
+  if (isNull !== expectNull) {
+    console.log(`✗ граница цикла, ${label}: describeTriodionDay ${isNull ? "вернул null" : "не вернул null"}`);
+    triodFailures++;
+  } else {
+    triodChecked++;
+  }
+}
+
+console.log(`Проверено (offset-точек): ${triodChecked}, ошибок: ${triodFailures}`);
+
+const totalFailures = failures + otherYearFailures + triodFailures;
 if (totalFailures > 0) {
   console.log(`\n❌ Итого расхождений: ${totalFailures}`);
   process.exit(1);

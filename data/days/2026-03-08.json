@@ -1,0 +1,19 @@
+{
+  "dateLabel": "Воскресенье, 8 марта 2026",
+  "feastName": "Неде́ля 2-я Вели́кого поста́, свт. Григо́рия Пала́мы",
+  "period": "Вели́кий пост",
+  "tone": 6,
+  "fasting": "Стро́гий пост",
+  "services": {
+    "vespers": "vespers-lenten-sunday",
+    "matins": "matins-lenten-sunday",
+    "liturgy": "liturgy-lenten-sunday"
+  },
+  "variables": {
+    "glas": 6,
+    "sources": {
+      "oktoih": "oktoih-variables-glas6",
+      "triod": "great-lent-sunday-2"
+    }
+  }
+}

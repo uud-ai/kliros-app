@@ -16,6 +16,7 @@
 // той же формы, что и рукописные файлы data/days/*.json.
 
 import { computeGlas } from "./paschalion.js";
+import { describeTriodionDay, planPentecostarionSunday, planLentenSundayService } from "./triodion.js";
 
 // ===== Общие календарные утилиты =====
 
@@ -242,11 +243,24 @@ export function planDayService(date, mineaMeta) {
     return { ok: true, plan: planFixedGreatFeast(date, feast) };
   }
 
+  // Переходящий цикл Постной/Цветной Триоди (от Недели о мытаре и фарисее
+  // до Недели всех русских святых) живёт по другому уставу — см.
+  // src/lib/triodion.js. Он покрывает не только Светлую седмицу (где
+  // computeGlas вернул бы null), но и весь Великий пост и Пентикостарий, для
+  // которых обычное соединение по рангу Минеи либо вовсе неприменимо, либо
+  // ещё не подкреплено готовыми шаблонами.
+  const triodDay = describeTriodionDay(date);
+  if (triodDay) {
+    const plan = planPentecostarionSunday(date) || planLentenSundayService(date);
+    if (plan) return { ok: true, plan };
+    return { ok: false, reason: "triod-not-implemented", triodDay };
+  }
+
   const glas = computeGlas(date);
   if (glas == null) {
-    // Светлая седмица — рядовой октоиховый цикл ещё не начался, будничное
-    // соединение с Минеей по обычному уставу здесь неприменимо (действует
-    // пасхальный устав — вне области этого движка).
+    // Подстраховка: сюда попасть не должны (Светлая седмица уже покрыта
+    // triodDay выше), но на случай расхождения границ — честный отказ, а не
+    // ошибочное соединение с Минеей.
     return { ok: false, reason: "paschal-period" };
   }
 

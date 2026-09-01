@@ -1,0 +1,19 @@
+{
+  "dateLabel": "Воскресенье, 1 марта 2026",
+  "feastName": "Неде́ля 1-я Вели́кого поста́. Торжество́ Правосла́вия",
+  "period": "Вели́кий пост",
+  "tone": 5,
+  "fasting": "Стро́гий пост",
+  "services": {
+    "vespers": "vespers-lenten-sunday",
+    "matins": "matins-lenten-sunday",
+    "liturgy": "liturgy-lenten-sunday"
+  },
+  "variables": {
+    "glas": 5,
+    "sources": {
+      "oktoih": "oktoih-variables-glas5",
+      "triod": "great-lent-sunday-1"
+    }
+  }
+}
