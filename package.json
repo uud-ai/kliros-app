@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "import": "node scripts/import.mjs"
+    "import": "node scripts/import.mjs",
+    "generate-day": "node scripts/generate-day.mjs",
+    "verify-typikon": "node scripts/verify-typikon.mjs"
   },
   "dependencies": {
     "firebase": "^12.12.1",

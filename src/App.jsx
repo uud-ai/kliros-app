@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
+import { planDayService, toMonthDayKey, FIXED_GREAT_FEASTS } from "./lib/typikon.js";
 import "./App.css";
 
 const SERVICES = [
@@ -238,13 +239,33 @@ function App() {
         const docId = toDocId(selectedDate);
         const snapshot = await getDoc(doc(db, "days", docId));
 
-        if (!snapshot.exists()) {
+        let dayData = null;
+        if (snapshot.exists()) {
+          // Готовый (проверенный вручную) день имеет приоритет над расчётом.
+          dayData = snapshot.data();
+        } else {
+          // Дня ещё нет в Firestore — пробуем построить его на лету по
+          // уставу (движок src/lib/typikon.js): двунадесятый непереходящий
+          // праздник не требует данных Минеи, для рядового дня нужен ещё
+          // документ minea/{ММ-ДД}, который не зависит от года.
+          const mmdd = toMonthDayKey(selectedDate);
+          let mineaMeta = null;
+          if (!FIXED_GREAT_FEASTS[mmdd]) {
+            const mineaSnap = await getDoc(doc(db, "minea", mmdd));
+            if (mineaSnap.exists()) mineaMeta = mineaSnap.data()._meta || null;
+          }
+          const result = planDayService(selectedDate, mineaMeta);
+          if (result.ok) {
+            dayData = { ...result.plan, computed: true };
+          }
+        }
+
+        if (!dayData) {
           setDay(null);
           setLoading(false);
           return;
         }
 
-        const dayData = snapshot.data();
         setDay(dayData);
 
         const templateIds = new Set();
@@ -616,6 +637,11 @@ function App() {
               {day.tone != null && <span>Глас {day.tone}</span>}
               {day.period && <span>{day.period}</span>}
               {day.fasting && <span>{day.fasting}</span>}
+              {day.computed && (
+                <span title="Служба построена автоматически по уставу соединения Октоиха и Минеи, не выверялась вручную">
+                  ⚙ рассчитано по уставу
+                </span>
+              )}
             </div>
           </>
         ) : (
