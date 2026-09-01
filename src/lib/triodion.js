@@ -139,7 +139,7 @@ const NAMED_DAYS = [
   { offset: -5, kind: "weekday", name: "Вели́кий Вто́рник", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-great-tuesday", matins: "matins-great-tuesday" }, fasting: "Стро́гий пост" },
   { offset: -4, kind: "weekday", name: "Вели́кая Среда́", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-great-wednesday", matins: "matins-great-wednesday" }, fasting: "Стро́гий пост" },
   { offset: -3, kind: "weekday", name: "Вели́кий Четве́рг", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-great-thursday", matins: "matins-great-thursday" }, fasting: "Разреше́ние вина́ и еле́я" },
-  { offset: -2, kind: "weekday", name: "Вели́кая Пя́тница", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
+  { offset: -2, kind: "weekday", name: "Вели́кая Пя́тница", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-great-friday", matins: "matins-great-friday" }, fasting: "Стро́жайший пост (по уста́ву — соверше́нное неяде́ние)" },
   { offset: -1, kind: "saturday", name: "Вели́кая Суббо́та", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
   { offset: 0, kind: "sunday", name: "Свята́я Па́сха. Све́тлое Христо́во Воскресе́ние", period: "Па́сха", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, specialService: "pascha" },
   { offset: 1, kind: "weekday", name: "Све́тлый понеде́льник", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
