@@ -61,6 +61,11 @@ async function main() {
   console.log(`   Проект: ${serviceAccount.project_id}`);
 
   const templatesCount = await importFolder('./data/templates', 'templates');
+  // data/triod резолвится как sources.triod через ту же коллекцию "templates"
+  // (см. App.jsx: variableCollectionByType не переопределяет "triod", поэтому
+  // используется коллекция по умолчанию — "templates"), а не отдельную
+  // коллекцию "triod".
+  const triodCount = await importFolder('./data/triod', 'templates');
   const mineaCount = await importFolder('./data/minea', 'minea');
   const daysCount = await importFolder('./data/days', 'days');
 
@@ -68,6 +73,7 @@ async function main() {
   console.log('═══════════════════════════════════════');
   console.log(`✅ Готово! Загружено:`);
   console.log(`   • templates: ${templatesCount}`);
+  console.log(`   • triod:     ${triodCount} (в коллекцию templates)`);
   console.log(`   • minea:     ${mineaCount}`);
   console.log(`   • days:      ${daysCount}`);
   console.log('═══════════════════════════════════════');
