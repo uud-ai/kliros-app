@@ -152,8 +152,16 @@ const NAMED_DAYS = [
   { offset: 3, kind: "weekday", name: "Све́тлая среда́", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-wednesday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-wednesday", vespers: "vespers-bright-wednesday" }, fasting: "Разреше́ние на вся" },
   { offset: 4, kind: "weekday", name: "Све́тлый четве́рг", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-thursday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-thursday", vespers: "vespers-bright-thursday" }, fasting: "Разреше́ние на вся" },
   { offset: 5, kind: "weekday", name: "Све́тлая пя́тница", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-friday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-friday", vespers: "vespers-bright-friday" }, fasting: "Разреше́ние на вся" },
-  { offset: 6, kind: "saturday", name: "Све́тлая суббо́та", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-saturday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-saturday" }, fasting: "Разреше́ние на вся" },
-  { offset: 7, kind: "sunday", name: "Неде́ля 2-я по Па́сце, апо́стола Фомы́. Антипа́сха", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, specialService: "antipascha" },
+  { offset: 6, kind: "saturday", name: "Све́тлая суббо́та", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-saturday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-saturday", vespers: "vespers-antipascha" }, fasting: "Разреше́ние на вся" },
+  // Неделя Антипасхи (Фомина): устав прямо предписывает «не поются
+  // воскресная, но вся праздника» — воскресный Октоих в этот день
+  // полностью отсутствует, поэтому это EXCLUDED_OWN_PROPER, а не
+  // ORDINARY_COMBINATION (в отличие от остальных восьми "нововоскресений"
+  // Цветной Триоди, где Октоих гласа действительно поётся). Минея святого
+  // дня в саму Неделю не поётся вовсе (см. vespers-antipascha-evening.json
+  // — сочетание со святым начинается только с вечерни САМОГО дня вечером,
+  // то есть уже за пределами Недели, во вседневном богослужении).
+  { offset: 7, kind: "sunday", name: "Неде́ля 2-я по Па́сце, апо́стола Фомы́. Антипа́сха", period: "Пентикоста́рий", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, specialService: "antipascha", services: { matins: "matins-antipascha", liturgy: "liturgy-antipascha", vespers: "vespers-antipascha-evening" }, fasting: "Разреше́ние на вся" },
   { offset: 14, kind: "sunday", name: "Неде́ля 3-я по Па́сце, святы́х жён-мироно́сиц", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
   { offset: 21, kind: "sunday", name: "Неде́ля 4-я по Па́сце, о разсла́бленном", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
   { offset: 25, kind: "weekday", name: "Преполове́ние Пятидеся́тницы", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
@@ -297,14 +305,16 @@ export function planPaschaService(date) {
 
 // ===== Общая заглушка для уже частично готового содержимого =====
 // Единственный кусок Триоди, для которого в проекте есть хоть какое-то
-// содержимое (см. data/days/2026-04-19..2026-06-14.json) — это минимальный
-// вариант литургии "с переменными" для восьми воскресений Цветной Триоди
-// плюс Пятидесятницы. Сама Пасха (offset 0) больше не входит в эту заглушку
-// — для неё есть полный комплект, см. planPaschaService выше; вызывающий
-// код (typikon.js) должен проверять planPaschaService ПЕРЕД этой функцией.
+// содержимое (см. data/days/2026-04-26..2026-06-14.json) — это минимальный
+// вариант литургии "с переменными" для семи воскресений Цветной Триоди
+// плюс Пятидесятницы. Сама Пасха (offset 0) и Неделя Антипасхи (offset 7)
+// больше не входят в эту заглушку — для них есть полный комплект (см.
+// planPaschaService выше и services в NAMED_DAYS для offset 7); вызывающий
+// код (typikon.js) должен проверять planPaschaService ПЕРЕД этой функцией,
+// а planFixedProperService — сразу после неё (см. цепочку в typikon.js).
 // Здесь эта же заготовка строится для ЛЮБОГО года — то же самое обобщение,
 // которое planDayService уже делает для рядового времени в typikon.js.
-const PENTECOSTARION_SUNDAY_OFFSETS = new Set([7, 14, 21, 28, 35, 42, 49, 56, 63]);
+const PENTECOSTARION_SUNDAY_OFFSETS = new Set([14, 21, 28, 35, 42, 49, 56, 63]);
 
 // ===== Недели Великого поста с уже готовыми шаблонами =====
 // В отличие от заглушки planPentecostarionSunday (только литургия), для

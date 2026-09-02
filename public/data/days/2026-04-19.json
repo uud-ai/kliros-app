@@ -5,15 +5,15 @@
     },
     "dateLabel": "Воскресенье, 19 апреля 2026",
     "feastName": "Неде́ля 2-я по Па́сце, апо́стола Фомы́. Антипа́сха",
-    "tone": 1,
+    "tone": null,
     "period": "Пентикоста́рий",
     "fasting": "Разреше́ние на вся",
     "services": {
-      "liturgy": "liturgy-sunday-with-variables"
+      "matins": "matins-antipascha",
+      "liturgy": "liturgy-antipascha",
+      "vespers": "vespers-antipascha-evening"
     },
     "variables": {
-      "glas": 1,
-      "oktoih_source": "oktoih-variables-glas1",
       "special_service": "antipascha"
     }
   }
