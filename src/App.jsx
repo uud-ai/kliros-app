@@ -1,22 +1,36 @@
 import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase";
 import { planDayService, toMonthDayKey, FIXED_GREAT_FEASTS } from "./lib/typikon.js";
 import "./App.css";
 
 const SERVICES = [
+  { key: "midnightOffice", title: "Полуно́щница" },
   { key: "vespers", title: "Вече́рня" },
   { key: "matins", title: "У́треня" },
   { key: "liturgy", title: "Литурги́я" },
   { key: "hours", title: "Часы́" },
 ];
 
-// Формат даты для ID документа в Firestore: "YYYY-MM-DD"
+// Формат даты для имени файла: "YYYY-MM-DD"
 function toDocId(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+// Загрузка одного JSON-"документа" из статики /data/{collection}/{id}.json —
+// замена Firestore-эквивалента getDoc(doc(db, collection, id)). Возвращает
+// null, если файла нет, иначе — распарсенный JSON.
+// Content-Type проверяем отдельно от res.ok: и dev-сервер Vite, и статический
+// хостинг (SPA-рерайт "**" -> index.html) отвечают 200 text/html на любой
+// несуществующий путь вместо честного 404 — без этой проверки отсутствующий
+// день расценивался бы как найденный документ, и резервный расчёт службы по
+// уставу (planDayService) не срабатывал бы почти ни для одной даты.
+async function getDocData(collection, id) {
+  const res = await fetch(`/data/${collection}/${id}.json`);
+  if (!res.ok) return null;
+  if (!(res.headers.get("content-type") || "").includes("json")) return null;
+  return res.json();
 }
 
 // Человекочитаемая подпись дня
@@ -221,9 +235,9 @@ function App() {
   // Тропари и кондаки дневные (устав о входе на Литургии) — общий справочник,
   // не зависит от даты, загружается один раз.
   useEffect(() => {
-    getDoc(doc(db, "templates", "liturgy-day-tropars")).then((snap) => {
-      if (snap.exists()) {
-        setTemplates((prev) => ({ ...prev, "liturgy-day-tropars": snap.data() }));
+    getDocData("templates", "liturgy-day-tropars").then((data) => {
+      if (data) {
+        setTemplates((prev) => ({ ...prev, "liturgy-day-tropars": data }));
       }
     });
   }, []);
@@ -237,22 +251,22 @@ function App() {
 
       try {
         const docId = toDocId(selectedDate);
-        const snapshot = await getDoc(doc(db, "days", docId));
+        const snapshot = await getDocData("days", docId);
 
         let dayData = null;
-        if (snapshot.exists()) {
+        if (snapshot) {
           // Готовый (проверенный вручную) день имеет приоритет над расчётом.
-          dayData = snapshot.data();
+          dayData = snapshot;
         } else {
-          // Дня ещё нет в Firestore — пробуем построить его на лету по
-          // уставу (движок src/lib/typikon.js): двунадесятый непереходящий
+          // Готового файла для этого дня нет — пробуем построить его на лету
+          // по уставу (движок src/lib/typikon.js): двунадесятый непереходящий
           // праздник не требует данных Минеи, для рядового дня нужен ещё
-          // документ minea/{ММ-ДД}, который не зависит от года.
+          // файл minea/{ММ-ДД}, который не зависит от года.
           const mmdd = toMonthDayKey(selectedDate);
           let mineaMeta = null;
           if (!FIXED_GREAT_FEASTS[mmdd]) {
-            const mineaSnap = await getDoc(doc(db, "minea", mmdd));
-            if (mineaSnap.exists()) mineaMeta = mineaSnap.data()._meta || null;
+            const mineaData = await getDocData("minea", mmdd);
+            if (mineaData) mineaMeta = mineaData._meta || null;
           }
           const result = planDayService(selectedDate, mineaMeta);
           if (result.ok) {
@@ -293,8 +307,8 @@ function App() {
         if (dayData.variables?.oktoih_source && !variableSources.oktoih) {
           variableSources.oktoih = dayData.variables.oktoih_source;
         }
-        // minea хранится в отдельной коллекции Firestore, остальные пространства
-        // имён (сейчас только oktoih) — в той же коллекции "templates", что и шаблоны.
+        // minea хранится в отдельной папке /data/minea, остальные пространства
+        // имён (сейчас только oktoih) — в той же папке "templates", что и шаблоны.
         const variableCollectionByType = { minea: "minea" };
         const variableEntries = Object.entries(variableSources)
           .filter(([, id]) => !!id)
@@ -308,7 +322,7 @@ function App() {
         if (templateIdsToLoad.length > 0) {
           promises.push(
             ...templateIdsToLoad.map((id) =>
-              getDoc(doc(db, "templates", id)).then((snap) => ({ type: 'template', id, snap }))
+              getDocData("templates", id).then((data) => ({ type: 'template', id, data }))
             )
           );
         }
@@ -316,7 +330,7 @@ function App() {
         if (variableIdsToLoad.length > 0) {
           promises.push(
             ...variableIdsToLoad.map(([collectionName, id]) =>
-              getDoc(doc(db, collectionName, id)).then((snap) => ({ type: 'variable', id, snap }))
+              getDocData(collectionName, id).then((data) => ({ type: 'variable', id, data }))
             )
           );
         }
@@ -327,10 +341,10 @@ function App() {
           const fetchedTemplates = {};
           const fetchedVariables = {};
 
-          results.forEach(({ type, id, snap }) => {
-            if (snap.exists()) {
-              if (type === 'template') fetchedTemplates[id] = snap.data();
-              else if (type === 'variable') fetchedVariables[id] = snap.data();
+          results.forEach(({ type, id, data }) => {
+            if (data) {
+              if (type === 'template') fetchedTemplates[id] = data;
+              else if (type === 'variable') fetchedVariables[id] = data;
             }
           });
 

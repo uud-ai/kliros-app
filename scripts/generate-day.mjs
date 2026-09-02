@@ -4,19 +4,19 @@
 //
 // Использование:
 //   node scripts/generate-day.mjs 2026-10-05            — вывести план в stdout
-//   node scripts/generate-day.mjs 2026-10-05 --write     — записать в data/days/2026-10-05.json
+//   node scripts/generate-day.mjs 2026-10-05 --write     — записать в public/data/days/2026-10-05.json
 //   node scripts/generate-day.mjs 2026-09-10:2026-12-13 --write   — диапазон дат
 //
 // Работает для любого года: число/месяц определяют, какой файл Минеи
-// использовать (data/minea/MM-DD.json), год влияет только на глас
+// использовать (public/data/minea/MM-DD.json), год влияет только на глас
 // (Пасхалия) и день недели — оба вычисляются заново для каждой даты.
 
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { join } from "path";
 import { planDayService, toMonthDayKey, toDocId } from "../src/lib/typikon.js";
 
-const MINEA_DIR = "./data/minea";
-const DAYS_DIR = "./data/days";
+const MINEA_DIR = "./public/data/minea";
+const DAYS_DIR = "./public/data/days";
 
 function parseDate(s) {
   const [y, m, d] = s.split("-").map(Number);

@@ -8,7 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const dir = path.join(process.cwd(), "data", "templates");
+const dir = path.join(process.cwd(), "public", "data", "templates");
 const files = [
   "liturgy-ferial-six-verse.json",
   "liturgy-ferial-polyeleos.json",

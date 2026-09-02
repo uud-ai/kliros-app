@@ -1,5 +1,5 @@
 // scripts/verify-typikon.mjs — регрессионная проверка движка устава
-// (src/lib/typikon.js) против рукописно составленных data/days/*.json,
+// (src/lib/typikon.js) против рукописно составленных public/data/days/*.json,
 // плюс проверка, что для другого года (другой день недели/глас) движок
 // не падает и даёт согласованный результат.
 //
@@ -11,8 +11,8 @@ import { planDayService, toMonthDayKey } from "../src/lib/typikon.js";
 import { paschaOffset, describeTriodionDay } from "../src/lib/triodion.js";
 import { computePascha } from "../src/lib/paschalion.js";
 
-const DAYS_DIR = "./data/days";
-const MINEA_DIR = "./data/minea";
+const DAYS_DIR = "./public/data/days";
+const MINEA_DIR = "./public/data/minea";
 
 function loadJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));

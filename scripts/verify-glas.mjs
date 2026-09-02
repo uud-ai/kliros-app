@@ -1,12 +1,12 @@
 // scripts/verify-glas.mjs — сверка computeGlas() с вручную выставленными
-// гласами в существующих data/days/*.json.
+// гласами в существующих public/data/days/*.json.
 // Запуск: node scripts/verify-glas.mjs
 
 import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 import { computeGlas, computePascha } from '../src/lib/paschalion.js';
 
-const daysDir = './data/days';
+const daysDir = './public/data/days';
 const files = readdirSync(daysDir).filter((f) => f.endsWith('.json'));
 
 console.log(`Пасха 2026: ${computePascha(2026).toISOString().slice(0, 10)} (ожидается 2026-04-12)\n`);
