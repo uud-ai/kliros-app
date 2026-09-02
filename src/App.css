@@ -350,29 +350,22 @@ body {
   font-size: 1.4rem;
 }
 
-/* --- Календарь (нативный date picker) --- */
-.date-picker {
-  background: transparent;
-  border: 1px solid var(--rule);
-  color: var(--ink-soft);
-  font-family: var(--font-ui);
-  font-size: 0.85rem;
-  padding: 7px 12px;
-  cursor: pointer;
-  letter-spacing: 0.3px;
-  border-radius: 20px;
-  transition: all 0.2s;
-  color-scheme: light;
+/* --- Календарь (кнопка + скрытый нативный date picker) --- */
+.date-picker-btn {
+  /* Внешний вид — как у остальных .date-nav-btn, только текст фиксирован
+     ("📅 Календарь"), а не дата: сама дата видна в day-date над карточкой
+     дня, повторять её в кнопке не нужно. */
 }
 
-.date-picker:hover {
-  color: var(--red);
-  border-color: var(--red);
-}
-
-[data-theme="dark"] .date-picker,
-[data-theme="kliros-night"] .date-picker {
-  color-scheme: dark;
+.date-picker-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: none;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 /* ===== Стили для поиска ===== */
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { planDayService, toMonthDayKey, FIXED_GREAT_FEASTS } from "./lib/typikon.js";
 import "./App.css";
 
@@ -184,6 +184,7 @@ function highlightMatch(text, searchTerm) {
 function App() {
   // ===== Состояние =====
   const [selectedDate, setSelectedDate] = useState(new Date(2026, 3, 26));
+  const dateInputRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [day, setDay] = useState(null);
@@ -626,15 +627,38 @@ function App() {
         <button className="date-nav-btn" onClick={() => setSelectedDate(shiftDate(selectedDate, 1))}>
           Завтра →
         </button>
+        <button
+          className="date-nav-btn date-picker-btn"
+          onClick={() => {
+            const el = dateInputRef.current;
+            if (!el) return;
+            try {
+              if (typeof el.showPicker === "function") {
+                el.showPicker();
+                return;
+              }
+            } catch {
+              // Браузеры без полноценной поддержки showPicker (например,
+              // вне доверенного пользовательского жеста) бросают
+              // InvalidStateError — откатываемся на обычный клик по полю.
+            }
+            el.click();
+          }}
+          title="Выбрать любую дату"
+        >
+          📅 Календарь
+        </button>
         <input
+          ref={dateInputRef}
           type="date"
-          className="date-picker"
+          className="date-picker-hidden"
           value={toDocId(selectedDate)}
           onChange={(e) => {
             const [y, m, d] = e.target.value.split("-").map(Number);
             setSelectedDate(new Date(y, m - 1, d));
           }}
-          title="Выбрать любую дату"
+          tabIndex={-1}
+          aria-hidden="true"
         />
       </div>
 
