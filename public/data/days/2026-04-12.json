@@ -12,7 +12,8 @@
       "midnightOffice": "midnight-office-pascha",
       "matins": "matins-pascha",
       "hours": { "1": "hours-pascha", "3": "hours-pascha", "6": "hours-pascha", "9": "hours-pascha" },
-      "liturgy": "liturgy-pascha"
+      "liturgy": "liturgy-pascha",
+      "vespers": "vespers-pascha"
     },
     "variables": {
       "special_service": "pascha"

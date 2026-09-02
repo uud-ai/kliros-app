@@ -110,6 +110,11 @@ export const MENAION_SCHEME = {
   EXCLUDED_OWN_PROPER: "excluded-own-proper",
 };
 
+// Часы Пасхи — единый краткий чин, которым заменяются 1, 3, 6 и 9 часы (а
+// также полунощница и повечерие) во все будние дни Светлой седмицы, не
+// только в самый день Пасхи (см. data/templates/hours-pascha.json).
+const BRIGHT_WEEKDAY_HOURS = { "1": "hours-pascha", "3": "hours-pascha", "6": "hours-pascha", "9": "hours-pascha" };
+
 // ===== Календарь смещений от Пасхи =====
 // day: смещение в сутках от Пасхи. kind: "sunday" | "saturday" | "weekday".
 // period: подпись периода для дня (в стиле periodLabel() из typikon.js).
@@ -142,12 +147,12 @@ const NAMED_DAYS = [
   { offset: -2, kind: "weekday", name: "Вели́кая Пя́тница", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-great-friday", matins: "matins-great-friday" }, fasting: "Стро́жайший пост (по уста́ву — соверше́нное неяде́ние)" },
   { offset: -1, kind: "saturday", name: "Вели́кая Суббо́та", period: "Стра́стная седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-great-saturday", matins: "matins-great-saturday" }, fasting: "Стро́гий пост (по уста́ву — до вече́рни с Литурги́ей)" },
   { offset: 0, kind: "sunday", name: "Свята́я Па́сха. Све́тлое Христо́во Воскресе́ние", period: "Па́сха", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, specialService: "pascha" },
-  { offset: 1, kind: "weekday", name: "Све́тлый понеде́льник", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
-  { offset: 2, kind: "weekday", name: "Све́тлый вто́рник", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
-  { offset: 3, kind: "weekday", name: "Све́тлая среда́", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
-  { offset: 4, kind: "weekday", name: "Све́тлый четве́рг", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
-  { offset: 5, kind: "weekday", name: "Све́тлая пя́тница", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
-  { offset: 6, kind: "saturday", name: "Све́тлая суббо́та", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
+  { offset: 1, kind: "weekday", name: "Све́тлый понеде́льник", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-monday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-monday", vespers: "vespers-bright-monday" }, fasting: "Разреше́ние на вся" },
+  { offset: 2, kind: "weekday", name: "Све́тлый вто́рник", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-tuesday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-tuesday", vespers: "vespers-bright-tuesday" }, fasting: "Разреше́ние на вся" },
+  { offset: 3, kind: "weekday", name: "Све́тлая среда́", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-wednesday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-wednesday", vespers: "vespers-bright-wednesday" }, fasting: "Разреше́ние на вся" },
+  { offset: 4, kind: "weekday", name: "Све́тлый четве́рг", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-thursday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-thursday", vespers: "vespers-bright-thursday" }, fasting: "Разреше́ние на вся" },
+  { offset: 5, kind: "weekday", name: "Све́тлая пя́тница", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-friday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-friday", vespers: "vespers-bright-friday" }, fasting: "Разреше́ние на вся" },
+  { offset: 6, kind: "saturday", name: "Све́тлая суббо́та", period: "Све́тлая седми́ца", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { midnightOffice: "hours-pascha", matins: "matins-bright-saturday", hours: BRIGHT_WEEKDAY_HOURS, liturgy: "liturgy-bright-saturday" }, fasting: "Разреше́ние на вся" },
   { offset: 7, kind: "sunday", name: "Неде́ля 2-я по Па́сце, апо́стола Фомы́. Антипа́сха", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, specialService: "antipascha" },
   { offset: 14, kind: "sunday", name: "Неде́ля 3-я по Па́сце, святы́х жён-мироно́сиц", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
   { offset: 21, kind: "sunday", name: "Неде́ля 4-я по Па́сце, о разсла́бленном", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
@@ -260,15 +265,17 @@ export const MARK_CHAPTERS = {};
 // самого дня Пасхи в проекте есть полный, вычитанный по первоисточнику
 // комплект: полунощница (канон Великой субботы, перенесение Плащаницы),
 // утреня (канон прп. Иоанна Дамаскина, целование, огласительное слово
-// свт. Иоанна Златоуста), часы (единый краткий чин на все четыре часа) и
-// литургия свт. Иоанна Златоуста с пасхальными антифонами — см.
-// data/templates/{midnight-office,matins,hours,liturgy}-pascha.json.
+// свт. Иоанна Златоуста), часы (единый краткий чин на все четыре часа),
+// литургия свт. Иоанна Златоуста с пасхальными антифонами и вечерня
+// самого дня Пасхи (малый вход, чтение Ин 20:19-25 об уверении Фомы) — см.
+// data/templates/{midnight-office,matins,hours,liturgy,vespers}-pascha.json.
 // Строится для ЛЮБОГО года (сама Пасха — offset 0 всегда).
 const PASCHA_SERVICE_SET = {
   midnightOffice: "midnight-office-pascha",
   matins: "matins-pascha",
   hours: { "1": "hours-pascha", "3": "hours-pascha", "6": "hours-pascha", "9": "hours-pascha" },
   liturgy: "liturgy-pascha",
+  vespers: "vespers-pascha",
 };
 
 export function planPaschaService(date) {
