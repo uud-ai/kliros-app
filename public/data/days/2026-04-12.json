@@ -1,0 +1,20 @@
+{
+    "_meta": {
+      "date": "2026-04-12",
+      "dayOfWeek": "sunday"
+    },
+    "dateLabel": "Воскресенье, 12 апреля 2026",
+    "feastName": "Свята́я Па́сха. Све́тлое Христо́во Воскресе́ние",
+    "tone": null,
+    "period": "Па́сха",
+    "fasting": "Разреше́ние на вся",
+    "services": {
+      "midnightOffice": "midnight-office-pascha",
+      "matins": "matins-pascha",
+      "hours": { "1": "hours-pascha", "3": "hours-pascha", "6": "hours-pascha", "9": "hours-pascha" },
+      "liturgy": "liturgy-pascha"
+    },
+    "variables": {
+      "special_service": "pascha"
+    }
+  }

@@ -254,14 +254,50 @@ export function describeTriodionDay(date) {
 // planDayService должен возвращать честный отказ, а не догадку.
 export const MARK_CHAPTERS = {};
 
+// ===== Сама Пасха: полное собственное последование =====
+// В отличие от остальных восьми "нововоскресений" Цветной Триоди (см.
+// planPentecostarionSunday ниже, всё ещё заглушка "только литургия"), для
+// самого дня Пасхи в проекте есть полный, вычитанный по первоисточнику
+// комплект: полунощница (канон Великой субботы, перенесение Плащаницы),
+// утреня (канон прп. Иоанна Дамаскина, целование, огласительное слово
+// свт. Иоанна Златоуста), часы (единый краткий чин на все четыре часа) и
+// литургия свт. Иоанна Златоуста с пасхальными антифонами — см.
+// data/templates/{midnight-office,matins,hours,liturgy}-pascha.json.
+// Строится для ЛЮБОГО года (сама Пасха — offset 0 всегда).
+const PASCHA_SERVICE_SET = {
+  midnightOffice: "midnight-office-pascha",
+  matins: "matins-pascha",
+  hours: { "1": "hours-pascha", "3": "hours-pascha", "6": "hours-pascha", "9": "hours-pascha" },
+  liturgy: "liturgy-pascha",
+};
+
+export function planPaschaService(date) {
+  const offset = paschaOffset(date);
+  if (offset !== 0) return null;
+
+  const named = NAMED_DAYS_BY_OFFSET.get(0);
+
+  return {
+    dateLabel: formatDateLabel(date),
+    feastName: named.name,
+    period: named.period,
+    tone: null,
+    fasting: "Разреше́ние на вся",
+    services: { ...PASCHA_SERVICE_SET },
+    variables: { special_service: named.specialService },
+  };
+}
+
 // ===== Общая заглушка для уже частично готового содержимого =====
 // Единственный кусок Триоди, для которого в проекте есть хоть какое-то
 // содержимое (см. data/days/2026-04-19..2026-06-14.json) — это минимальный
 // вариант литургии "с переменными" для восьми воскресений Цветной Триоди
-// плюс Пасхи и Пятидесятницы. Здесь эта же заготовка строится для ЛЮБОГО
-// года — то же самое обобщение, которое planDayService уже делает для
-// рядового времени в typikon.js.
-const PENTECOSTARION_SUNDAY_OFFSETS = new Set([0, 7, 14, 21, 28, 35, 42, 49, 56, 63]);
+// плюс Пятидесятницы. Сама Пасха (offset 0) больше не входит в эту заглушку
+// — для неё есть полный комплект, см. planPaschaService выше; вызывающий
+// код (typikon.js) должен проверять planPaschaService ПЕРЕД этой функцией.
+// Здесь эта же заготовка строится для ЛЮБОГО года — то же самое обобщение,
+// которое planDayService уже делает для рядового времени в typikon.js.
+const PENTECOSTARION_SUNDAY_OFFSETS = new Set([7, 14, 21, 28, 35, 42, 49, 56, 63]);
 
 // ===== Недели Великого поста с уже готовыми шаблонами =====
 // В отличие от заглушки planPentecostarionSunday (только литургия), для
@@ -326,11 +362,7 @@ export function planPentecostarionSunday(date) {
   const named = NAMED_DAYS_BY_OFFSET.get(offset);
   if (!named || !PENTECOSTARION_SUNDAY_OFFSETS.has(offset)) return null;
 
-  // В день самой Пасхи глас Октоиха ещё не действует (Светлая седмица,
-  // computeGlas вернёт null), но эксапостиларий "Плотию уснув" по традиции
-  // печатается с пометкой "глас 1-й" — это фиксированное указание, не
-  // результат гласового цикла, и она не отменяется на Пасху отдельно.
-  const glas = offset === 0 ? 1 : computeGlas(date);
+  const glas = computeGlas(date);
   const isOwnProper = named.scheme === MENAION_SCHEME.EXCLUDED_OWN_PROPER;
 
   // От Пасхи до Недели всех святых включительно (offset 56) — полное

@@ -16,7 +16,7 @@
 // той же формы, что и рукописные файлы data/days/*.json.
 
 import { computeGlas } from "./paschalion.js";
-import { describeTriodionDay, planPentecostarionSunday, planLentenSundayService, planFixedProperService } from "./triodion.js";
+import { describeTriodionDay, planPaschaService, planPentecostarionSunday, planLentenSundayService, planFixedProperService } from "./triodion.js";
 
 // ===== Общие календарные утилиты =====
 
@@ -251,7 +251,7 @@ export function planDayService(date, mineaMeta) {
   // ещё не подкреплено готовыми шаблонами.
   const triodDay = describeTriodionDay(date);
   if (triodDay) {
-    const plan = planPentecostarionSunday(date) || planLentenSundayService(date) || planFixedProperService(date);
+    const plan = planPaschaService(date) || planPentecostarionSunday(date) || planLentenSundayService(date) || planFixedProperService(date);
     if (plan) return { ok: true, plan };
     return { ok: false, reason: "triod-not-implemented", triodDay };
   }
