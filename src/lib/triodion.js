@@ -162,7 +162,15 @@ const NAMED_DAYS = [
   // — сочетание со святым начинается только с вечерни САМОГО дня вечером,
   // то есть уже за пределами Недели, во вседневном богослужении).
   { offset: 7, kind: "sunday", name: "Неде́ля 2-я по Па́сце, апо́стола Фомы́. Антипа́сха", period: "Пентикоста́рий", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, specialService: "antipascha", services: { matins: "matins-antipascha", liturgy: "liturgy-antipascha", vespers: "vespers-antipascha-evening" }, fasting: "Разреше́ние на вся" },
-  { offset: 14, kind: "sunday", name: "Неде́ля 3-я по Па́сце, святы́х жён-мироно́сиц", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
+  // Глас Октоиха в период Цветной Триоди — не рядовой рассчитываемый цикл
+  // (computeGlas в эти даты возвращает null, см. planDayService), а
+  // фиксированное, зависящее только от номера Недели по Пасхе свойство:
+  // Неделя 2-я (Антипасха) — глас 1, Неделя 3-я (жён-мироносиц) — глас 2,
+  // и так далее до Недели всех святых (offset 56), с которой возобновляется
+  // обычный рядовой 8-гласовый цикл. Поэтому tone здесь — число, а не null,
+  // и задаётся explicit, а не через computeGlas().
+  { offset: 13, kind: "saturday", name: "Суббо́та 2-й седми́цы по Па́сце", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 2, services: { vespers: "vespers-myronositsy" }, fasting: "Разреше́ние на вся" },
+  { offset: 14, kind: "sunday", name: "Неде́ля 3-я по Па́сце, святы́х жён-мироно́сиц", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 2, services: { matins: "matins-myronositsy", liturgy: "liturgy-myronositsy" }, fasting: "Разреше́ние на вся" },
   { offset: 21, kind: "sunday", name: "Неде́ля 4-я по Па́сце, о разсла́бленном", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
   { offset: 25, kind: "weekday", name: "Преполове́ние Пятидеся́тницы", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
   { offset: 28, kind: "sunday", name: "Неде́ля 5-я по Па́сце, о самаряны́не", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
@@ -305,16 +313,17 @@ export function planPaschaService(date) {
 
 // ===== Общая заглушка для уже частично готового содержимого =====
 // Единственный кусок Триоди, для которого в проекте есть хоть какое-то
-// содержимое (см. data/days/2026-04-26..2026-06-14.json) — это минимальный
-// вариант литургии "с переменными" для семи воскресений Цветной Триоди
-// плюс Пятидесятницы. Сама Пасха (offset 0) и Неделя Антипасхи (offset 7)
-// больше не входят в эту заглушку — для них есть полный комплект (см.
-// planPaschaService выше и services в NAMED_DAYS для offset 7); вызывающий
-// код (typikon.js) должен проверять planPaschaService ПЕРЕД этой функцией,
-// а planFixedProperService — сразу после неё (см. цепочку в typikon.js).
-// Здесь эта же заготовка строится для ЛЮБОГО года — то же самое обобщение,
-// которое planDayService уже делает для рядового времени в typikon.js.
-const PENTECOSTARION_SUNDAY_OFFSETS = new Set([14, 21, 28, 35, 42, 49, 56, 63]);
+// содержимое (см. data/days/2026-05-03..2026-06-14.json) — это минимальный
+// вариант литургии "с переменными" для шести воскресений Цветной Триоди
+// плюс Пятидесятницы. Сама Пасха (offset 0), Неделя Антипасхи (offset 7) и
+// Неделя жён-мироносиц (offset 14) больше не входят в эту заглушку — для
+// них есть полный комплект (см. planPaschaService выше и services в
+// NAMED_DAYS); вызывающий код (typikon.js) должен проверять planPaschaService
+// ПЕРЕД этой функцией, а planFixedProperService — сразу после неё (см.
+// цепочку в typikon.js). Здесь эта же заготовка строится для ЛЮБОГО года —
+// то же самое обобщение, которое planDayService уже делает для рядового
+// времени в typikon.js.
+const PENTECOSTARION_SUNDAY_OFFSETS = new Set([21, 28, 35, 42, 49, 56, 63]);
 
 // ===== Недели Великого поста с уже готовыми шаблонами =====
 // В отличие от заглушки planPentecostarionSunday (только литургия), для
@@ -367,7 +376,11 @@ export function planFixedProperService(date) {
     dateLabel: formatDateLabel(date),
     feastName: named.name,
     period: named.period,
-    tone: null,
+    // Большинство дней здесь — своё последование без Октоиха (glas = null).
+    // Исключение — воскресенья Цветной Триоди с фиксированным по номеру
+    // Недели гласом (см. offset 13-14 и далее): для них named.tone задан
+    // явно в NAMED_DAYS, а не вычисляется через computeGlas().
+    tone: named.tone ?? null,
     fasting: named.fasting || "Стро́гий пост",
     services: { ...named.services },
     variables: {},

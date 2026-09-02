@@ -9,10 +9,8 @@
   "period": "Пентикоста́рий",
   "fasting": "Разреше́ние на вся",
   "services": {
-    "liturgy": "liturgy-sunday-with-variables"
+    "matins": "matins-myronositsy",
+    "liturgy": "liturgy-myronositsy"
   },
-  "variables": {
-    "glas": 2,
-    "oktoih_source": "oktoih-variables-glas2"
-  }
+  "variables": {}
 }
