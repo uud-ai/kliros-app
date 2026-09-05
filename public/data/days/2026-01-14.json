@@ -1,0 +1,11 @@
+{
+  "dateLabel": "Среда, 14 января 2026",
+  "feastName": "Обрезание Господа нашего Иисуса Христа. Свт. Василий Великий",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-obrezanie-vasily",
+    "matins": "matins-obrezanie-vasily",
+    "liturgy": "liturgy-obrezanie-vasily"
+  }
+}

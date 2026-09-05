@@ -250,6 +250,10 @@ export const FIXED_GREAT_FEASTS = {
     slug: "otdanie-rozhdestva",
     feastName: "Отда́ние пра́здника Рождества́ Христо́ва",
   },
+  "01-14": {
+    slug: "obrezanie-vasily",
+    feastName: "Обре́зание Го́спода на́шего Иису́са Христа́. Свт. Васи́лий Вели́кий",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {
