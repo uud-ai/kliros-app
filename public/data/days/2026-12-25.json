@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Пятница, 25 декабря 2026",
+  "feastName": "Свт. Спиридон Тримифунтский, чудотворец",
+  "period": "Минея. Декабрь",
+  "tone": 4,
+  "rank": "doxology",
+  "services": {
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-doxology",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 4,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas4-fri",
+      "minea": "12-25"
+    }
+  }
+}
