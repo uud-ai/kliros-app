@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Понедельник, 14 декабря 2026",
+  "feastName": "Прав. Филарет Милостивый",
+  "period": "Минея. Декабрь",
+  "tone": 3,
+  "rank": "polyeleos",
+  "services": {
+    "vespers": "vespers-ferial-polyeleos",
+    "matins": "matins-ferial-polyeleos",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 3,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas3-mon",
+      "minea": "12-14"
+    }
+  }
+}
