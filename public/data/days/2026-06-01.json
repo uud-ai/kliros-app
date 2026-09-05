@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "date": "2026-06-01",
+    "dayOfWeek": "monday"
+  },
+  "dateLabel": "Понедельник, 1 июня 2026",
+  "feastName": "День Свята́го Ду́ха",
+  "tone": null,
+  "period": "Пятидеся́тница",
+  "fasting": "Разреше́ние на вся",
+  "services": {
+    "matins": "matins-svyatogo-dukha",
+    "liturgy": "liturgy-svyatogo-dukha"
+  },
+  "variables": {}
+}

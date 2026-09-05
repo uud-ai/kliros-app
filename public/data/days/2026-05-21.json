@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "date": "2026-05-21",
+    "dayOfWeek": "thursday"
+  },
+  "dateLabel": "Четверг, 21 мая 2026",
+  "feastName": "Вознесе́ние Госпо́дне",
+  "tone": null,
+  "period": "Пентикоста́рий",
+  "services": {
+    "vespers": "vespers-voznesenie",
+    "matins": "matins-voznesenie",
+    "liturgy": "liturgy-voznesenie"
+  },
+  "variables": {}
+}

@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "date": "2026-05-06",
+    "dayOfWeek": "wednesday"
+  },
+  "dateLabel": "Среда, 6 мая 2026",
+  "feastName": "Преполове́ние Пятидеся́тницы",
+  "tone": null,
+  "period": "Пентикоста́рий",
+  "services": {
+    "vespers": "vespers-prepolovenie",
+    "matins": "matins-prepolovenie",
+    "liturgy": "liturgy-prepolovenie"
+  },
+  "variables": {}
+}

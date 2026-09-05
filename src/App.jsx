@@ -8,6 +8,7 @@ const SERVICES = [
   { key: "matins", title: "У́треня" },
   { key: "liturgy", title: "Литурги́я" },
   { key: "hours", title: "Часы́" },
+  { key: "vespersKneeling", title: "Коленопрекл. вечерня" },
 ];
 
 // Формат даты для имени файла: "YYYY-MM-DD"
