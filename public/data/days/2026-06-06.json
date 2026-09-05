@@ -1,0 +1,15 @@
+{
+  "_meta": {
+    "date": "2026-06-06",
+    "dayOfWeek": "saturday"
+  },
+  "dateLabel": "Суббота, 6 июня 2026",
+  "feastName": "Суббо́та по Пятидеся́тнице",
+  "tone": 8,
+  "period": "По Пятидеся́тнице",
+  "fasting": "Разреше́ние на вся",
+  "services": {
+    "vespers": "vespers-vsekh-svyatykh"
+  },
+  "variables": {}
+}

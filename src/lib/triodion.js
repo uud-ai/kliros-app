@@ -185,7 +185,8 @@ const NAMED_DAYS = [
   { offset: 48, kind: "saturday", name: "Тро́ицкая роди́тельская суббо́та", period: "Пентикоста́рий", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL },
   { offset: 49, kind: "sunday", name: "Святая Пятидеся́тница. День Святы́я Тро́ицы", period: "Пятидеся́тница", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, specialService: "pentecost", services: { vespers: "vespers-pentecost", matins: "matins-pentecost", liturgy: "liturgy-pentecost", vespersKneeling: "vespers-pentecost-kneeling" } },
   { offset: 50, kind: "weekday", name: "День Свята́го Ду́ха", period: "Пятидеся́тница", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { matins: "matins-svyatogo-dukha", liturgy: "liturgy-svyatogo-dukha" } },
-  { offset: 56, kind: "sunday", name: "Неде́ля 1-я по Пятидеся́тнице, всех святы́х", period: "По Пятидеся́тнице", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
+  { offset: 55, kind: "saturday", name: "Суббо́та по Пятидеся́тнице", period: "По Пятидеся́тнице", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 8, services: { vespers: "vespers-vsekh-svyatykh" }, fasting: "Разреше́ние на вся" },
+  { offset: 56, kind: "sunday", name: "Неде́ля 1-я по Пятидеся́тнице, всех святы́х", period: "По Пятидеся́тнице", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 8, services: { matins: "matins-vsekh-svyatykh", liturgy: "liturgy-vsekh-svyatykh" }, fasting: "Разреше́ние на вся" },
   { offset: 63, kind: "sunday", name: "Неде́ля 2-я по Пятидеся́тнице, всех святы́х, в земле́ Росси́йской просия́вших", period: "По Пятидеся́тнице", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
 ];
 
