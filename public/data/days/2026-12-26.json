@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Суббота, 26 декабря 2026",
+  "feastName": "Прп. Герман Аляскинский, равноап. Алеутский",
+  "period": "Минея. Декабрь",
+  "tone": 4,
+  "rank": "vigil",
+  "services": {
+    "vespers": "vespers-vigil",
+    "matins": "matins-vigil",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 4,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas4-sat",
+      "minea": "12-26"
+    }
+  }
+}
