@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Суббота, 19 декабря 2026",
+  "feastName": "Свт. Николай Чудотворец, архиеп. Мир Ликийских",
+  "period": "Минея. Декабрь",
+  "tone": 3,
+  "rank": "vigil",
+  "services": {
+    "vespers": "vespers-vigil",
+    "matins": "matins-vigil",
+    "liturgy": "liturgy-ferial-polyeleos",
+    "hours": {
+      "1": "hours-1-ferial",
+      "3": "hours-3-ferial",
+      "6": "hours-6-ferial",
+      "9": "hours-9-ferial"
+    }
+  },
+  "variables": {
+    "glas": 3,
+    "sources": {
+      "oktoih": "oktoih-weekday-glas3-sat",
+      "minea": "12-19"
+    }
+  }
+}
