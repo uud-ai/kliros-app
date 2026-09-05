@@ -1,0 +1,11 @@
+{
+  "dateLabel": "Вторник, 13 января 2026",
+  "feastName": "Отдание праздника Рождества Христова",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-otdanie-rozhdestva",
+    "matins": "matins-otdanie-rozhdestva",
+    "liturgy": "liturgy-otdanie-rozhdestva"
+  }
+}

@@ -246,6 +246,10 @@ export const FIXED_GREAT_FEASTS = {
     feastName: "Попра́зднство Рождества́ Христо́ва. Мчц. Ани́сия Солу́нская",
     minea: "01-12",
   },
+  "01-13": {
+    slug: "otdanie-rozhdestva",
+    feastName: "Отда́ние пра́здника Рождества́ Христо́ва",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {
