@@ -241,6 +241,11 @@ export const FIXED_GREAT_FEASTS = {
     feastName: "Попра́зднство Рождества́ Христо́ва. Свв. 20 000 му́чеников, в Никомиди́и сожже́нных",
     minea: "01-10",
   },
+  "01-12": {
+    slug: "forefeast-nativity",
+    feastName: "Попра́зднство Рождества́ Христо́ва. Мчц. Ани́сия Солу́нская",
+    minea: "01-12",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {

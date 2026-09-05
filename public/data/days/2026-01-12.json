@@ -1,0 +1,16 @@
+{
+  "dateLabel": "Понедельник, 12 января 2026",
+  "feastName": "Попразднство Рождества Христова. Мчц. Анисия Солунская",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-forefeast-nativity",
+    "matins": "matins-forefeast-nativity",
+    "liturgy": "liturgy-forefeast-nativity"
+  },
+  "variables": {
+    "sources": {
+      "minea": "01-12"
+    }
+  }
+}
