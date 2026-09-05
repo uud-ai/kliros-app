@@ -1,0 +1,16 @@
+{
+  "dateLabel": "Четверг, 15 января 2026",
+  "feastName": "Предпразднство Богоявления. Свт. Сильвестр, папа Римский",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-forefeast-theophany",
+    "matins": "matins-forefeast-theophany",
+    "liturgy": "liturgy-forefeast-theophany"
+  },
+  "variables": {
+    "sources": {
+      "minea": "01-15"
+    }
+  }
+}

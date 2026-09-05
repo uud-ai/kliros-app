@@ -254,6 +254,11 @@ export const FIXED_GREAT_FEASTS = {
     slug: "obrezanie-vasily",
     feastName: "Обре́зание Го́спода на́шего Иису́са Христа́. Свт. Васи́лий Вели́кий",
   },
+  "01-15": {
+    slug: "forefeast-theophany",
+    feastName: "Предпра́зднство Богоявле́ния. Свт. Сильве́стр, па́па Ри́мский",
+    minea: "01-15",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {
