@@ -259,6 +259,11 @@ export const FIXED_GREAT_FEASTS = {
     feastName: "Предпра́зднство Богоявле́ния. Свт. Сильве́стр, па́па Ри́мский",
     minea: "01-15",
   },
+  "01-16": {
+    slug: "forefeast-theophany",
+    feastName: "Предпра́зднство Богоявле́ния. Мч. Горди́й",
+    minea: "01-16",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {

@@ -1,0 +1,16 @@
+{
+  "dateLabel": "Пятница, 16 января 2026",
+  "feastName": "Предпразднство Богоявления. Мч. Гордий",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-forefeast-theophany",
+    "matins": "matins-forefeast-theophany",
+    "liturgy": "liturgy-forefeast-theophany"
+  },
+  "variables": {
+    "sources": {
+      "minea": "01-16"
+    }
+  }
+}
