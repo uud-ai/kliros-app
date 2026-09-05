@@ -231,6 +231,11 @@ export const FIXED_GREAT_FEASTS = {
     feastName: "Попра́зднство Рождества́ Христо́ва. Собо́р Пресвяты́я Богоро́дицы",
     minea: "01-08",
   },
+  "01-09": {
+    slug: "forefeast-nativity",
+    feastName: "Попра́зднство Рождества́ Христо́ва. Ап. первому́ч. Стефа́н",
+    minea: "01-09",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {
