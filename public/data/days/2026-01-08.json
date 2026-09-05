@@ -1,0 +1,16 @@
+{
+  "dateLabel": "Четверг, 8 января 2026",
+  "feastName": "Попразднство Рождества Христова. Собор Пресвятыя Богородицы",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-forefeast-nativity",
+    "matins": "matins-forefeast-nativity",
+    "liturgy": "liturgy-forefeast-nativity"
+  },
+  "variables": {
+    "sources": {
+      "minea": "01-08"
+    }
+  }
+}
