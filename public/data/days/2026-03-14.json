@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "date": "2026-03-14",
+    "dayOfWeek": "saturday"
+  },
+  "dateLabel": "Суббота, 14 марта 2026",
+  "feastName": "Суббо́та 3-й седми́цы — роди́тельская",
+  "tone": 6,
+  "period": "Вели́кий пост",
+  "fasting": "Стро́гий пост",
+  "services": {
+    "vespers": "vespers-roditelskaya-3-sedmitsy",
+    "matins": "matins-roditelskaya-3-sedmitsy",
+    "liturgy": "liturgy-roditelskaya-3-sedmitsy"
+  },
+  "variables": {}
+}

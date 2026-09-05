@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "date": "2026-05-30",
+    "dayOfWeek": "saturday"
+  },
+  "dateLabel": "Суббота, 30 мая 2026",
+  "feastName": "Тро́ицкая роди́тельская суббо́та",
+  "tone": 6,
+  "period": "Пентикоста́рий",
+  "fasting": "Разреше́ние на вся",
+  "services": {
+    "vespers": "vespers-troitskaya-roditelskaya",
+    "matins": "matins-troitskaya-roditelskaya",
+    "liturgy": "liturgy-troitskaya-roditelskaya"
+  },
+  "variables": {}
+}

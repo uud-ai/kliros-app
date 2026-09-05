@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "date": "2026-03-07",
+    "dayOfWeek": "saturday"
+  },
+  "dateLabel": "Суббота, 7 марта 2026",
+  "feastName": "Суббо́та 2-й седми́цы — роди́тельская",
+  "tone": 5,
+  "period": "Вели́кий пост",
+  "fasting": "Стро́гий пост",
+  "services": {
+    "vespers": "vespers-roditelskaya-2-sedmitsy",
+    "matins": "matins-roditelskaya-2-sedmitsy",
+    "liturgy": "liturgy-roditelskaya-2-sedmitsy"
+  },
+  "variables": {}
+}

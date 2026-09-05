@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "date": "2026-02-14",
+    "dayOfWeek": "saturday"
+  },
+  "dateLabel": "Суббота, 14 февраля 2026",
+  "feastName": "Суббо́та мясопу́стная (Вселе́нская роди́тельская)",
+  "tone": 2,
+  "period": "По́стная Три́одь",
+  "fasting": "Разреше́ние на вся",
+  "services": {
+    "vespers": "vespers-myasopustnaya",
+    "matins": "matins-myasopustnaya",
+    "liturgy": "liturgy-myasopustnaya"
+  },
+  "variables": {}
+}

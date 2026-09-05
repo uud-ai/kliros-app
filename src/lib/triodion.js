@@ -123,17 +123,17 @@ const BRIGHT_WEEKDAY_HOURS = { "1": "hours-pascha", "3": "hours-pascha", "6": "h
 const NAMED_DAYS = [
   { offset: -70, kind: "sunday", name: "Неде́ля о мытаре́ и фарисе́е", period: "По́стная Три́одь", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
   { offset: -63, kind: "sunday", name: "Неде́ля о блу́дном сы́не", period: "По́стная Три́одь", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
-  { offset: -57, kind: "saturday", name: "Суббо́та мясопу́стная (Вселе́нская роди́тельская)", period: "По́стная Три́одь", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL },
+  { offset: -57, kind: "saturday", name: "Суббо́та мясопу́стная (Вселе́нская роди́тельская)", period: "По́стная Три́одь", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL, services: { vespers: "vespers-myasopustnaya", matins: "matins-myasopustnaya", liturgy: "liturgy-myasopustnaya" }, fasting: "Разреше́ние на вся" },
   { offset: -56, kind: "sunday", name: "Неде́ля мясопу́стная, о Стра́шном Суде́", period: "По́стная Три́одь", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
   { offset: -49, kind: "sunday", name: "Неде́ля сыропу́стная. Воспомина́ние Ада́мова изгна́ния. Проще́ное воскресе́нье", period: "По́стная Три́одь", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
   { offset: -48, kind: "weekday", name: "Чи́стый понеде́льник. Нача́ло Вели́кого поста́", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY },
   { offset: -43, kind: "saturday", name: "Суббо́та 1-й седми́цы, вмч. Фео́дора Ти́рона", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_SATURDAY_REDUCED },
   { offset: -42, kind: "sunday", name: "Неде́ля 1-я Вели́кого поста́. Торжество́ Правосла́вия", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_SUNDAY_NO_MINEA, contentKey: "great-lent-sunday-1" },
-  { offset: -36, kind: "saturday", name: "Суббо́та 2-й седми́цы — роди́тельская", period: "Вели́кий пост", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL },
+  { offset: -36, kind: "saturday", name: "Суббо́та 2-й седми́цы — роди́тельская", period: "Вели́кий пост", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL, services: { vespers: "vespers-roditelskaya-2-sedmitsy", matins: "matins-roditelskaya-2-sedmitsy", liturgy: "liturgy-roditelskaya-2-sedmitsy" }, fasting: "Стро́гий пост" },
   { offset: -35, kind: "sunday", name: "Неде́ля 2-я Вели́кого поста́, свт. Григо́рия Пала́мы", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_SUNDAY_NO_MINEA, contentKey: "great-lent-sunday-2" },
-  { offset: -29, kind: "saturday", name: "Суббо́та 3-й седми́цы — роди́тельская", period: "Вели́кий пост", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL },
+  { offset: -29, kind: "saturday", name: "Суббо́та 3-й седми́цы — роди́тельская", period: "Вели́кий пост", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL, services: { vespers: "vespers-roditelskaya-3-sedmitsy", matins: "matins-roditelskaya-3-sedmitsy", liturgy: "liturgy-roditelskaya-3-sedmitsy" }, fasting: "Стро́гий пост" },
   { offset: -28, kind: "sunday", name: "Неде́ля 3-я Вели́кого поста́, Крестопокло́нная", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_SUNDAY_NO_MINEA, contentKey: "great-lent-sunday-3" },
-  { offset: -22, kind: "saturday", name: "Суббо́та 4-й седми́цы — роди́тельская", period: "Вели́кий пост", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL },
+  { offset: -22, kind: "saturday", name: "Суббо́та 4-й седми́цы — роди́тельская", period: "Вели́кий пост", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL, services: { vespers: "vespers-roditelskaya-4-sedmitsy", matins: "matins-roditelskaya-4-sedmitsy", liturgy: "liturgy-roditelskaya-4-sedmitsy" }, fasting: "Стро́гий пост" },
   { offset: -21, kind: "sunday", name: "Неде́ля 4-я Вели́кого поста́, прп. Иоа́нна Ле́ствичника", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_SUNDAY_NO_MINEA, contentKey: "great-lent-sunday-4" },
   { offset: -18, kind: "weekday", name: "Мари́ино стоя́ние (кано́н прп. Андре́я Кри́тского целико́м)", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY },
   { offset: -15, kind: "saturday", name: "Суббо́та Ака́фиста. Похвала́ Пресвято́й Богоро́дицы", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_SATURDAY_REDUCED },
@@ -182,7 +182,7 @@ const NAMED_DAYS = [
   { offset: 39, kind: "weekday", name: "Вознесе́ние Госпо́дне", period: "Пентикоста́рий", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-voznesenie", matins: "matins-voznesenie", liturgy: "liturgy-voznesenie" } },
   { offset: 41, kind: "saturday", name: "Суббо́та 6-й седми́цы по Па́сце", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 6, services: { vespers: "vespers-otcev" }, fasting: "Разреше́ние на вся" },
   { offset: 42, kind: "sunday", name: "Неде́ля 7-я по Па́сце, святы́х отце́в I Вселе́нскаго Собо́ра", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 6, services: { matins: "matins-otcev", liturgy: "liturgy-otcev" }, fasting: "Разреше́ние на вся" },
-  { offset: 48, kind: "saturday", name: "Тро́ицкая роди́тельская суббо́та", period: "Пентикоста́рий", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL },
+  { offset: 48, kind: "saturday", name: "Тро́ицкая роди́тельская суббо́та", period: "Пентикоста́рий", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL, tone: 6, services: { vespers: "vespers-troitskaya-roditelskaya", matins: "matins-troitskaya-roditelskaya", liturgy: "liturgy-troitskaya-roditelskaya" }, fasting: "Разреше́ние на вся" },
   { offset: 49, kind: "sunday", name: "Святая Пятидеся́тница. День Святы́я Тро́ицы", period: "Пятидеся́тница", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, specialService: "pentecost", services: { vespers: "vespers-pentecost", matins: "matins-pentecost", liturgy: "liturgy-pentecost", vespersKneeling: "vespers-pentecost-kneeling" } },
   { offset: 50, kind: "weekday", name: "День Свята́го Ду́ха", period: "Пятидеся́тница", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { matins: "matins-svyatogo-dukha", liturgy: "liturgy-svyatogo-dukha" } },
   { offset: 55, kind: "saturday", name: "Суббо́та по Пятидеся́тнице", period: "По Пятидеся́тнице", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 8, services: { vespers: "vespers-vsekh-svyatykh" }, fasting: "Разреше́ние на вся" },
@@ -377,15 +377,23 @@ export function planFixedProperService(date) {
   const named = NAMED_DAYS_BY_OFFSET.get(offset);
   if (!named || !named.services) return null;
 
+  // Большинство дней здесь — своё последование без Октоиха (glas = null).
+  // Исключение — воскресенья Цветной Триоди с фиксированным по номеру
+  // Недели гласом (см. offset 13-14 и далее): для них named.tone задан
+  // явно в NAMED_DAYS, а не вычисляется через computeGlas(). Родительские
+  // субботы (SATURDAY_MEMORIAL_UNIVERSAL) — не own-proper день: Октоих
+  // реально соединяется (стихиры мученичны и богородичен рядового гласа),
+  // просто этот текст переменный год от года и не приводится в шаблоне
+  // (см. note в vespers-myasopustnaya.json) — поэтому тут, в отличие от
+  // EXCLUDED_OWN_PROPER дней, честно вычисляем действующий глас, а не
+  // ставим null.
+  const tone = named.tone ?? (named.scheme === MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL ? computeGlas(date) : null);
+
   return {
     dateLabel: formatDateLabel(date),
     feastName: named.name,
     period: named.period,
-    // Большинство дней здесь — своё последование без Октоиха (glas = null).
-    // Исключение — воскресенья Цветной Триоди с фиксированным по номеру
-    // Недели гласом (см. offset 13-14 и далее): для них named.tone задан
-    // явно в NAMED_DAYS, а не вычисляется через computeGlas().
-    tone: named.tone ?? null,
+    tone,
     fasting: named.fasting || "Стро́гий пост",
     services: { ...named.services },
     variables: {},

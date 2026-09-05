@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "date": "2026-03-21",
+    "dayOfWeek": "saturday"
+  },
+  "dateLabel": "Суббота, 21 марта 2026",
+  "feastName": "Суббо́та 4-й седми́цы — роди́тельская",
+  "tone": 7,
+  "period": "Вели́кий пост",
+  "fasting": "Стро́гий пост",
+  "services": {
+    "vespers": "vespers-roditelskaya-4-sedmitsy",
+    "matins": "matins-roditelskaya-4-sedmitsy",
+    "liturgy": "liturgy-roditelskaya-4-sedmitsy"
+  },
+  "variables": {}
+}
