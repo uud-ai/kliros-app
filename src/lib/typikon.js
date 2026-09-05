@@ -194,6 +194,35 @@ export const FIXED_GREAT_FEASTS = {
     feastName: "Введе́ние (Вход) во храм Пресвяты́я Влады́чицы на́шея Богоро́дицы и Присноде́вы Мари́и",
     fasting: "Разреше́ние на ры́бу",
   },
+  // ===== Предпразднство Рождества Христова (5 дней, гражд. 2–6 января) =====
+  // Октоих не поётся (см. рубрику Минеи под 20 декабря по ст. ст.); служба
+  // соединяет предпразднство с памятью святого дня по общему параметризо-
+  // ванному шаблону *-forefeast-nativity (см. data/minea/01-0N.json).
+  "01-02": {
+    slug: "forefeast-nativity",
+    feastName: "Предпра́зднство Рождества́ Христо́ва. Сщмч. Игна́тий Богоно́сец",
+    minea: "01-02",
+  },
+  "01-03": {
+    slug: "forefeast-nativity",
+    feastName: "Предпра́зднство Рождества́ Христо́ва",
+    minea: "01-03",
+  },
+  "01-04": {
+    slug: "forefeast-nativity",
+    feastName: "Предпра́зднство Рождества́ Христо́ва",
+    minea: "01-04",
+  },
+  "01-05": {
+    slug: "forefeast-nativity",
+    feastName: "Предпра́зднство Рождества́ Христо́ва",
+    minea: "01-05",
+  },
+  "01-06": {
+    slug: "forefeast-nativity",
+    feastName: "Предпра́зднство Рождества́ Христо́ва (Наве́черие)",
+    minea: "01-06",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {
@@ -208,6 +237,7 @@ function planFixedGreatFeast(date, feast) {
       matins: `matins-${feast.slug}`,
       liturgy: `liturgy-${feast.slug}`,
     },
+    ...(feast.minea ? { variables: { sources: { minea: feast.minea } } } : {}),
   };
 }
 

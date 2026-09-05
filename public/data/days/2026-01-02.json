@@ -1,0 +1,16 @@
+{
+  "dateLabel": "Пятница, 2 января 2026",
+  "feastName": "Предпразднство Рождества Христова. Сщмч. Игнатий Богоносец",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-forefeast-nativity",
+    "matins": "matins-forefeast-nativity",
+    "liturgy": "liturgy-forefeast-nativity"
+  },
+  "variables": {
+    "sources": {
+      "minea": "01-02"
+    }
+  }
+}
