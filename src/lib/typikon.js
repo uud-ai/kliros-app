@@ -210,7 +210,7 @@ export const FIXED_GREAT_FEASTS = {
   },
   "01-05": {
     slug: "forefeast-nativity",
-    feastName: "Предпра́зднство Рождества́ Христо́ва",
+    feastName: "Предпра́зднство Рождества́ Христо́ва. Свв. 10 му́чеников Кри́тских",
     minea: "01-05",
   },
   "01-06": {
