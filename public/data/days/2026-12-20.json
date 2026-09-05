@@ -1,0 +1,25 @@
+{
+  "dateLabel": "Воскресенье, 20 декабря 2026",
+  "feastName": "Прп. Антоний Сийский",
+  "period": "Минея. Декабрь",
+  "tone": 4,
+  "rank": "sunday-with-saint",
+  "services": {
+    "vespers": "vespers-sunday-with-saint",
+    "matins": "matins-sunday-with-saint",
+    "liturgy": "liturgy-sunday-with-variables",
+    "hours": {
+      "1": "hours-1-sunday-featured",
+      "3": "hours-3-sunday-featured",
+      "6": "hours-6-sunday-featured",
+      "9": "hours-9-sunday-featured"
+    }
+  },
+  "variables": {
+    "glas": 4,
+    "sources": {
+      "oktoih": "oktoih-variables-glas4",
+      "minea": "12-20"
+    }
+  }
+}
