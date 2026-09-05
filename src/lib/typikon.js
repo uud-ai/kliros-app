@@ -218,6 +218,10 @@ export const FIXED_GREAT_FEASTS = {
     feastName: "Предпра́зднство Рождества́ Христо́ва (Наве́черие). Прмц. Евге́ния",
     minea: "01-06",
   },
+  "01-07": {
+    slug: "rozhdestvo",
+    feastName: "Рождество́ Го́спода Бо́га и Спа́са на́шего Иису́са Христа́",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {
