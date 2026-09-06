@@ -1,0 +1,16 @@
+{
+  "dateLabel": "Суббота, 17 января 2026",
+  "feastName": "Предпразднство Богоявления. Собор святых 70 апостол",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-forefeast-theophany",
+    "matins": "matins-forefeast-theophany",
+    "liturgy": "liturgy-forefeast-theophany"
+  },
+  "variables": {
+    "sources": {
+      "minea": "01-17"
+    }
+  }
+}

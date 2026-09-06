@@ -186,6 +186,14 @@
     },
 
     {
+      "section": "Светилен святому",
+      "role": "Лик",
+      "text": "{{minea.svetilen}}",
+      "variable_type": "minea",
+      "variable_key": "svetilen",
+      "fallback": "Свети́лен святому (быва́ет не ка́ждый день; текст будет добавлен, е́сли есть у Мине́и)."
+    },
+    {
       "section": "Светилен",
       "role": "Лик",
       "text": "{{minea.svetilen_forefeast}}",
