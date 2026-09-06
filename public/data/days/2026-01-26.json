@@ -1,0 +1,11 @@
+{
+  "dateLabel": "Понедельник, 26 января 2026",
+  "feastName": "Попра́зднство Богоявле́ния. Мчч. Ерми́л и Стратони́к",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-popraznstvo-theophany",
+    "matins": "matins-popraznstvo-theophany",
+    "liturgy": "liturgy-popraznstvo-theophany"
+  }
+}
