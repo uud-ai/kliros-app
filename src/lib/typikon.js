@@ -277,6 +277,10 @@ export const FIXED_GREAT_FEASTS = {
     slug: "bogoyavleniya",
     feastName: "Свято́е Богоявле́ние. Креще́ние Го́спода Бо́га и Спа́са на́шего Иису́са Христа́",
   },
+  "01-20": {
+    slug: "sobor-predtechi",
+    feastName: "Собо́р Иоа́нна Предте́чи. Попра́зднство Богоявле́ния",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {

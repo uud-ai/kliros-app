@@ -1,0 +1,11 @@
+{
+  "dateLabel": "Вторник, 20 января 2026",
+  "feastName": "Собор Иоанна Предтечи. Попразднство Богоявления",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-sobor-predtechi",
+    "matins": "matins-sobor-predtechi",
+    "liturgy": "liturgy-sobor-predtechi"
+  }
+}
