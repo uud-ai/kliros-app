@@ -273,6 +273,10 @@ export const FIXED_GREAT_FEASTS = {
     slug: "navechernie-bogoyavleniya",
     feastName: "Навече́рие Богоявле́ния (Креще́нский соче́льник). Сщмч. Феопе́мпт и мч. Фео́на",
   },
+  "01-19": {
+    slug: "bogoyavleniya",
+    feastName: "Свято́е Богоявле́ние. Креще́ние Го́спода Бо́га и Спа́са на́шего Иису́са Христа́",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {

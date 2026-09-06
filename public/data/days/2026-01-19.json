@@ -1,0 +1,11 @@
+{
+  "dateLabel": "Понедельник, 19 января 2026",
+  "feastName": "Святое Богоявление. Крещение Господа Бога и Спаса нашего Иисуса Христа",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-bogoyavleniya",
+    "matins": "matins-bogoyavleniya",
+    "liturgy": "liturgy-bogoyavleniya"
+  }
+}
