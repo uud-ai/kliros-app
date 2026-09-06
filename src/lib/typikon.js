@@ -306,6 +306,10 @@ export const FIXED_GREAT_FEASTS = {
     feastName: "Попра́зднство Богоявле́ния. Мчч. Ерми́л и Стратони́к",
     minea: "01-26",
   },
+  "01-27": {
+    slug: "otdanie-bogoyavleniya",
+    feastName: "Отда́ние пра́здника Богоявле́ния",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {

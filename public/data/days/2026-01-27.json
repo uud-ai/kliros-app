@@ -1,0 +1,11 @@
+{
+  "dateLabel": "Вторник, 27 января 2026",
+  "feastName": "Отда́ние пра́здника Богоявле́ния",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-otdanie-bogoyavleniya",
+    "matins": "matins-otdanie-bogoyavleniya",
+    "liturgy": "liturgy-otdanie-bogoyavleniya"
+  }
+}
