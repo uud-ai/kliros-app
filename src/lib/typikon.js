@@ -286,6 +286,11 @@ export const FIXED_GREAT_FEASTS = {
     feastName: "Попра́зднство Богоявле́ния. Прп. Гео́ргий Хозеви́т",
     minea: "01-21",
   },
+  "01-22": {
+    slug: "popraznstvo-theophany",
+    feastName: "Попра́зднство Богоявле́ния. Свт. Фили́пп, митрополи́т Моско́вский",
+    minea: "01-22",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {
