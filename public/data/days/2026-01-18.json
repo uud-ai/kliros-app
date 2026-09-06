@@ -1,0 +1,17 @@
+{
+  "dateLabel": "Воскресенье, 18 января 2026",
+  "feastName": "Навечерие Богоявления (Крещенский сочельник). Сщмч. Феопемпт и мч. Феона",
+  "period": "Минея. Январь",
+  "tone": null,
+  "services": {
+    "vespers": "vespers-navechernie-bogoyavleniya",
+    "matins": "matins-navechernie-bogoyavleniya",
+    "liturgy": "liturgy-navechernie-bogoyavleniya",
+    "hours": {
+      "1": "hours-1-navechernie-bogoyavleniya",
+      "3": "hours-3-navechernie-bogoyavleniya",
+      "6": "hours-6-navechernie-bogoyavleniya",
+      "9": "hours-9-navechernie-bogoyavleniya"
+    }
+  }
+}

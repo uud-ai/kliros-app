@@ -269,6 +269,10 @@ export const FIXED_GREAT_FEASTS = {
     feastName: "Предпра́зднство Богоявле́ния. Собо́р святы́х 70 апо́стол",
     minea: "01-17",
   },
+  "01-18": {
+    slug: "navechernie-bogoyavleniya",
+    feastName: "Навече́рие Богоявле́ния (Креще́нский соче́льник). Сщмч. Феопе́мпт и мч. Фео́на",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {
