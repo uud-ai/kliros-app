@@ -296,6 +296,11 @@ export const FIXED_GREAT_FEASTS = {
     feastName: "Попра́зднство Богоявле́ния. Свт. Григо́рий, епи́скоп Ни́сский",
     minea: "01-23",
   },
+  "01-24": {
+    slug: "popraznstvo-theophany",
+    feastName: "Попра́зднство Богоявле́ния. Прп. Феодо́сий Вели́кий",
+    minea: "01-24",
+  },
 };
 
 function planFixedGreatFeast(date, feast) {
