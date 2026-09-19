@@ -1,0 +1,11 @@
+{
+  "dateLabel": "Воскресенье, 15 февраля 2026",
+  "feastName": "Сре́тение Го́спода Бо́га и Спа́са на́шего Иису́са Христа́ (совпада́ет с Неде́лей мясопу́стной, о Стра́шном Суде́)",
+  "period": "Минея. Февраль / Постная Триодь",
+  "tone": 3,
+  "services": {
+    "vespers": "vespers-sretenie-myasopustnaya",
+    "matins": "matins-sretenie-myasopustnaya",
+    "liturgy": "liturgy-sretenie-myasopustnaya"
+  }
+}
