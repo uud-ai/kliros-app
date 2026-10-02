@@ -184,7 +184,7 @@ function highlightMatch(text, searchTerm) {
 
 function App() {
   // ===== Состояние =====
-  const [selectedDate, setSelectedDate] = useState(new Date(2026, 3, 26));
+  const [selectedDate, setSelectedDate] = useState(() => new Date());
   const dateInputRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
