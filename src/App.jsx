@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { planDayService, toMonthDayKey, FIXED_GREAT_FEASTS } from "./lib/typikon.js";
 import { parseZachaloCitation, resolveZachaloRanges, buildReadingText, booksNeededFor } from "./lib/readings.js";
 import "./App.css";
@@ -421,15 +421,18 @@ function App() {
 
   const themeIcon = { light: "☀", dark: "☾", "kliros-night": "★" }[theme];
 
+  // flatIndex сохраняется на каждом элементе, чтобы при рендере не искать
+  // позицию повторным activeItems.indexOf(item) (O(n) на элемент → O(n²) на
+  // весь список служб из сотен реплик).
   const groupBySection = (items) => {
     const groups = [];
     let current = null;
-    items.forEach((item) => {
+    items.forEach((item, flatIndex) => {
       if (!current || current.section !== item.section) {
         current = { section: item.section, items: [], subBookmarks: [] };
         groups.push(current);
       }
-      current.items.push(item);
+      current.items.push({ item, flatIndex });
 
       // Если элемент — канон, собираем песни как подзакладки
       if (item.is_canon && item.canon && item.canon.structure) {
@@ -529,29 +532,38 @@ function App() {
 
   // Источники переменных по пространствам имён ({{oktoih.x}}, {{minea.x}}).
   // variables.oktoih_source — старое поле, поддерживается как алиас sources.oktoih.
-  const variableSources = { ...(day?.variables?.sources || {}) };
-  if (day?.variables?.oktoih_source && !variableSources.oktoih) {
-    variableSources.oktoih = day.variables.oktoih_source;
-  }
-  const sourcesByType = {};
-  Object.entries(variableSources).forEach(([type, id]) => {
-    if (id && variables[id]) sourcesByType[type] = variables[id];
-  });
+  // Мемоизировано: пересчёт нужен только при смене дня или подгрузке
+  // переменных, а не при каждом вводе в поиске/полях храма.
+  const sourcesByType = useMemo(() => {
+    const variableSources = { ...(day?.variables?.sources || {}) };
+    if (day?.variables?.oktoih_source && !variableSources.oktoih) {
+      variableSources.oktoih = day.variables.oktoih_source;
+    }
+    const result = {};
+    Object.entries(variableSources).forEach(([type, id]) => {
+      if (id && variables[id]) result[type] = variables[id];
+    });
+    return result;
+  }, [day, variables]);
 
   // Тропари/кондаки по входе на будничной Литургии — вычисляются по уставу
   // (день седмицы + Минея + настройка храма), а не берутся из шаблона.
-  const temple = { type: templeType, tropar: templeTropar.trim(), kondak: templeKondak.trim() };
-  const entranceItems = buildEntranceItems(
-    selectedDate.getDay(),
-    sourcesByType.minea,
-    templates["liturgy-day-tropars"],
-    temple
+  const entranceItems = useMemo(
+    () =>
+      buildEntranceItems(selectedDate.getDay(), sourcesByType.minea, templates["liturgy-day-tropars"], {
+        type: templeType,
+        tropar: templeTropar.trim(),
+        kondak: templeKondak.trim(),
+      }),
+    [selectedDate, sourcesByType, templates, templeType, templeTropar, templeKondak]
   );
 
-  // Формируем массив реплик с подстановкой переменных
-  let activeItems = [];
-  if (activeTemplate?.items) {
-    activeItems = activeTemplate.items.flatMap((item) => {
+  // Формируем массив реплик с подстановкой переменных. Мемоизировано —
+  // substituteVariables гоняет regex по каждой реплике, незачем пересчитывать
+  // это на каждый чих (ввод в поиске, смена темы и т.д.).
+  const activeItems = useMemo(() => {
+    if (!activeTemplate?.items) return [];
+    return activeTemplate.items.flatMap((item) => {
       // Канон обрабатывается отдельно — не трогаем его поля
       if (item.is_canon) return [item];
 
@@ -589,9 +601,9 @@ function App() {
       }
       return [item];
     });
-  }
+  }, [activeTemplate, entranceItems, sourcesByType, zachala, bibleBooks]);
 
-  const groups = groupBySection(activeItems);
+  const groups = useMemo(() => groupBySection(activeItems), [activeItems]);
 
   // ===== Поиск =====
   const searchResults = (() => {
@@ -898,27 +910,26 @@ function App() {
           groups.map((group, idx) => (
             <div key={idx}>
               <h2 className="section-title">{group.section}</h2>
-              {group.items.map((item, j) => {
+              {group.items.map(({ item, flatIndex }, j) => {
                 // Если элемент — канон, рисуем особо
                 if (item.is_canon && item.canon) {
                   return (
                     <div
                       key={j}
-                      data-item-index={activeItems.indexOf(item)}
+                      data-item-index={flatIndex}
                     >
                       {renderCanon(item, sourcesByType)}
                     </div>
                   );
                 }
                // Обычная реплика
-               const itemIndex = activeItems.indexOf(item);
-               const prevItem = activeItems[itemIndex - 1];
+               const prevItem = activeItems[flatIndex - 1];
                const showRole = !prevItem || prevItem.role !== item.role;
                return (
                 <div
                   key={j}
                   className="prayer"
-                  data-item-index={itemIndex}
+                  data-item-index={flatIndex}
                 >
                   {showRole && <span className="prayer-role">{item.role}</span>}
                   {(item.text || "").split(/\n\n+/).map((paragraph, pIdx) => (

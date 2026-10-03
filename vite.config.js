@@ -39,8 +39,37 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2,json}'],
+        // /data/** (Минея, Библия, шаблоны) не прекэшируем при установке —
+        // корпус уже ~21МБ и растёт с каждым заполненным днём. Приложение
+        // само лениво подгружает только нужные для текущего дня файлы
+        // (см. getDocData в App.jsx), поэтому данные кэшируются runtime-
+        // стратегией ниже — по факту обращения, а не все разом при install.
+        globPatterns: ['**/*.{js,css,html,svg,woff2}'],
+        globIgnores: ['**/data/**'],
         runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith('/data/'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'kliros-data',
+              expiration: {
+                maxEntries: 2000,
+                maxAgeSeconds: 60 * 60 * 24 * 365,
+              },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            urlPattern: ({ request }) => request.destination === 'image',
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'kliros-images',
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 60 * 60 * 24 * 365,
+              },
+            },
+          },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
