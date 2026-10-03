@@ -1,0 +1,12 @@
+{
+  "dateLabel": "Вторник, 7 апреля 2026",
+  "feastName": "Благове́щение Пресвяты́я Богоро́дицы",
+  "period": "Минея. Апрель",
+  "tone": null,
+  "fasting": "Разреше́ние на ры́бу",
+  "services": {
+    "vespers": "vespers-blagoveshchenie",
+    "matins": "matins-blagoveshchenie",
+    "liturgy": "liturgy-blagoveshchenie"
+  }
+}
