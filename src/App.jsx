@@ -3,11 +3,17 @@ import { planDayService, toMonthDayKey, FIXED_GREAT_FEASTS } from "./lib/typikon
 import { parseZachaloCitation, resolveZachaloRanges, buildReadingText, booksNeededFor } from "./lib/readings.js";
 import "./App.css";
 
+// Полный порядок суточного круга; на конкретный день показываются только
+// вкладки, для которых day.services содержит соответствующий ключ —
+// midnightOffice (Пасха/Светлая седмица) и vespersKneeling (Пятидесятница)
+// бывают лишь несколько дней в году и не должны висеть пустыми всегда.
 const SERVICES = [
+  { key: "midnightOffice", title: "Полуно́щница" },
   { key: "vespers", title: "Вече́рня" },
   { key: "matins", title: "У́треня" },
   { key: "liturgy", title: "Литурги́я" },
   { key: "hours", title: "Часы́" },
+  { key: "vespersKneeling", title: "Коленопрекл. вечерня" },
 ];
 
 // Формат даты для имени файла: "YYYY-MM-DD"
@@ -27,7 +33,7 @@ function toDocId(date) {
 // день расценивался бы как найденный документ, и резервный расчёт службы по
 // уставу (planDayService) не срабатывал бы почти ни для одной даты.
 async function getDocData(collection, id) {
-  const res = await fetch(`/data/${collection}/${id}.json`);
+  const res = await fetch(`${import.meta.env.BASE_URL}data/${collection}/${id}.json`);
   if (!res.ok) return null;
   if (!(res.headers.get("content-type") || "").includes("json")) return null;
   return res.json();
@@ -46,6 +52,23 @@ function shiftDate(date, days) {
   const result = new Date(date);
   result.setDate(result.getDate() + days);
   return result;
+}
+
+// Разбор строки "YYYY-MM-DD" (из URL или <input type="date">) в локальную
+// Date. new Date() нормализует переполнение (месяц 13, 30 февраля), не
+// отклоняя его — сверяем обратно, чтобы такой ввод не тихо открывал другой день.
+function parseIsoDate(str) {
+  const match = /^\d{4}-\d{2}-\d{2}$/.exec(str || "");
+  if (!match) return null;
+  const [y, m, d] = match[0].split("-").map(Number);
+  const date = new Date(y, m - 1, d);
+  const valid = date.getFullYear() === y && date.getMonth() === m - 1 && date.getDate() === d;
+  return valid ? date : null;
+}
+
+// Дата из ?date=YYYY-MM-DD в URL (ссылки с сайта на конкретный день службы).
+function dateFromUrl() {
+  return parseIsoDate(new URLSearchParams(location.search).get("date"));
 }
 
 // ===== Работа с localStorage =====
@@ -183,7 +206,7 @@ function highlightMatch(text, searchTerm) {
 
 function App() {
   // ===== Состояние =====
-  const [selectedDate, setSelectedDate] = useState(() => new Date());
+  const [selectedDate, setSelectedDate] = useState(() => dateFromUrl() || new Date());
   const dateInputRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -723,8 +746,8 @@ function App() {
           className="date-picker-hidden"
           value={toDocId(selectedDate)}
           onChange={(e) => {
-            const [y, m, d] = e.target.value.split("-").map(Number);
-            setSelectedDate(new Date(y, m - 1, d));
+            const date = parseIsoDate(e.target.value);
+            if (date) setSelectedDate(date);
           }}
           tabIndex={-1}
           aria-hidden="true"
@@ -862,7 +885,7 @@ function App() {
       )}
 
 <div className="service-tabs">
-        {SERVICES.map((svc) => (
+        {SERVICES.filter((svc) => day?.services?.[svc.key] !== undefined).map((svc) => (
           <button
             key={svc.key}
             className={activeService === svc.key ? "service-tab active" : "service-tab"}
