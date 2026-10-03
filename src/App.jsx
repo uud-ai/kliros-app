@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { planDayService, toMonthDayKey, FIXED_GREAT_FEASTS } from "./lib/typikon.js";
+import { parseZachaloCitation, resolveZachaloRanges, buildReadingText, booksNeededFor } from "./lib/readings.js";
 import "./App.css";
 
 const SERVICES = [
-  { key: "midnightOffice", title: "Полуно́щница" },
   { key: "vespers", title: "Вече́рня" },
   { key: "matins", title: "У́треня" },
   { key: "liturgy", title: "Литурги́я" },
   { key: "hours", title: "Часы́" },
-  { key: "vespersKneeling", title: "Коленопрекл. вечерня" },
 ];
 
 // Формат даты для имени файла: "YYYY-MM-DD"
@@ -191,6 +190,8 @@ function App() {
   const [day, setDay] = useState(null);
   const [templates, setTemplates] = useState({});
   const [variables, setVariables] = useState({});
+  const [zachala, setZachala] = useState({ apostle: null, gospel: null });
+  const [bibleBooks, setBibleBooks] = useState({});
   const [activeService, setActiveService] = useState(() => loadSetting("activeService", "liturgy"));
   const [theme, setTheme] = useState(() => loadSetting("theme", "light"));
   const [fontSize, setFontSize] = useState(() => loadSetting("fontSize", 1.2));
@@ -242,6 +243,17 @@ function App() {
         setTemplates((prev) => ({ ...prev, "liturgy-day-tropars": data }));
       }
     });
+  }, []);
+
+  // Таблица зачал (номер → главы/стихи) — общий справочник, не зависит от
+  // даты. Сам текст чтения (public/data/bible/*) подгружается отдельно,
+  // только для книг, реально нужных текущему дню (см. ниже).
+  useEffect(() => {
+    Promise.all([getDocData("zachala", "apostle"), getDocData("zachala", "gospel")]).then(
+      ([apostle, gospel]) => {
+        if (apostle && gospel) setZachala({ apostle, gospel });
+      }
+    );
   }, []);
 
   // ===== Загрузка дня + шаблонов + переменных =====
@@ -368,6 +380,38 @@ function App() {
     loadDay();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDate]);
+
+  // Текст чтений (Апостол/Евангелие): ссылка на зачало в Минее
+  // (liturgy_apostle_reading/liturgy_gospel_reading) даёт только номер —
+  // по таблице зачал определяем, какие книги Библии нужны, и подгружаем
+  // только их (а не весь корпус сразу).
+  useEffect(() => {
+    if (!zachala.apostle || !zachala.gospel) return;
+    const mineaId = day?.variables?.sources?.minea;
+    const minea = mineaId ? variables[mineaId] : null;
+    if (!minea) return;
+
+    const neededCodes = new Set();
+    [
+      [minea.liturgy_apostle_reading, "apostle", zachala.apostle],
+      [minea.liturgy_gospel_reading, "gospel", zachala.gospel],
+    ].forEach(([citation, kind, table]) => {
+      const parsed = parseZachaloCitation(citation, kind);
+      const ranges = resolveZachaloRanges(parsed, kind, table);
+      booksNeededFor(ranges).forEach((code) => neededCodes.add(code));
+    });
+
+    const toLoad = [...neededCodes].filter((code) => !bibleBooks[code]);
+    if (!toLoad.length) return;
+    Promise.all(toLoad.map((code) => getDocData("bible", code).then((data) => [code, data]))).then(
+      (pairs) => {
+        const fetched = {};
+        pairs.forEach(([code, data]) => { if (data) fetched[code] = data; });
+        if (Object.keys(fetched).length) setBibleBooks((prev) => ({ ...prev, ...fetched }));
+      }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [day, variables, zachala]);
 
   // ===== Производные значения =====
   const cycleTheme = () => {
@@ -526,9 +570,21 @@ function App() {
 
       if (item.variable_type && sourcesByType[item.variable_type]) {
         const substitutedText = substituteVariables(item.text, sourcesByType);
-        const finalText = substitutedText === item.text && item.fallback
+        let finalText = substitutedText === item.text && item.fallback
           ? item.fallback
           : substitutedText;
+
+        // Апостол/Евангелие: Минея даёт только ссылку на зачало — дописываем
+        // сам текст, если таблица зачал и нужная книга Библии уже загружены.
+        if (item.variable_key === "liturgy_apostle_reading" || item.variable_key === "liturgy_gospel_reading") {
+          const kind = item.variable_key === "liturgy_apostle_reading" ? "apostle" : "gospel";
+          const citation = sourcesByType.minea?.[item.variable_key];
+          const parsed = parseZachaloCitation(citation, kind);
+          const ranges = resolveZachaloRanges(parsed, kind, kind === "gospel" ? zachala.gospel : zachala.apostle);
+          const readingText = buildReadingText(ranges, (code) => bibleBooks[code]);
+          if (readingText) finalText = `${finalText}\n\n${readingText}`;
+        }
+
         return [{ ...item, text: finalText }];
       }
       return [item];
