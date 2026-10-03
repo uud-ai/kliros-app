@@ -580,14 +580,15 @@ function App() {
 
   // Тропари/кондаки по входе на будничной Литургии — вычисляются по уставу
   // (день седмицы + Минея + настройка храма), а не берутся из шаблона.
+  const dayTroparsTemplate = templates["liturgy-day-tropars"];
   const entranceItems = useMemo(
     () =>
-      buildEntranceItems(selectedDate.getDay(), sourcesByType.minea, templates["liturgy-day-tropars"], {
+      buildEntranceItems(selectedDate.getDay(), sourcesByType.minea, dayTroparsTemplate, {
         type: templeType,
         tropar: templeTropar.trim(),
         kondak: templeKondak.trim(),
       }),
-    [selectedDate, sourcesByType, templates, templeType, templeTropar, templeKondak]
+    [selectedDate, sourcesByType.minea, dayTroparsTemplate, templeType, templeTropar, templeKondak]
   );
 
   // Формируем массив реплик с подстановкой переменных. Мемоизировано —
