@@ -45,7 +45,7 @@ export default defineConfig({
         // само лениво подгружает только нужные для текущего дня файлы
         // (см. getDocData в App.jsx), поэтому данные кэшируются runtime-
         // стратегией ниже — по факту обращения, а не все разом при install.
-        globPatterns: ['**/*.{js,css,html,svg,woff2,png}'],
+        globPatterns: ['**/*.{js,css,html,svg,woff2}'],
         globIgnores: ['**/data/**'],
         runtimeCaching: [
           {
@@ -53,7 +53,7 @@ export default defineConfig({
             // как текст без замыкания на модуль, внешняя переменная внутри
             // была бы ReferenceError в самом service worker'е.
             urlPattern: ({ url }) => url.pathname.startsWith('/kliros/data/'),
-            handler: 'NetworkFirst',
+            handler: 'CacheFirst',
             options: {
               cacheName: 'kliros-data',
               expiration: {
@@ -63,9 +63,9 @@ export default defineConfig({
               cacheableResponse: { statuses: [0, 200] },
               plugins: [
                 {
-                  // chisle: SPA-fallback на хостинге отдаёт 200 text/html
+                  // SPA-fallback на хостинге отдаёт 200 text/html
                   // для несуществующих /data/*.json — без этой проверки
-                  // CacheFirst/NetworkFirst закэшировал бы её как валидный JSON.
+                  // CacheFirst закэшировал бы её как валидный JSON.
                   cacheWillUpdate: async ({ response }) => {
                     const type = response.headers.get('content-type') || ''
                     return type.includes('json') ? response : null
