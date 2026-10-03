@@ -543,12 +543,21 @@ function App() {
 
   const dateLabel = day?.dateLabel || humanLabel(selectedDate);
 
+  // Сохранённая вкладка (напр. midnightOffice) может отсутствовать у текущего
+  // дня — тогда показываем первую доступную, а не пустую вкладку.
+  const availableServiceKeys = day?.services
+    ? SERVICES.filter((svc) => day.services[svc.key] !== undefined).map((svc) => svc.key)
+    : [];
+  const effectiveService = availableServiceKeys.includes(activeService)
+    ? activeService
+    : availableServiceKeys[0] ?? activeService;
+
   // Получаем активный шаблон (для часов — выбираем подшаблон по выбранному часу)
   let activeTemplateId = null;
-  const serviceValue = day?.services?.[activeService];
+  const serviceValue = day?.services?.[effectiveService];
   if (typeof serviceValue === "string") {
     activeTemplateId = serviceValue;
-  } else if (activeService === "hours" && serviceValue && typeof serviceValue === "object") {
+  } else if (effectiveService === "hours" && serviceValue && typeof serviceValue === "object") {
     activeTemplateId = serviceValue[activeHour];
   }
   const activeTemplate = activeTemplateId ? templates[activeTemplateId] : null;
@@ -888,7 +897,7 @@ function App() {
         {SERVICES.filter((svc) => day?.services?.[svc.key] !== undefined).map((svc) => (
           <button
             key={svc.key}
-            className={activeService === svc.key ? "service-tab active" : "service-tab"}
+            className={effectiveService === svc.key ? "service-tab active" : "service-tab"}
             onClick={() => setActiveService(svc.key)}
           >
             {svc.title}
@@ -897,7 +906,7 @@ function App() {
       </div>
 
       {/* Подвкладки для Часов */}
-      {activeService === "hours" && day?.services?.hours && typeof day.services.hours === "object" && (
+      {effectiveService === "hours" && day?.services?.hours && typeof day.services.hours === "object" && (
         <div className="hour-subtabs">
           {["1", "3", "6", "9"].map((hour) => {
             const isAvailable = !!day.services.hours[hour];

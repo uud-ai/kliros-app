@@ -49,7 +49,10 @@ export default defineConfig({
         globIgnores: ['**/data/**'],
         runtimeCaching: [
           {
-            urlPattern: ({ url }) => url.pathname.startsWith('/data/'),
+            // Литерал, не `base` — generateSW сериализует эту функцию в sw.js
+            // как текст без замыкания на модуль, внешняя переменная внутри
+            // была бы ReferenceError в самом service worker'е.
+            urlPattern: ({ url }) => url.pathname.startsWith('/kliros/data/'),
             handler: 'CacheFirst',
             options: {
               cacheName: 'kliros-data',
