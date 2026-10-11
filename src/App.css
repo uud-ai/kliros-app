@@ -229,45 +229,130 @@ body {
 }
 
 /* --- Вкладки служб --- */
-.service-tabs {
+/* --- Оглавление служб дня (вместо вкладок) --- */
+.service-toc {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2px;
-  margin: 20px 0 0;
-  padding: 0;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  margin: 16px -20px 0;
+  padding: 8px 20px;
+  background: var(--bg);
   border-bottom: 1px solid var(--rule);
+  box-shadow: 0 6px 10px -10px var(--shadow);
 }
 
-.service-tab {
+.service-toc::-webkit-scrollbar {
+  display: none;
+}
+
+.service-toc-btn {
+  flex: 0 0 auto;
   background: transparent;
-  border: none;
-  padding: 14px 22px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 7px 14px;
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.08rem;
   color: var(--ink-soft);
   cursor: pointer;
-  position: relative;
-  transition: color 0.2s;
-  letter-spacing: 0.5px;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 
-.service-tab:hover {
+.service-toc-btn:hover {
   color: var(--ink);
 }
 
-.service-tab.active {
+.service-toc-btn.active {
+  color: var(--red);
+  border-color: var(--red-soft);
+  background: var(--bg-panel);
+}
+
+.service-toc-btn.missing {
+  opacity: 0.45;
+}
+
+/* --- Службы дня одна за другой --- */
+.service-block {
+  scroll-margin-top: 64px;
+}
+
+.service-block + .service-block {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+}
+
+.service-heading {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--red);
+  text-align: center;
+  margin: 0 0 4px;
+  letter-spacing: 1px;
+}
+
+.service-heading::before,
+.service-heading::after {
+  content: "✠";
+  font-size: 0.9rem;
+  vertical-align: middle;
+  margin: 0 12px;
+  opacity: 0.7;
+}
+
+.service-when {
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.service-missing {
+  text-align: center;
+  padding: 18px 20px 4px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.service-block .section-title,
+.service-block .canon-ode-title {
+  scroll-margin-top: 72px;
+}
+
+.service-block > div:first-of-type > .section-title {
+  margin-top: 28px;
+}
+
+.bookmark-service + .bookmark-service {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule);
+}
+
+.bookmark-service-title .bookmark-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
   color: var(--red);
 }
 
-.service-tab.active::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 20%;
-  right: 20%;
-  height: 2px;
-  background: var(--red);
+@media (max-width: 600px) {
+  .service-heading {
+    font-size: 1.7rem;
+  }
+  .service-toc-btn {
+    font-size: 1rem;
+    padding: 6px 11px;
+  }
 }
 
 /* --- Сообщение о пустой службе --- */
@@ -281,13 +366,6 @@ body {
   line-height: 1.8;
 }
 
-/* --- Мобильная адаптация вкладок --- */
-@media (max-width: 600px) {
-  .service-tab {
-    padding: 12px 14px;
-    font-size: 1rem;
-  }
-}
 
 /* --- Навигация по датам --- */
 .date-nav {
@@ -964,64 +1042,4 @@ body {
 [data-theme="dark"] .bookmark-subitem:hover,
 [data-theme="kliros-night"] .bookmark-subitem:hover {
   background: rgba(224, 102, 102, 0.06);
-}
-/* ===== Подвкладки часов ===== */
-
-.hour-subtabs {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin: 0.5rem 0 1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px dotted var(--rule);
-}
-
-.hour-subtab {
-  background: transparent;
-  border: none;
-  padding: 0.4rem 0.75rem;
-  font-family: 'Bitter', serif;
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  cursor: pointer;
-  letter-spacing: 0.04em;
-  transition: color 0.15s, opacity 0.15s;
-  position: relative;
-}
-
-.hour-subtab:hover:not(.disabled) {
-  color: var(--red);
-}
-
-.hour-subtab.active {
-  color: var(--red);
-  font-weight: 600;
-}
-
-.hour-subtab.active::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -0.6rem;
-  transform: translateX(-50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--red);
-}
-
-.hour-subtab.disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-  text-decoration: line-through;
-}
-
-@media (max-width: 600px) {
-  .hour-subtabs {
-    gap: 0.75rem;
-  }
-  .hour-subtab {
-    padding: 0.3rem 0.5rem;
-    font-size: 0.8rem;
-  }
 }
