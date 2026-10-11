@@ -126,13 +126,15 @@ const FERIAL_SERVICE_SETS = {
   },
 };
 
-// Комплекты для воскресенья. Шестеричный/славословный/полиелейный святой
-// соединяются с воскресной службой по одной и той же схеме: полиелей на
-// воскресной утрене поётся в любом случае (это свойство самого
-// воскресенья, не святого), различие рангов сказывается только в объёме
-// стихир/тропарей канона святому (уже внутри шаблона). Бденный святой,
-// совпав с воскресеньем, — особый случай: на часах кондаки чередуются
-// (глас/святой), поэтому у него отдельный комплект часов ("featured").
+// Комплекты для воскресенья со святым — по знаку святого. Распределение
+// стихир и канонов — по «Краткому уставу соединения церковных служб»
+// (см. scripts/generate-sunday-variants.mjs, откуда собраны шаблоны):
+//   без знака         — вечерня 3/4/3, каноны 4/3/3/4;
+//   шестеричный,
+//   славословный      — вечерня 3/3/4, каноны 4/2/2/6;
+//   полиелейный       — вечерня 3/3/4, каноны 4/—/2/8;
+//   бденный           — вечерня 3/1/6, каноны 4/—/2/8; на часах кондаки
+//                       чередуются (глас/святой) — отдельный комплект часов.
 const SUNDAY_SERVICE_SETS = {
   plain: {
     vespers: "vespers-sunday",
@@ -140,18 +142,38 @@ const SUNDAY_SERVICE_SETS = {
     liturgy: "liturgy-sunday",
     hours: hoursSet(null),
   },
-  withSaint: {
-    vespers: "vespers-sunday-with-saint",
-    matins: "matins-sunday-with-saint",
+  simple: {
+    vespers: "vespers-sunday-with-saint-simple",
+    matins: "matins-sunday-with-saint-simple",
     liturgy: "liturgy-sunday-with-variables",
     hours: hoursSet("sunday-with-saint"),
   },
-  featured: {
-    vespers: "vespers-sunday-with-saint",
-    matins: "matins-sunday-with-saint",
+  six: {
+    vespers: "vespers-sunday-with-saint-six",
+    matins: "matins-sunday-with-saint-six",
+    liturgy: "liturgy-sunday-with-variables",
+    hours: hoursSet("sunday-with-saint"),
+  },
+  polyeleos: {
+    vespers: "vespers-sunday-with-saint-six",
+    matins: "matins-sunday-with-saint-poly",
+    liturgy: "liturgy-sunday-with-variables",
+    hours: hoursSet("sunday-with-saint"),
+  },
+  vigil: {
+    vespers: "vespers-sunday-with-saint-vigil",
+    matins: "matins-sunday-with-saint-poly",
     liturgy: "liturgy-sunday-with-variables",
     hours: hoursSet("sunday-featured"),
   },
+};
+
+const SUNDAY_SET_BY_RANK = {
+  simple: SUNDAY_SERVICE_SETS.simple,
+  "six-verse": SUNDAY_SERVICE_SETS.six,
+  doxology: SUNDAY_SERVICE_SETS.six,
+  polyeleos: SUNDAY_SERVICE_SETS.polyeleos,
+  vigil: SUNDAY_SERVICE_SETS.vigil,
 };
 
 function hoursSet(suffix) {
@@ -163,9 +185,6 @@ function hoursSet(suffix) {
     "9": `hours-9${suf}`,
   };
 }
-
-// Ранги, соединяемые с воскресеньем по обычной схеме "with-saint".
-const SUNDAY_ORDINARY_RANKS = new Set(["simple", "six-verse", "doxology", "polyeleos"]);
 
 // ===== Особые переопределения источника Октоиха =====
 // Изредка печатная Минея даёт для числа не общий будничный Октоих по
@@ -522,11 +541,7 @@ export function planDayService(date, mineaMeta) {
       };
     }
 
-    const serviceSet = rank === "vigil"
-      ? SUNDAY_SERVICE_SETS.featured
-      : SUNDAY_ORDINARY_RANKS.has(rank)
-        ? SUNDAY_SERVICE_SETS.withSaint
-        : null;
+    const serviceSet = SUNDAY_SET_BY_RANK[rank] || null;
 
     if (!serviceSet) {
       return { ok: false, reason: "unsupported-rank-combination" };

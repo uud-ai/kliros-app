@@ -5,8 +5,8 @@
   "tone": 4,
   "rank": "sunday-with-saint",
   "services": {
-    "vespers": "vespers-sunday-with-saint",
-    "matins": "matins-sunday-with-saint",
+    "vespers": "vespers-sunday-with-saint-simple",
+    "matins": "matins-sunday-with-saint-simple",
     "liturgy": "liturgy-sunday-with-variables",
     "hours": {
       "1": "hours-1-sunday-with-saint",
