@@ -3,18 +3,63 @@ import { planDayService, toMonthDayKey, FIXED_GREAT_FEASTS } from "./lib/typikon
 import { parseZachaloCitation, resolveZachaloRanges, buildReadingText, booksNeededFor } from "./lib/readings.js";
 import "./App.css";
 
-// Полный порядок суточного круга; на конкретный день показываются только
-// вкладки, для которых day.services содержит соответствующий ключ —
-// midnightOffice (Пасха/Светлая седмица) и vespersKneeling (Пятидесятница)
-// бывают лишь несколько дней в году и не должны висеть пустыми всегда.
-const SERVICES = [
-  { key: "midnightOffice", title: "Полуно́щница" },
-  { key: "vespers", title: "Вече́рня" },
-  { key: "matins", title: "У́треня" },
-  { key: "liturgy", title: "Литурги́я" },
-  { key: "hours", title: "Часы́" },
-  { key: "vespersKneeling", title: "Коленопрекл. вечерня" },
-];
+// ===== Порядок служб богослужебных суток =====
+// Все службы дня показываются одна за другой в уставном порядке:
+// 9-й час и вечерня накануне вечером (с них начинаются церковные сутки),
+// полунощница (если есть), утреня, 1-й, 3-й и 6-й часы, Литургия.
+//
+// Вечерня, которую план дня кладёт в services.vespers, обычно служится
+// накануне вечером. Исключения — вечерни, совершаемые вечером (или днём)
+// самого этого дня: Пасха и Светлая седмица, суббота Светлой седмицы
+// (под Антипасху), сам день Антипасхи, Страстная седмица (вечерня с
+// Литургией) и коленопреклонная вечерня Пятидесятницы. Их ставим после
+// Литургии.
+const SAME_DAY_VESPERS = /^vespers-(pascha|bright-|antipascha|great-|pentecost-kneeling)/;
+
+// Строит последовательность служб дня по плану day.services.
+// Элемент: { key, title, templateId, note } либо { key, title, missing: true }.
+function buildServiceSequence(services) {
+  if (!services) return [];
+  const seq = [];
+  const hours = services.hours && typeof services.hours === "object" ? services.hours : null;
+  const hourIds = hours ? ["1", "3", "6", "9"].map((h) => hours[h]).filter(Boolean) : [];
+  // Пасхальные часы: один и тот же краткий чин вместо всех четырёх часов.
+  const uniformHours = hourIds.length > 1 && hourIds.every((id) => id === hourIds[0]);
+  const vespersSameDay = typeof services.vespers === "string" && SAME_DAY_VESPERS.test(services.vespers);
+
+  const add = (key, title, templateId, note) => {
+    if (templateId) seq.push({ key, title, templateId, note });
+  };
+  const addOrMissing = (key, title, templateId, note) => {
+    if (templateId) seq.push({ key, title, templateId, note });
+    else seq.push({ key, title, missing: true });
+  };
+
+  if (!uniformHours) add("hour9", "Девя́тый час", hours?.["9"]);
+  if (!vespersSameDay) addOrMissing("vespers", "Вече́рня", services.vespers, "накану́не ве́чером");
+  add("midnightOffice", "Полуно́щница", services.midnightOffice);
+  addOrMissing("matins", "У́треня", services.matins);
+  if (uniformHours) {
+    add("hours", "Часы́ пасха́льные", hourIds[0], "вме́сто 1-го, 3-го, 6-го и 9-го часо́в");
+  } else if (hours) {
+    add("hour1", "Пе́рвый час", hours["1"]);
+    add("hour3", "Тре́тий час", hours["3"]);
+    add("hour6", "Шесто́й час", hours["6"]);
+  } else {
+    seq.push({ key: "hours", title: "Часы́", missing: true });
+  }
+  addOrMissing("liturgy", "Литурги́я", services.liturgy);
+  if (vespersSameDay) add("vespers", "Вече́рня", services.vespers, "ве́чером в э́тот день");
+  add("vespersKneeling", "Коленопреклоне́нная вече́рня", services.vespersKneeling, "ве́чером в э́тот день, по Литурги́и");
+  return seq;
+}
+
+// Строки шаблона с only_if / only_if_not показываются, только если в
+// источнике есть (или нет) указанный текст: "minea.vespers_slava" и т. п.
+function hasVariable(path, sourcesByType) {
+  const [type, key] = (path || "").split(".");
+  return !!(sourcesByType?.[type]?.[key]);
+}
 
 // Формат даты для имени файла: "YYYY-MM-DD"
 function toDocId(date) {
@@ -267,13 +312,13 @@ function App() {
   const [variables, setVariables] = useState({});
   const [zachala, setZachala] = useState({ apostle: null, gospel: null });
   const [bibleBooks, setBibleBooks] = useState({});
-  const [activeService, setActiveService] = useState(() => loadSetting("activeService", "liturgy"));
   const [theme, setTheme] = useState(() => loadSetting("theme", "light"));
   const [fontSize, setFontSize] = useState(() => loadSetting("fontSize", 1.2));
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [showBookmarks, setShowBookmarks] = useState(false);
-  const [activeHour, setActiveHour] = useState(() => loadSetting("activeHour", "3"));
+  // Служба, до которой докручена страница (подсветка в оглавлении).
+  const [currentServiceKey, setCurrentServiceKey] = useState(null);
   const [templeType, setTempleType] = useState(() => loadSetting("templeType", "none"));
   const [templeTropar, setTempleTropar] = useState(() => loadSetting("templeTropar", ""));
   const [templeKondak, setTempleKondak] = useState(() => loadSetting("templeKondak", ""));
@@ -289,14 +334,6 @@ function App() {
     document.documentElement.style.setProperty("--prayer-size", fontSize + "rem");
     saveSetting("fontSize", fontSize);
   }, [fontSize]);
-
-  useEffect(() => {
-    saveSetting("activeService", activeService);
-  }, [activeService]);
-
-  useEffect(() => {
-    saveSetting("activeHour", activeHour);
-  }, [activeHour]);
 
   useEffect(() => {
     saveSetting("templeType", templeType);
@@ -502,22 +539,32 @@ function App() {
   // flatIndex сохраняется на каждом элементе, чтобы при рендере не искать
   // позицию повторным activeItems.indexOf(item) (O(n) на элемент → O(n²) на
   // весь список служб из сотен реплик).
-  const groupBySection = (items) => {
+  // items — реплики одной службы; offset — сквозной номер первой реплики
+  // службы на странице (для поиска и прокрутки). Якоря разделов и песней
+  // канона уникальны в пределах всей страницы.
+  const groupBySection = (items, offset, serviceKey) => {
     const groups = [];
     let current = null;
-    items.forEach((item, flatIndex) => {
+    items.forEach((item, i) => {
+      const flatIndex = offset + i;
       if (!current || current.section !== item.section) {
-        current = { section: item.section, items: [], subBookmarks: [] };
+        current = {
+          section: item.section,
+          anchor: `sec-${serviceKey}-${groups.length}`,
+          items: [],
+          subBookmarks: [],
+        };
         groups.push(current);
       }
       current.items.push({ item, flatIndex });
 
       // Если элемент — канон, собираем песни как подзакладки
       if (item.is_canon && item.canon && item.canon.structure) {
-        item.canon.structure.forEach((ode) => {
+        item.canon.structure.forEach((ode, odeIdx) => {
           if (ode.title) {
             current.subBookmarks.push({
               title: ode.title,
+              anchor: `ode-${flatIndex}-${odeIdx}`,
               partsCount: (ode.parts || []).length,
             });
           }
@@ -568,24 +615,24 @@ function App() {
   };
 
   // Рендер одной песни канона
-  const renderCanonOde = (ode, canonVariables) => {
+  const renderCanonOde = (ode, canonVariables, anchor) => {
     return (
       <div key={ode.ode} className="canon-ode">
-        <h3 className="canon-ode-title">{ode.title}</h3>
+        <h4 className="canon-ode-title" id={anchor}>{ode.title}</h4>
         {ode.parts && ode.parts.map((part, idx) => renderCanonPart(part, idx, canonVariables))}
       </div>
     );
   };
 
   // Рендер всего канона
-  const renderCanon = (item, canonVariables) => {
+  const renderCanon = (item, canonVariables, flatIndex) => {
     if (!item.canon || !item.canon.structure) return null;
     return (
       <div className="canon">
         {item.canon.title && (
           <div className="canon-subtitle">{item.canon.title}</div>
         )}
-        {item.canon.structure.map((ode) => renderCanonOde(ode, canonVariables))}
+        {item.canon.structure.map((ode, odeIdx) => renderCanonOde(ode, canonVariables, `ode-${flatIndex}-${odeIdx}`))}
       </div>
     );
   };
@@ -598,24 +645,8 @@ function App() {
 
   const dateLabel = day?.dateLabel || humanLabel(selectedDate);
 
-  // Сохранённая вкладка (напр. midnightOffice) может отсутствовать у текущего
-  // дня — тогда показываем первую доступную, а не пустую вкладку.
-  const availableServiceKeys = day?.services
-    ? SERVICES.filter((svc) => day.services[svc.key] !== undefined).map((svc) => svc.key)
-    : [];
-  const effectiveService = availableServiceKeys.includes(activeService)
-    ? activeService
-    : availableServiceKeys[0] ?? activeService;
-
-  // Получаем активный шаблон (для часов — выбираем подшаблон по выбранному часу)
-  let activeTemplateId = null;
-  const serviceValue = day?.services?.[effectiveService];
-  if (typeof serviceValue === "string") {
-    activeTemplateId = serviceValue;
-  } else if (effectiveService === "hours" && serviceValue && typeof serviceValue === "object") {
-    activeTemplateId = serviceValue[activeHour];
-  }
-  const activeTemplate = activeTemplateId ? templates[activeTemplateId] : null;
+  // ===== Службы дня: последовательность и реплики =====
+  const serviceSequence = useMemo(() => buildServiceSequence(day?.services), [day]);
 
   // Источники переменных по пространствам имён ({{oktoih.x}}, {{minea.x}}).
   // variables.oktoih_source — старое поле, поддерживается как алиас sources.oktoih.
@@ -646,12 +677,13 @@ function App() {
     [selectedDate, sourcesByType.minea, dayTroparsTemplate, templeType, templeTropar, templeKondak]
   );
 
-  // Формируем массив реплик с подстановкой переменных. Мемоизировано —
-  // substituteVariables гоняет regex по каждой реплике, незачем пересчитывать
-  // это на каждый чих (ввод в поиске, смена темы и т.д.).
-  const activeItems = useMemo(() => {
-    if (!activeTemplate?.items) return [];
-    return activeTemplate.items.flatMap((item) => {
+  // Реплики одного шаблона с подстановкой переменных.
+  const buildItems = (template) => {
+    if (!template?.items) return [];
+    return template.items.flatMap((item) => {
+      if (item.only_if && !hasVariable(item.only_if, sourcesByType)) return [];
+      if (item.only_if_not && hasVariable(item.only_if_not, sourcesByType)) return [];
+
       // Канон обрабатывается отдельно — не трогаем его поля
       if (item.is_canon) return [item];
 
@@ -670,7 +702,7 @@ function App() {
 
       if (item.variable_type && sourcesByType[item.variable_type]) {
         const substitutedText = substituteVariables(item.text, sourcesByType);
-        let finalText = substitutedText === item.text && item.fallback
+        let finalText = substitutedText === item.text && item.fallback !== undefined
           ? item.fallback
           : substitutedText;
 
@@ -685,21 +717,47 @@ function App() {
           if (readingText) finalText = `${finalText}\n\n${readingText}`;
         }
 
+        if (!finalText) return [];
         return [{ ...item, text: finalText }];
       }
       return [item];
     });
-  }, [activeTemplate, entranceItems, sourcesByType, zachala, bibleBooks]);
+  };
 
-  const groups = useMemo(() => groupBySection(activeItems), [activeItems]);
+  // Все службы дня: у каждой свои реплики и разделы; сквозная нумерация
+  // реплик (flatIndex) — общая на всю страницу, для поиска и прокрутки.
+  const { renderedServices, allItems } = useMemo(() => {
+    const out = [];
+    const all = [];
+    serviceSequence.forEach((svc) => {
+      if (svc.missing) {
+        out.push({ ...svc, groups: [] });
+        return;
+      }
+      const template = templates[svc.templateId];
+      const items = template ? buildItems(template) : null;
+      const offset = all.length;
+      if (items) items.forEach((item) => all.push({ ...item, serviceKey: svc.key, serviceTitle: svc.title }));
+      out.push({
+        ...svc,
+        loaded: !!template,
+        groups: items ? groupBySection(items, offset, svc.key) : [],
+      });
+    });
+    return { renderedServices: out, allItems: all };
+    // buildItems зависит от перечисленных ниже значений
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [serviceSequence, templates, entranceItems, sourcesByType, zachala, bibleBooks]);
 
-  // ===== Поиск =====
+  const hasAnyContent = allItems.length > 0;
+
+  // ===== Поиск — по всем службам дня =====
   const searchResults = (() => {
     const q = searchQuery.trim().toLowerCase();
-    if (!q || !activeItems.length) return [];
+    if (!q || !allItems.length) return [];
 
     const results = [];
-    activeItems.forEach((item, index) => {
+    allItems.forEach((item, index) => {
       // Пропускаем каноны из поиска (пока)
       if (item.is_canon) return;
       if (!item.text || !item.role || !item.section) return;
@@ -717,44 +775,65 @@ function App() {
     return results;
   })();
 
+  const flash = (el, cls) => {
+    el.classList.add(cls);
+    setTimeout(() => el.classList.remove(cls), 2000);
+  };
+
   const scrollToItem = (index) => {
     const element = document.querySelector(`[data-item-index="${index}"]`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      element.classList.add('search-highlight');
-      setTimeout(() => element.classList.remove('search-highlight'), 2000);
+      flash(element, 'search-highlight');
     }
     setShowSearch(false);
     setSearchQuery("");
   };
 
-  // ===== Закладки =====
-  const scrollToSection = (sectionName) => {
-    const elements = document.querySelectorAll('.section-title');
-    for (const el of elements) {
-      if (el.textContent === sectionName) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        el.classList.add('section-highlight');
-        setTimeout(() => el.classList.remove('section-highlight'), 2000);
-        break;
-      }
+  // ===== Закладки и оглавление =====
+  const scrollToAnchor = (id, highlight = true) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (highlight) flash(el, 'section-highlight');
     }
     setShowBookmarks(false);
   };
 
-  // Прокрутка к конкретной песни канона
-  const scrollToCanonOde = (odeTitle) => {
-    const elements = document.querySelectorAll('.canon-ode-title');
-    for (const el of elements) {
-      if (el.textContent === odeTitle) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        el.classList.add('section-highlight');
-        setTimeout(() => el.classList.remove('section-highlight'), 2000);
-        break;
-      }
-    }
-    setShowBookmarks(false);
-  };
+  // Подсветка в оглавлении той службы, которая сейчас на экране.
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
+    const sections = document.querySelectorAll(".service-block");
+    if (!sections.length) return;
+    const visible = new Map();
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => visible.set(e.target.dataset.service, e.isIntersecting));
+        const first = [...sections].find((s) => visible.get(s.dataset.service));
+        if (first) setCurrentServiceKey(first.dataset.service);
+      },
+      { rootMargin: "-120px 0px -55% 0px" }
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
+  }, [renderedServices]);
+
+  // На узком экране оглавление прокручивается вбок — держим подсвеченную
+  // кнопку в видимой части полосы.
+  useEffect(() => {
+    if (!currentServiceKey) return;
+    const btn = document.querySelector(`.service-toc-btn[data-key="${currentServiceKey}"]`);
+    const bar = btn?.parentElement;
+    if (!btn || !bar) return;
+    const left = btn.offsetLeft - (bar.clientWidth - btn.offsetWidth) / 2;
+    bar.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
+  }, [currentServiceKey]);
+
+  // При смене даты — к началу страницы (подсветку оглавления обновит
+  // IntersectionObserver выше, когда службы нового дня появятся на экране).
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [selectedDate]);
 
   // ===== Рендеринг =====
   return (
@@ -850,7 +929,7 @@ function App() {
             <input
               type="text"
               className="search-input"
-              placeholder="Поиск по службе... (Аминь, Херувимская, Помилуй)"
+              placeholder="Поиск по службам дня... (Аминь, Херувимская, Помилуй)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               autoFocus
@@ -885,7 +964,7 @@ function App() {
                       onClick={() => scrollToItem(result.index)}
                     >
                       <div className="search-result-meta">
-                        <span className="search-result-section">{result.section}</span>
+                        <span className="search-result-section">{result.serviceTitle} · {result.section}</span>
                         <span className="search-result-role">{result.role}</span>
                       </div>
                       <div
@@ -949,36 +1028,24 @@ function App() {
         </div>
       )}
 
-<div className="service-tabs">
-        {SERVICES.filter((svc) => day?.services?.[svc.key] !== undefined).map((svc) => (
-          <button
-            key={svc.key}
-            className={effectiveService === svc.key ? "service-tab active" : "service-tab"}
-            onClick={() => setActiveService(svc.key)}
-          >
-            {svc.title}
-          </button>
-        ))}
-      </div>
-
-      {/* Подвкладки для Часов */}
-      {effectiveService === "hours" && day?.services?.hours && typeof day.services.hours === "object" && (
-        <div className="hour-subtabs">
-          {["1", "3", "6", "9"].map((hour) => {
-            const isAvailable = !!day.services.hours[hour];
-            return (
-              <button
-                key={hour}
-                className={`hour-subtab ${activeHour === hour ? "active" : ""} ${isAvailable ? "" : "disabled"}`}
-                onClick={() => isAvailable && setActiveHour(hour)}
-                disabled={!isAvailable}
-                title={isAvailable ? `Час ${hour}-й` : `${hour}-й час не добавлен`}
-              >
-                {hour}-й час
-              </button>
-            );
-          })}
-        </div>
+{/* Оглавление: все службы дня, остаётся сверху при прокрутке */}
+      {day && renderedServices.length > 0 && (
+        <nav className="service-toc" aria-label="Службы дня">
+          {renderedServices.map((svc) => (
+            <button
+              key={svc.key}
+              data-key={svc.key}
+              className={[
+                "service-toc-btn",
+                currentServiceKey === svc.key ? "active" : "",
+                svc.missing ? "missing" : "",
+              ].join(" ")}
+              onClick={() => scrollToAnchor(`svc-${svc.key}`, false)}
+            >
+              {svc.title}
+            </button>
+          ))}
+        </nav>
       )}
 
       <div className="service-body">
@@ -986,91 +1053,109 @@ function App() {
           <div className="empty-service">
             {emptyMessage(emptyReason)}
           </div>
-        ) : groups.length === 0 ? (
-          <div className="empty-service">
-            Эта служба пока не добавлена.
-            <br />
-            Скоро появится.
-          </div>
         ) : (
-          groups.map((group, idx) => (
-            <div key={idx}>
-              <h2 className="section-title">{group.section}</h2>
-              {group.items.map(({ item, flatIndex }, j) => {
-                // Если элемент — канон, рисуем особо
-                if (item.is_canon && item.canon) {
-                  return (
-                    <div
-                      key={j}
-                      data-item-index={flatIndex}
-                    >
-                      {renderCanon(item, sourcesByType)}
-                    </div>
-                  );
-                }
-               // Обычная реплика
-               const prevItem = activeItems[flatIndex - 1];
-               const showRole = !prevItem || prevItem.role !== item.role;
-               return (
-                <div
-                  key={j}
-                  className="prayer"
-                  data-item-index={flatIndex}
-                >
-                  {showRole && <span className="prayer-role">{item.role}</span>}
-                  {(item.text || "").split(/\n\n+/).map((paragraph, pIdx) => (
-                    <p key={pIdx} className="prayer-text">{paragraph}</p>
-                  ))}
+          renderedServices.map((svc) => (
+            <section
+              key={svc.key}
+              id={`svc-${svc.key}`}
+              data-service={svc.key}
+              className="service-block"
+            >
+              <h2 className="service-heading">{svc.title}</h2>
+              {svc.note && <div className="service-when">{svc.note}</div>}
+              {svc.missing ? (
+                <div className="service-missing">
+                  Для э́того дня в приложе́нии не́т.
                 </div>
-              );
-              })}
-            </div>
+              ) : !svc.loaded ? (
+                <div className="service-missing">Загрузка…</div>
+              ) : svc.groups.length === 0 ? (
+                <div className="service-missing">Те́кст э́той слу́жбы ещё не добавлен.</div>
+              ) : (
+                svc.groups.map((group) => (
+                  <div key={group.anchor}>
+                    <h3 className="section-title" id={group.anchor}>{group.section}</h3>
+                    {group.items.map(({ item, flatIndex }) => {
+                      // Если элемент — канон, рисуем особо
+                      if (item.is_canon && item.canon) {
+                        return (
+                          <div key={flatIndex} data-item-index={flatIndex}>
+                            {renderCanon(item, sourcesByType, flatIndex)}
+                          </div>
+                        );
+                      }
+                      // Обычная реплика
+                      const prevItem = allItems[flatIndex - 1];
+                      const showRole = !prevItem || prevItem.role !== item.role || prevItem.serviceKey !== item.serviceKey;
+                      return (
+                        <div key={flatIndex} className="prayer" data-item-index={flatIndex}>
+                          {showRole && <span className="prayer-role">{item.role}</span>}
+                          {(item.text || "").split(/\n\n+/).map((paragraph, pIdx) => (
+                            <p key={pIdx} className="prayer-text">{paragraph}</p>
+                          ))}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))
+              )}
+            </section>
           ))
         )}
       </div>
 
       {/* Плавающая кнопка закладок */}
-      {groups.length > 0 && (
+      {hasAnyContent && (
         <button
           className="bookmarks-fab"
           onClick={() => setShowBookmarks(!showBookmarks)}
-          title="Закладки по службе"
+          title="Закладки по службам дня"
           aria-label="Закладки"
         >
           {showBookmarks ? "✕" : "📑"}
         </button>
       )}
 
-     {/* Панель закладок */}
-      {showBookmarks && groups.length > 0 && (
+      {/* Панель закладок: службы → разделы → песни канона */}
+      {showBookmarks && hasAnyContent && (
         <>
           <div className="bookmarks-backdrop" onClick={() => setShowBookmarks(false)} />
           <div className="bookmarks-panel">
             <div className="bookmarks-header">Закладки</div>
             <div className="bookmarks-list">
-              {groups.map((group, idx) => (
-                <div key={idx}>
+              {renderedServices.filter((svc) => svc.groups.length > 0).map((svc) => (
+                <div key={svc.key} className="bookmark-service">
                   <button
-                    className="bookmark-item"
-                    onClick={() => scrollToSection(group.section)}
+                    className="bookmark-item bookmark-service-title"
+                    onClick={() => scrollToAnchor(`svc-${svc.key}`, false)}
                   >
-                    <span className="bookmark-title">{group.section}</span>
-                    <span className="bookmark-count">{group.items.length}</span>
+                    <span className="bookmark-title">{svc.title}</span>
                   </button>
-                  {group.subBookmarks && group.subBookmarks.length > 0 && (
-                    <div className="bookmark-sublist">
-                      {group.subBookmarks.map((sub, subIdx) => (
-                        <button
-                          key={subIdx}
-                          className="bookmark-item bookmark-subitem"
-                          onClick={() => scrollToCanonOde(sub.title)}
-                        >
-                          <span className="bookmark-title">{sub.title}</span>
-                          <span className="bookmark-count">{sub.partsCount}</span>
-                        </button>
-                      ))}
+                  {svc.groups.map((group) => (
+                    <div key={group.anchor}>
+                      <button
+                        className="bookmark-item"
+                        onClick={() => scrollToAnchor(group.anchor)}
+                      >
+                        <span className="bookmark-title">{group.section}</span>
+                        <span className="bookmark-count">{group.items.length}</span>
+                      </button>
+                      {group.subBookmarks.length > 0 && (
+                        <div className="bookmark-sublist">
+                          {group.subBookmarks.map((sub) => (
+                            <button
+                              key={sub.anchor}
+                              className="bookmark-item bookmark-subitem"
+                              onClick={() => scrollToAnchor(sub.anchor)}
+                            >
+                              <span className="bookmark-title">{sub.title}</span>
+                              <span className="bookmark-count">{sub.partsCount}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  )}
+                  ))}
                 </div>
               ))}
             </div>

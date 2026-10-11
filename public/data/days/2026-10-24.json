@@ -8,7 +8,7 @@
   "tone": 3,
   "rank": "simple",
   "services": {
-    "vespers": "vespers-ferial-six-verse",
+    "vespers": "vespers-ferial-simple",
     "matins": "matins-ferial-six-verse",
     "liturgy": "liturgy-ferial-six-verse",
     "hours": {
