@@ -2,49 +2,179 @@
   "_meta": {
     "id": "matins-ferial-six-verse",
     "serviceType": "matins",
-    "description": "Будничная утреня, шестеричная служба святому (оба канона Октоиха без мученичнов + канон святому на 6). Общий скелет для любого будня/гласа/святого этого ранга.",
-    "source": "Служебник, издание Московской Патриархии; структура совмещения — по образцу azbyka.ru «Богослужебные указания»",
+    "description": "Будничная утреня, шестеричная служба. Тропарь святому на «Бог Господь» дважды; каноны: Октоиха первый с ирмосом на 4, второй на 4, святому на 6; катавасия — ирмос канона святому; славословие читается.",
+    "source": "Устав — «Краткий Устав соединения церковных служб», Настольная книга священнослужителя (будничная служба); порядок — Часослов (утреня повседневная); тексты — Октоих и Минея; скелет — Служебник, изд. Московской Патриархии",
     "version": 1,
     "supports_variables": true,
-    "status": "in_progress",
-    "note": "Канон дан для 1, 3 и 9 песней (показательный пример на песнях начала/середины/конца каждого из трёх канонов — Кресту/дню Октоиха, Богородице и святому); песни 4–8 будут добавлены отдельно. Кафизмы даны конспективно (без полного текста псалмов). Славословие на шестеричной службе читается, а не поётся великим чином."
+    "status": "generated",
+    "note": "Сгенерировано scripts/generate-ferial-matins.mjs из matins-ferial-base.json — правки вносить туда и перегенерировать. Песни канона показываются, когда тексты есть в данных: в седмичном Октоихе приложения пока внесены песни 1, 3 и 9; на месте недостающих — пометка. Число тропарей каждого канона — в заголовке («на 6», «на 4»)."
   },
   "items": [
-    { "section": "Начало Утрени", "role": "Диакон", "text": "Благослови́, владыко." },
-    { "section": "Начало Утрени", "role": "Иерей", "text": "Сла́ва Святе́й, и Единосу́щней, и Животворя́щей, и Неразде́льней Тро́ице, всегда́, ны́не и при́сно, и во ве́ки веко́в." },
-    { "section": "Начало Утрени", "role": "Лик", "text": "Ами́нь." },
-    { "section": "Начало Утрени", "role": "Чтец", "text": "Сла́ва в вы́шних Бо́гу, и на земли́ мир, в челове́цех благоволе́ние. (Трижды)\n\nГо́споди, устне́ мои́ отве́рзеши, и уста́ моя́ возвестя́т хвалу́ Твою́. (Дважды)" },
-    { "section": "Шестопсалмие", "role": "Предуведомление", "text": "Чита́ется Шестопса́лмие — шесть избра́нных псалмо́в: 3, 37, 62, 87, 102 и 142." },
-
-    { "section": "Ектения великая", "role": "Диакон", "text": "Ми́ром Го́споду помо́лимся." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "О свы́шнем ми́ре и спасе́нии душ на́ших, Го́споду помо́лимся." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "О ми́ре всего́ ми́ра, благостоя́нии святы́х Бо́жиих церкве́й и соедине́нии всех, Го́споду помо́лимся." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "О святе́м хра́ме сем и с ве́рою, благогове́нием и стра́хом Бо́жиим входя́щих в онь, Го́споду помо́лимся." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "О Вели́ком Господи́не и отце́ на́шем Святе́йшем Патриа́рхе (имярек), и о господи́не на́шем преосвяще́ннейшем митрополи́те (или архиепи́скопе, или епи́скопе) (имярек), честне́м пресви́терстве, во Христе́ диа́констве, о всем при́чте и лю́дех, Го́споду помо́лимся." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "О Богохрани́мей стране́ на́шей, власте́х и во́инстве ея́, Го́споду помо́лимся." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "О гра́де сем (или: о ве́си сей, или: о святе́й оби́тели сей), вся́ком гра́де, стране́ и ве́рою живу́щих в них, Го́споду помо́лимся." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "О бла́горастворе́нии возду́хов, о изоби́лии плодо́в земны́х и вре́менех ми́рных, Го́споду помо́лимся." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "О пла́вающих, путеше́ствующих, неду́гующих, стра́ждущих, плене́нных и о спасе́нии их, Го́споду помо́лимся." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "О избавле́нии нас от вся́кия ско́рби, гне́ва и ну́жды, Го́споду помо́лимся." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения великая", "role": "Диакон", "text": "Пресвяту́ю, пречи́стую, преблагослове́нную, сла́вную Влады́чицу на́шу Богоро́дицу и Присноде́ву Мари́ю, со все́ми святы́ми помяну́вше, са́ми себе́ и друг дру́га, и весь живо́т наш Христу́ Бо́гу предади́м." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Тебе́, Го́споди." },
-    { "section": "Ектения великая", "role": "Иерей", "text": "Я́ко подоба́ет Тебе́ вся́кая сла́ва, честь и поклоне́ние, Отцу́, и Сы́ну, и Свято́му Ду́ху, ны́не и при́сно, и во ве́ки веко́в." },
-    { "section": "Ектения великая", "role": "Лик", "text": "Ами́нь." },
-
-    { "section": "Бог Господь", "role": "Диакон", "text": "Бог Госпо́дь, и яви́ся нам, благослове́н Гряды́й во и́мя Госпо́дне." },
-    { "section": "Бог Господь", "role": "Лик", "text": "Бог Госпо́дь, и яви́ся нам, благослове́н Гряды́й во и́мя Госпо́дне." },
+    {
+      "section": "Начало Утрени",
+      "role": "Диакон",
+      "text": "Благослови́, владыко."
+    },
+    {
+      "section": "Начало Утрени",
+      "role": "Иерей",
+      "text": "Сла́ва Святе́й, и Единосу́щней, и Животворя́щей, и Неразде́льней Тро́ице, всегда́, ны́не и при́сно, и во ве́ки веко́в."
+    },
+    {
+      "section": "Начало Утрени",
+      "role": "Лик",
+      "text": "Ами́нь."
+    },
+    {
+      "section": "Начало Утрени",
+      "role": "Чтец",
+      "text": "Сла́ва в вы́шних Бо́гу, и на земли́ мир, в челове́цех благоволе́ние. (Трижды)\n\nГо́споди, устне́ мои́ отве́рзеши, и уста́ моя́ возвестя́т хвалу́ Твою́. (Дважды)"
+    },
+    {
+      "section": "Шестопсалмие",
+      "role": "Предуведомление",
+      "text": "Чита́ется Шестопса́лмие — шесть избра́нных псалмо́в: 3, 37, 62, 87, 102 и 142."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "Ми́ром Го́споду помо́лимся."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "О свы́шнем ми́ре и спасе́нии душ на́ших, Го́споду помо́лимся."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "О ми́ре всего́ ми́ра, благостоя́нии святы́х Бо́жиих церкве́й и соедине́нии всех, Го́споду помо́лимся."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "О святе́м хра́ме сем и с ве́рою, благогове́нием и стра́хом Бо́жиим входя́щих в онь, Го́споду помо́лимся."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "О Вели́ком Господи́не и отце́ на́шем Святе́йшем Патриа́рхе (имярек), и о господи́не на́шем преосвяще́ннейшем митрополи́те (или архиепи́скопе, или епи́скопе) (имярек), честне́м пресви́терстве, во Христе́ диа́констве, о всем при́чте и лю́дех, Го́споду помо́лимся."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "О Богохрани́мей стране́ на́шей, власте́х и во́инстве ея́, Го́споду помо́лимся."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "О гра́де сем (или: о ве́си сей, или: о святе́й оби́тели сей), вся́ком гра́де, стране́ и ве́рою живу́щих в них, Го́споду помо́лимся."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "О бла́горастворе́нии возду́хов, о изоби́лии плодо́в земны́х и вре́менех ми́рных, Го́споду помо́лимся."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "О пла́вающих, путеше́ствующих, неду́гующих, стра́ждущих, плене́нных и о спасе́нии их, Го́споду помо́лимся."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "О избавле́нии нас от вся́кия ско́рби, гне́ва и ну́жды, Го́споду помо́лимся."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Диакон",
+      "text": "Пресвяту́ю, пречи́стую, преблагослове́нную, сла́вную Влады́чицу на́шу Богоро́дицу и Присноде́ву Мари́ю, со все́ми святы́ми помяну́вше, са́ми себе́ и друг дру́га, и весь живо́т наш Христу́ Бо́гу предади́м."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Тебе́, Го́споди."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Иерей",
+      "text": "Я́ко подоба́ет Тебе́ вся́кая сла́ва, честь и поклоне́ние, Отцу́, и Сы́ну, и Свято́му Ду́ху, ны́не и при́сно, и во ве́ки веко́в."
+    },
+    {
+      "section": "Ектения великая",
+      "role": "Лик",
+      "text": "Ами́нь."
+    },
+    {
+      "section": "Бог Господь",
+      "role": "Диакон",
+      "text": "Бог Госпо́дь, и яви́ся нам, благослове́н Гряды́й во и́мя Госпо́дне."
+    },
+    {
+      "section": "Бог Господь",
+      "role": "Лик",
+      "text": "Бог Госпо́дь, и яви́ся нам, благослове́н Гряды́й во и́мя Госпо́дне."
+    },
     {
       "section": "Тропарь по «Бог Господь»",
       "role": "Лик",
@@ -53,7 +183,19 @@
       "variable_key": "tropar",
       "fallback": "Тропа́рь святому (текст будет добавлен)."
     },
-    { "section": "Тропарь по «Бог Господь»", "role": "Лик", "text": "Сла́ва Отцу́, и Сы́ну, и Свято́му Ду́ху, и ны́не и при́сно, и во ве́ки веко́в. Ами́нь." },
+    {
+      "section": "Тропарь по «Бог Господь»",
+      "role": "Лик (второй раз)",
+      "text": "{{minea.tropar}}",
+      "variable_type": "minea",
+      "variable_key": "tropar",
+      "fallback": "Тропа́рь святому (текст будет добавлен)."
+    },
+    {
+      "section": "Тропарь по «Бог Господь»",
+      "role": "Лик",
+      "text": "Сла́ва Отцу́, и Сы́ну, и Свято́му Ду́ху, и ны́не и при́сно, и во ве́ки веко́в. Ами́нь."
+    },
     {
       "section": "Тропарь по «Бог Господь»",
       "role": "Богородичен",
@@ -62,8 +204,11 @@
       "variable_key": "tropar_bogorodichen_otpustitelny",
       "fallback": "Богоро́дичен отпусти́тельный, по гла́су тропаря́ (текст будет добавлен)."
     },
-
-    { "section": "Кафизмы", "role": "Предуведомление", "text": "На буднич­ной у́трене чита́ются две или три рядовы́е кафи́змы по чреде́ Псалти́ри, с седа́льнами Окто́иха ме́жду ни́ми." },
+    {
+      "section": "Кафизмы",
+      "role": "Предуведомление",
+      "text": "На буднич­ной у́трене чита́ются две или три рядовы́е кафи́змы по чреде́ Псалти́ри, с седа́льнами Окто́иха ме́жду ни́ми."
+    },
     {
       "section": "Седальны по 1-й кафизме",
       "role": "Лик",
@@ -72,7 +217,11 @@
       "variable_key": "sedalen_after_kafisma_1",
       "fallback": "Седа́лен по 1-й кафи́зме, гла́са и дня седми́цы (текст будет добавлен)."
     },
-    { "section": "Седальны по 1-й кафизме", "role": "Лик", "text": "Сла́ва, и ны́не:" },
+    {
+      "section": "Седальны по 1-й кафизме",
+      "role": "Лик",
+      "text": "Сла́ва, и ны́не:"
+    },
     {
       "section": "Седальны по 1-й кафизме",
       "role": "Богородичен",
@@ -89,7 +238,11 @@
       "variable_key": "sedalen_after_kafisma_2",
       "fallback": "Седа́лен по 2-й кафи́зме, гла́са и дня седми́цы (текст будет добавлен)."
     },
-    { "section": "Седальны по 2-й кафизме", "role": "Лик", "text": "Сла́ва, и ны́не:" },
+    {
+      "section": "Седальны по 2-й кафизме",
+      "role": "Лик",
+      "text": "Сла́ва, и ны́не:"
+    },
     {
       "section": "Седальны по 2-й кафизме",
       "role": "Богородичен",
@@ -98,172 +251,1624 @@
       "variable_key": "sedalen_after_kafisma_2_bogorodichen",
       "fallback": "Богоро́дичен седа́льна по 2-й кафи́зме (текст будет добавлен)."
     },
-    { "section": "Седален святому", "role": "Лик", "text": "{{minea.sedalen}}", "variable_type": "minea", "variable_key": "sedalen", "fallback": "Седа́лен святому (текст будет добавлен)." },
-    { "section": "Седален святому", "role": "Лик", "text": "Сла́ва, и ны́не:" },
+    {
+      "section": "Седален святому",
+      "role": "Лик",
+      "text": "{{minea.sedalen}}",
+      "variable_type": "minea",
+      "variable_key": "sedalen",
+      "fallback": "Седа́лен святому (текст будет добавлен).",
+      "only_if": "minea.sedalen"
+    },
+    {
+      "section": "Седален святому",
+      "role": "Лик",
+      "text": "Сла́ва, и ны́не:",
+      "only_if": "minea.sedalen"
+    },
     {
       "section": "Седален святому",
       "role": "Богородичен",
       "text": "{{oktoih.sedalen_after_kafisma_3_bogorodichen}}",
       "variable_type": "oktoih",
       "variable_key": "sedalen_after_kafisma_3_bogorodichen",
-      "fallback": "Богоро́дичен седа́льна свято́му (текст будет добавлен)."
+      "fallback": "Богоро́дичен седа́льна свято́му (текст будет добавлен).",
+      "only_if": "minea.sedalen"
     },
-
-    { "section": "Псалом 50", "role": "Чтец", "text": "Поми́луй мя, Бо́же, по вели́цей ми́лости Твое́й, и по мно́жеству щедро́т Твои́х очи́сти беззако́ние мое́." },
-
+    {
+      "section": "Псалом 50",
+      "role": "Чтец",
+      "text": "Поми́луй мя, Бо́же, по вели́цей ми́лости Твое́й, и по мно́жеству щедро́т Твои́х очи́сти беззако́ние мое́."
+    },
     {
       "section": "Канон",
       "role": "Канон",
       "is_canon": true,
       "canon": {
-        "title": "Октоиха два канона (Кресту и Пресвятей Богородице), без мученичнов, и святого канон на 6 — показаны песни 1, 3 и 9",
+        "title": "Каноны: Октоиха первый с ирмосом на 4, второй на 4, святому на 6; катавасия — ирмос канона святому",
         "structure": [
           {
             "ode": 1,
             "title": "Песнь 1",
             "parts": [
-              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode1_irmos}}", "fallback": "Ирмо́с 1-й пе́сни кано́на Кресту́, гла́са дне́." },
-              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode1_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́." },
-              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode1_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́." },
-              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode1_bogorodichen}}", "fallback": "Богоро́дичен 1-й пе́сни кано́на Кресту́." },
-              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode1_irmos}}", "fallback": "Ирмо́с 1-й пе́сни кано́на Богоро́дице." },
-              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode1_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице." },
-              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode1_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице." },
-              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode1_bogorodichen}}", "fallback": "Богоро́дичен 1-й пе́сни кано́на Богоро́дице." },
-              { "type": "irmos", "label": "Ирмос (святому)", "text": "{{minea.canon_ode1_irmos}}", "fallback": "Ирмо́с 1-й пе́сни кано́на святому." },
-              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode1_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому." },
-              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode1_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому." },
-              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode1_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому." },
-              { "type": "bogorodichen", "label": "Богородичен", "text": "{{minea.canon_ode1_bogorodichen}}", "fallback": "Богоро́дичен 1-й пе́сни кано́на святому." }
+              {
+                "type": "refrain_heading",
+                "label": "Октоих:",
+                "text": "Тропари́ кано́нов Окто́иха 1-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Окто́иху.",
+                "only_if_not": [
+                  "oktoih.canon_cross_ode1_irmos",
+                  "oktoih.canon_cross_ode1_tropar_1",
+                  "oktoih.canon_theotokos_ode1_irmos",
+                  "oktoih.canon_theotokos_ode1_tropar_1"
+                ]
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode1_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode1_irmos"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode1_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode1_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode1_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode1_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode1_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode1_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode1_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode1_bogorodichen"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode1_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode1_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode1_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode1_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode1_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode1_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode1_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode1_bogorodichen"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Припев:",
+                "text": "Святы́й уго́дниче Бо́жий, моли́ Бо́га о нас.",
+                "only_if_any": [
+                  "minea.canon_ode1_tropar_1",
+                  "minea.canon_ode1_tropar_2",
+                  "minea.canon_ode1_tropar_3",
+                  "minea.canon_ode1_tropar_4"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode1_tropar_1}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode1_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode1_tropar_2}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode1_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode1_tropar_3}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode1_tropar_3"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode1_tropar_4}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode1_tropar_4"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Канон святому:",
+                "text": "Тропари́ кано́на свято́му 1-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Мине́и.",
+                "only_if_not": [
+                  "minea.canon_ode1_tropar_1",
+                  "minea.canon_ode1_tropar_2",
+                  "minea.canon_ode1_tropar_3",
+                  "minea.canon_ode1_tropar_4"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{minea.canon_ode1_bogorodichen}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode1_bogorodichen"
+              }
             ]
           },
           {
             "ode": 3,
             "title": "Песнь 3",
             "parts": [
-              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode3_irmos}}", "fallback": "Ирмо́с 3-й пе́сни кано́на Кресту́." },
-              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode3_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 3-й пе́сни." },
-              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode3_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 3-й пе́сни." },
-              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode3_bogorodichen}}", "fallback": "Богоро́дичен 3-й пе́сни кано́на Кресту́." },
-              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode3_irmos}}", "fallback": "Ирмо́с 3-й пе́сни кано́на Богоро́дице." },
-              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode3_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 3-й пе́сни." },
-              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode3_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 3-й пе́сни." },
-              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode3_bogorodichen}}", "fallback": "Богоро́дичен 3-й пе́сни кано́на Богоро́дице." },
-              { "type": "irmos", "label": "Ирмос (святому)", "text": "{{minea.canon_ode3_irmos}}", "fallback": "Ирмо́с 3-й пе́сни кано́на святому." },
-              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode3_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 3-й пе́сни." },
-              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode3_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 3-й пе́сни." },
-              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode3_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 3-й пе́сни." },
-              { "type": "bogorodichen", "label": "Богородичен", "text": "{{minea.canon_ode3_bogorodichen}}", "fallback": "Богоро́дичен 3-й пе́сни кано́на святому." }
+              {
+                "type": "refrain_heading",
+                "label": "Октоих:",
+                "text": "Тропари́ кано́нов Окто́иха 3-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Окто́иху.",
+                "only_if_not": [
+                  "oktoih.canon_cross_ode3_irmos",
+                  "oktoih.canon_cross_ode3_tropar_1",
+                  "oktoih.canon_theotokos_ode3_irmos",
+                  "oktoih.canon_theotokos_ode3_tropar_1"
+                ]
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode3_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode3_irmos"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode3_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode3_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode3_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode3_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode3_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode3_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode3_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode3_bogorodichen"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode3_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode3_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode3_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode3_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode3_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode3_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode3_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode3_bogorodichen"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Припев:",
+                "text": "Святы́й уго́дниче Бо́жий, моли́ Бо́га о нас.",
+                "only_if_any": [
+                  "minea.canon_ode3_tropar_1",
+                  "minea.canon_ode3_tropar_2",
+                  "minea.canon_ode3_tropar_3",
+                  "minea.canon_ode3_tropar_4"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode3_tropar_1}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode3_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode3_tropar_2}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode3_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode3_tropar_3}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode3_tropar_3"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode3_tropar_4}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode3_tropar_4"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Канон святому:",
+                "text": "Тропари́ кано́на свято́му 3-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Мине́и.",
+                "only_if_not": [
+                  "minea.canon_ode3_tropar_1",
+                  "minea.canon_ode3_tropar_2",
+                  "minea.canon_ode3_tropar_3",
+                  "minea.canon_ode3_tropar_4"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{minea.canon_ode3_bogorodichen}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode3_bogorodichen"
+              },
+              {
+                "type": "katavasia",
+                "label": "Катавасия (ирмос канона святому)",
+                "text": "{{minea.canon_ode3_irmos}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode3_irmos"
+              },
+              {
+                "type": "katavasia",
+                "label": "Катавасия",
+                "text": "Катава́сия — ирмо́с 3-й пе́сни после́днего кано́на (свято́му).",
+                "only_if_not": "minea.canon_ode3_irmos"
+              }
             ]
           },
           {
             "ode": "after_3",
             "title": "Малая ектения и седален по 3-й песни",
             "parts": [
-              { "type": "tropar", "label": "Диакон", "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию." },
-              { "type": "tropar", "label": "Седален святому", "text": "{{minea.sedalen_after_ode3}}", "fallback": "Седа́лен святому по 3-й пе́сни (текст будет добавлен)." }
+              {
+                "type": "tropar",
+                "label": "Диакон",
+                "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию."
+              },
+              {
+                "type": "tropar",
+                "label": "Седален святому",
+                "text": "{{minea.sedalen_after_ode3}}",
+                "fallback": "",
+                "only_if": "minea.sedalen_after_ode3"
+              },
+              {
+                "type": "tropar",
+                "label": "Седален святому",
+                "text": "{{minea.sedalen}}",
+                "fallback": "",
+                "only_if": "minea.sedalen",
+                "only_if_not": [
+                  "minea.sedalen_after_ode3"
+                ]
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Седален:",
+                "text": "Седа́лен свято́му — по Мине́и (текст в приложе́ние ещё не внесён).",
+                "only_if_not": [
+                  "minea.sedalen_after_ode3",
+                  "minea.sedalen"
+                ]
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Сла́ва Отцу́, и Сы́ну, и Свято́му Ду́ху, и ны́не и при́сно, и во ве́ки веко́в. Ами́нь."
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{minea.sedalen_after_ode3_bogorodichen}}",
+                "fallback": "",
+                "only_if": "minea.sedalen_after_ode3_bogorodichen"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{oktoih.sedalen_after_kafisma_3_bogorodichen}}",
+                "fallback": "Богоро́дичен седа́льна (текст будет добавлен).",
+                "only_if_not": "minea.sedalen_after_ode3_bogorodichen"
+              }
+            ]
+          },
+          {
+            "ode": 4,
+            "title": "Песнь 4",
+            "parts": [
+              {
+                "type": "refrain_heading",
+                "label": "Октоих:",
+                "text": "Тропари́ кано́нов Окто́иха 4-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Окто́иху.",
+                "only_if_not": [
+                  "oktoih.canon_cross_ode4_irmos",
+                  "oktoih.canon_cross_ode4_tropar_1",
+                  "oktoih.canon_theotokos_ode4_irmos",
+                  "oktoih.canon_theotokos_ode4_tropar_1"
+                ]
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode4_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode4_irmos"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode4_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode4_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode4_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode4_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode4_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode4_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode4_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode4_bogorodichen"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode4_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode4_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode4_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode4_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode4_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode4_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode4_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode4_bogorodichen"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Припев:",
+                "text": "Святы́й уго́дниче Бо́жий, моли́ Бо́га о нас.",
+                "only_if_any": [
+                  "minea.canon_ode4_tropar_1",
+                  "minea.canon_ode4_tropar_2",
+                  "minea.canon_ode4_tropar_3",
+                  "minea.canon_ode4_tropar_4"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode4_tropar_1}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode4_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode4_tropar_2}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode4_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode4_tropar_3}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode4_tropar_3"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode4_tropar_4}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode4_tropar_4"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Канон святому:",
+                "text": "Тропари́ кано́на свято́му 4-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Мине́и.",
+                "only_if_not": [
+                  "minea.canon_ode4_tropar_1",
+                  "minea.canon_ode4_tropar_2",
+                  "minea.canon_ode4_tropar_3",
+                  "minea.canon_ode4_tropar_4"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{minea.canon_ode4_bogorodichen}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode4_bogorodichen"
+              }
+            ]
+          },
+          {
+            "ode": 5,
+            "title": "Песнь 5",
+            "parts": [
+              {
+                "type": "refrain_heading",
+                "label": "Октоих:",
+                "text": "Тропари́ кано́нов Окто́иха 5-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Окто́иху.",
+                "only_if_not": [
+                  "oktoih.canon_cross_ode5_irmos",
+                  "oktoih.canon_cross_ode5_tropar_1",
+                  "oktoih.canon_theotokos_ode5_irmos",
+                  "oktoih.canon_theotokos_ode5_tropar_1"
+                ]
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode5_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode5_irmos"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode5_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode5_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode5_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode5_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode5_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode5_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode5_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode5_bogorodichen"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode5_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode5_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode5_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode5_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode5_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode5_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode5_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode5_bogorodichen"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Припев:",
+                "text": "Святы́й уго́дниче Бо́жий, моли́ Бо́га о нас.",
+                "only_if_any": [
+                  "minea.canon_ode5_tropar_1",
+                  "minea.canon_ode5_tropar_2",
+                  "minea.canon_ode5_tropar_3",
+                  "minea.canon_ode5_tropar_4"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode5_tropar_1}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode5_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode5_tropar_2}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode5_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode5_tropar_3}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode5_tropar_3"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode5_tropar_4}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode5_tropar_4"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Канон святому:",
+                "text": "Тропари́ кано́на свято́му 5-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Мине́и.",
+                "only_if_not": [
+                  "minea.canon_ode5_tropar_1",
+                  "minea.canon_ode5_tropar_2",
+                  "minea.canon_ode5_tropar_3",
+                  "minea.canon_ode5_tropar_4"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{minea.canon_ode5_bogorodichen}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode5_bogorodichen"
+              }
+            ]
+          },
+          {
+            "ode": 6,
+            "title": "Песнь 6",
+            "parts": [
+              {
+                "type": "refrain_heading",
+                "label": "Октоих:",
+                "text": "Тропари́ кано́нов Окто́иха 6-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Окто́иху.",
+                "only_if_not": [
+                  "oktoih.canon_cross_ode6_irmos",
+                  "oktoih.canon_cross_ode6_tropar_1",
+                  "oktoih.canon_theotokos_ode6_irmos",
+                  "oktoih.canon_theotokos_ode6_tropar_1"
+                ]
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode6_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode6_irmos"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode6_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode6_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode6_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode6_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode6_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode6_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode6_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode6_bogorodichen"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode6_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode6_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode6_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode6_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode6_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode6_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode6_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode6_bogorodichen"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Припев:",
+                "text": "Святы́й уго́дниче Бо́жий, моли́ Бо́га о нас.",
+                "only_if_any": [
+                  "minea.canon_ode6_tropar_1",
+                  "minea.canon_ode6_tropar_2",
+                  "minea.canon_ode6_tropar_3",
+                  "minea.canon_ode6_tropar_4"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode6_tropar_1}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode6_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode6_tropar_2}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode6_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode6_tropar_3}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode6_tropar_3"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode6_tropar_4}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode6_tropar_4"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Канон святому:",
+                "text": "Тропари́ кано́на свято́му 6-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Мине́и.",
+                "only_if_not": [
+                  "minea.canon_ode6_tropar_1",
+                  "minea.canon_ode6_tropar_2",
+                  "minea.canon_ode6_tropar_3",
+                  "minea.canon_ode6_tropar_4"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{minea.canon_ode6_bogorodichen}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode6_bogorodichen"
+              },
+              {
+                "type": "katavasia",
+                "label": "Катавасия (ирмос канона святому)",
+                "text": "{{minea.canon_ode6_irmos}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode6_irmos"
+              },
+              {
+                "type": "katavasia",
+                "label": "Катавасия",
+                "text": "Катава́сия — ирмо́с 6-й пе́сни после́днего кано́на (свято́му).",
+                "only_if_not": "minea.canon_ode6_irmos"
+              }
             ]
           },
           {
             "ode": "after_6",
-            "title": "Малая ектения, кондак и икос по 6-й песни (песни 4–8 опущены показательно)",
+            "title": "Малая ектения, кондак и икос по 6-й песни",
             "parts": [
-              { "type": "tropar", "label": "Диакон", "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию." },
-              { "type": "tropar", "label": "Кондак святому", "text": "{{minea.kondak}}", "fallback": "Конда́к святому (текст будет добавлен)." },
-              { "type": "tropar", "label": "Икос", "text": "{{minea.ikos}}", "fallback": "И́кос святому (текст будет добавлен)." }
+              {
+                "type": "tropar",
+                "label": "Диакон",
+                "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию."
+              },
+              {
+                "type": "tropar",
+                "label": "Кондак святому",
+                "text": "{{minea.kondak}}",
+                "fallback": "",
+                "only_if": "minea.kondak"
+              },
+              {
+                "type": "tropar",
+                "label": "Икос",
+                "text": "{{minea.ikos}}",
+                "fallback": "",
+                "only_if": "minea.ikos"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Кондак:",
+                "text": "Кондака́ свято́му нет — поётся конда́к Окто́иха.",
+                "only_if_not": "minea.kondak"
+              }
+            ]
+          },
+          {
+            "ode": 7,
+            "title": "Песнь 7",
+            "parts": [
+              {
+                "type": "refrain_heading",
+                "label": "Октоих:",
+                "text": "Тропари́ кано́нов Окто́иха 7-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Окто́иху.",
+                "only_if_not": [
+                  "oktoih.canon_cross_ode7_irmos",
+                  "oktoih.canon_cross_ode7_tropar_1",
+                  "oktoih.canon_theotokos_ode7_irmos",
+                  "oktoih.canon_theotokos_ode7_tropar_1"
+                ]
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode7_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode7_irmos"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode7_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode7_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode7_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode7_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode7_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode7_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode7_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode7_bogorodichen"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode7_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode7_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode7_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode7_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode7_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode7_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode7_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode7_bogorodichen"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Припев:",
+                "text": "Святы́й уго́дниче Бо́жий, моли́ Бо́га о нас.",
+                "only_if_any": [
+                  "minea.canon_ode7_tropar_1",
+                  "minea.canon_ode7_tropar_2",
+                  "minea.canon_ode7_tropar_3",
+                  "minea.canon_ode7_tropar_4"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode7_tropar_1}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode7_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode7_tropar_2}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode7_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode7_tropar_3}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode7_tropar_3"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode7_tropar_4}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode7_tropar_4"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Канон святому:",
+                "text": "Тропари́ кано́на свято́му 7-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Мине́и.",
+                "only_if_not": [
+                  "minea.canon_ode7_tropar_1",
+                  "minea.canon_ode7_tropar_2",
+                  "minea.canon_ode7_tropar_3",
+                  "minea.canon_ode7_tropar_4"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{minea.canon_ode7_bogorodichen}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode7_bogorodichen"
+              }
+            ]
+          },
+          {
+            "ode": 8,
+            "title": "Песнь 8",
+            "parts": [
+              {
+                "type": "refrain_heading",
+                "label": "Октоих:",
+                "text": "Тропари́ кано́нов Окто́иха 8-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Окто́иху.",
+                "only_if_not": [
+                  "oktoih.canon_cross_ode8_irmos",
+                  "oktoih.canon_cross_ode8_tropar_1",
+                  "oktoih.canon_theotokos_ode8_irmos",
+                  "oktoih.canon_theotokos_ode8_tropar_1"
+                ]
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode8_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode8_irmos"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode8_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode8_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode8_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode8_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode8_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode8_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode8_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode8_bogorodichen"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode8_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode8_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode8_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode8_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode8_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode8_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode8_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode8_bogorodichen"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Припев:",
+                "text": "Святы́й уго́дниче Бо́жий, моли́ Бо́га о нас.",
+                "only_if_any": [
+                  "minea.canon_ode8_tropar_1",
+                  "minea.canon_ode8_tropar_2",
+                  "minea.canon_ode8_tropar_3",
+                  "minea.canon_ode8_tropar_4"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode8_tropar_1}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode8_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode8_tropar_2}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode8_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode8_tropar_3}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode8_tropar_3"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode8_tropar_4}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode8_tropar_4"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Канон святому:",
+                "text": "Тропари́ кано́на свято́му 8-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Мине́и.",
+                "only_if_not": [
+                  "minea.canon_ode8_tropar_1",
+                  "minea.canon_ode8_tropar_2",
+                  "minea.canon_ode8_tropar_3",
+                  "minea.canon_ode8_tropar_4"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{minea.canon_ode8_bogorodichen}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode8_bogorodichen"
+              },
+              {
+                "type": "tropar",
+                "label": "Лик",
+                "text": "Хва́лим, благослови́м, покланя́емся Го́сподеви, пою́ще и превознося́ще во вся ве́ки."
+              },
+              {
+                "type": "katavasia",
+                "label": "Катавасия (ирмос канона святому)",
+                "text": "{{minea.canon_ode8_irmos}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode8_irmos"
+              },
+              {
+                "type": "katavasia",
+                "label": "Катавасия",
+                "text": "Катава́сия — ирмо́с 8-й пе́сни после́днего кано́на (свято́му).",
+                "only_if_not": "minea.canon_ode8_irmos"
+              }
+            ]
+          },
+          {
+            "ode": "before_9",
+            "title": "Песнь Богородицы (Величит душа Моя Господа)",
+            "parts": [
+              {
+                "type": "tropar",
+                "label": "Диакон",
+                "text": "Богоро́дицу и Ма́терь Све́та в пе́снех возвели́чим."
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Припев:",
+                "text": "Честне́йшую Херуви́м и сла́внейшую без сравне́ния Серафи́м, без истле́ния Бо́га Сло́ва ро́ждшую, су́щую Богоро́дицу Тя велича́ем."
+              },
+              {
+                "type": "tropar",
+                "label": "Песнь Богородицы (стихи Магнификата)",
+                "text": "Вели́чит душа́ Моя́ Го́спода, и возра́довася дух Мой о Бо́зе Спа́се Мое́м."
+              },
+              {
+                "type": "tropar",
+                "label": "Песнь Богородицы",
+                "text": "Я́ко призре́ на смире́ние рабы́ Своея́, се бо от ны́не ублажа́т Мя вси ро́ди."
+              },
+              {
+                "type": "tropar",
+                "label": "Песнь Богородицы",
+                "text": "Я́ко сотвори́ Мне вели́чие Си́льный, и свято И́мя Его́, и ми́лость Его́ в ро́ды родо́в боя́щимся Его́."
+              },
+              {
+                "type": "tropar",
+                "label": "Песнь Богородицы",
+                "text": "Сотвори́ держа́ву мы́шцею Свое́ю: расточи́ го́рдыя мы́слию се́рдца их."
+              },
+              {
+                "type": "tropar",
+                "label": "Песнь Богородицы",
+                "text": "Низложи́ си́льныя со престо́л, и вознесе́ смире́нныя; а́лчущия испо́лни благ, и богатя́щияся отпусти́ тщи."
+              },
+              {
+                "type": "tropar",
+                "label": "Песнь Богородицы",
+                "text": "Восприя́т Изра́иля о́трока Своего́, помяну́ти ми́лости, я́коже глаго́ла ко отце́м на́шим, Авраа́му и се́мени его́, да́же до ве́ка."
+              }
             ]
           },
           {
             "ode": 9,
             "title": "Песнь 9",
             "parts": [
-              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode9_irmos}}", "fallback": "Ирмо́с 9-й пе́сни кано́на Кресту́." },
-              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode9_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 9-й пе́сни." },
-              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode9_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 9-й пе́сни." },
-              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode9_bogorodichen}}", "fallback": "Богоро́дичен 9-й пе́сни кано́на Кресту́." },
-              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode9_irmos}}", "fallback": "Ирмо́с 9-й пе́сни кано́на Богоро́дице." },
-              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode9_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 9-й пе́сни." },
-              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode9_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 9-й пе́сни." },
-              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode9_bogorodichen}}", "fallback": "Богоро́дичен 9-й пе́сни кано́на Богоро́дице." },
-              { "type": "irmos", "label": "Ирмос (святому)", "text": "{{minea.canon_ode9_irmos}}", "fallback": "Ирмо́с 9-й пе́сни кано́на святому." },
-              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode9_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 9-й пе́сни." },
-              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode9_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 9-й пе́сни." },
-              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode9_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 9-й пе́сни." },
-              { "type": "bogorodichen", "label": "Богородичен", "text": "{{minea.canon_ode9_bogorodichen}}", "fallback": "Богоро́дичен 9-й пе́сни кано́на святому." }
+              {
+                "type": "refrain_heading",
+                "label": "Октоих:",
+                "text": "Тропари́ кано́нов Окто́иха 9-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Окто́иху.",
+                "only_if_not": [
+                  "oktoih.canon_cross_ode9_irmos",
+                  "oktoih.canon_cross_ode9_tropar_1",
+                  "oktoih.canon_theotokos_ode9_irmos",
+                  "oktoih.canon_theotokos_ode9_tropar_1"
+                ]
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode9_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode9_irmos"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode9_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode9_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode9_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode9_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode9_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode9_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (первый канон Октоиха)",
+                "text": "{{oktoih.canon_cross_ode9_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_cross_ode9_bogorodichen"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode9_tropar_1}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode9_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode9_tropar_2}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode9_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode9_tropar_3}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode9_tropar_3"
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode9_bogorodichen}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode9_bogorodichen"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Припев:",
+                "text": "Святы́й уго́дниче Бо́жий, моли́ Бо́га о нас.",
+                "only_if_any": [
+                  "minea.canon_ode9_tropar_1",
+                  "minea.canon_ode9_tropar_2",
+                  "minea.canon_ode9_tropar_3",
+                  "minea.canon_ode9_tropar_4"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode9_tropar_1}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode9_tropar_1"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode9_tropar_2}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode9_tropar_2"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode9_tropar_3}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode9_tropar_3"
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь святому",
+                "text": "{{minea.canon_ode9_tropar_4}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode9_tropar_4"
+              },
+              {
+                "type": "refrain_heading",
+                "label": "Канон святому:",
+                "text": "Тропари́ кано́на свято́му 9-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Мине́и.",
+                "only_if_not": [
+                  "minea.canon_ode9_tropar_1",
+                  "minea.canon_ode9_tropar_2",
+                  "minea.canon_ode9_tropar_3",
+                  "minea.canon_ode9_tropar_4"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{minea.canon_ode9_bogorodichen}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode9_bogorodichen"
+              },
+              {
+                "type": "katavasia",
+                "label": "Катавасия (ирмос канона святому)",
+                "text": "{{minea.canon_ode9_irmos}}",
+                "fallback": "",
+                "only_if": "minea.canon_ode9_irmos"
+              },
+              {
+                "type": "katavasia",
+                "label": "Катавасия",
+                "text": "Катава́сия — ирмо́с 9-й пе́сни после́днего кано́на (свято́му).",
+                "only_if_not": "minea.canon_ode9_irmos"
+              }
+            ]
+          },
+          {
+            "ode": "after_9",
+            "title": "По 9-й песни",
+            "parts": [
+              {
+                "type": "tropar",
+                "label": "Лик",
+                "text": "Досто́йно есть я́ко вои́стинну блажи́ти Тя, Богоро́дицу, Присноблаже́нную и Пренепоро́чную и Ма́терь Бо́га на́шего. Честне́йшую Херуви́м и сла́внейшую без сравне́ния Серафи́м, без истле́ния Бо́га Сло́ва ро́ждшую, су́щую Богоро́дицу Тя велича́ем."
+              },
+              {
+                "type": "tropar",
+                "label": "Диакон",
+                "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию."
+              }
             ]
           }
         ]
       }
     },
-
+    {
+      "section": "Светилен",
+      "role": "Предуведомление",
+      "text": "Свети́лен Окто́иха дне; «Сла́ва» — свети́лен свято́му (е́сли есть), «И ны́не» — Богоро́дичен."
+    },
     {
       "section": "Светилен",
       "role": "Лик",
+      "text": "Сла́ва Отцу́, и Сы́ну, и Свято́му Ду́ху.",
+      "only_if": "minea.svetilen"
+    },
+    {
+      "section": "Светилен",
+      "role": "Светилен святому",
       "text": "{{minea.svetilen}}",
       "variable_type": "minea",
       "variable_key": "svetilen",
-      "fallback": "Свети́лен святому (текст будет добавлен)."
+      "fallback": "",
+      "only_if": "minea.svetilen"
     },
-
-    { "section": "Хвалитные псалмы", "role": "Предуведомление", "text": "Пса́лмы 148–150, «Вся́кое дыха́ние да хва́лит Го́спода»." },
+    {
+      "section": "Светилен",
+      "role": "Лик",
+      "text": "И ны́не и при́сно, и во ве́ки веко́в. Ами́нь.",
+      "only_if": "minea.svetilen"
+    },
+    {
+      "section": "Хвалитные псалмы",
+      "role": "Предуведомление",
+      "text": "Пса́лмы 148–150, «Вся́кое дыха́ние да хва́лит Го́спода»."
+    },
     {
       "section": "Стихиры на хвалитех",
       "role": "Стихиры святому, на 4",
       "text": "{{minea.hvalitny_stichiry_4}}",
       "variable_type": "minea",
       "variable_key": "hvalitny_stichiry_4",
-      "fallback": "Стихи́ры на хвали́тех святому, на 4 (текст будет добавлен)."
+      "fallback": "",
+      "only_if": "minea.hvalitny_stichiry_4"
     },
-    { "section": "Стихиры на хвалитех", "role": "Лик", "text": "Сла́ва:" },
+    {
+      "section": "Стихиры на хвалитех",
+      "role": "Стихиры святому, на 4",
+      "text": "{{minea.hvalitny_stichiry_3}}",
+      "variable_type": "minea",
+      "variable_key": "hvalitny_stichiry_3",
+      "fallback": "",
+      "only_if": "minea.hvalitny_stichiry_3",
+      "only_if_not": [
+        "minea.hvalitny_stichiry_4"
+      ]
+    },
+    {
+      "section": "Стихиры на хвалитех",
+      "role": "Стихиры святому, на 4",
+      "text": "{{minea.hvalitny_stichiry_6}}",
+      "variable_type": "minea",
+      "variable_key": "hvalitny_stichiry_6",
+      "fallback": "",
+      "only_if": "minea.hvalitny_stichiry_6",
+      "only_if_not": [
+        "minea.hvalitny_stichiry_4",
+        "minea.hvalitny_stichiry_3"
+      ]
+    },
+    {
+      "section": "Стихиры на хвалитех",
+      "role": "Стихиры святому, на 4",
+      "text": "{{minea.hvalitny_stichiry_8}}",
+      "variable_type": "minea",
+      "variable_key": "hvalitny_stichiry_8",
+      "fallback": "",
+      "only_if": "minea.hvalitny_stichiry_8",
+      "only_if_not": [
+        "minea.hvalitny_stichiry_4",
+        "minea.hvalitny_stichiry_3",
+        "minea.hvalitny_stichiry_6"
+      ]
+    },
+    {
+      "section": "Стихиры на хвалитех",
+      "role": "Стихиры святому, на 4",
+      "text": "{{minea.hvalitny_stichiry}}",
+      "variable_type": "minea",
+      "variable_key": "hvalitny_stichiry",
+      "fallback": "",
+      "only_if": "minea.hvalitny_stichiry",
+      "only_if_not": [
+        "minea.hvalitny_stichiry_4",
+        "minea.hvalitny_stichiry_3",
+        "minea.hvalitny_stichiry_6",
+        "minea.hvalitny_stichiry_8"
+      ]
+    },
+    {
+      "section": "Стихиры на хвалитех",
+      "role": "Лик",
+      "text": "Сла́ва Отцу́, и Сы́ну, и Свято́му Ду́ху.",
+      "only_if": "minea.hvalitny_slava"
+    },
     {
       "section": "Стихиры на хвалитех",
       "role": "Стихира на «Славу»",
       "text": "{{minea.hvalitny_slava}}",
       "variable_type": "minea",
       "variable_key": "hvalitny_slava",
-      "fallback": "Стихи́ра на «Сла́ву» святому (текст будет добавлен)."
+      "fallback": "",
+      "only_if": "minea.hvalitny_slava"
     },
-    { "section": "Стихиры на хвалитех", "role": "Лик", "text": "И ны́не: Преблагослове́нна еси́, Богоро́дице Де́во." },
-
-    { "section": "Славословие", "role": "Предуведомление", "text": "На шестери́чной слу́жбе великое славословие читается («Сла́ва в вы́шних Бо́гу...»), не поётся." },
-    { "section": "Славословие", "role": "Чтец", "text": "Сла́ва в вы́шних Бо́гу, и на земли́ мир, в челове́цех благоволе́ние. Хва́лим Тя, благослови́м Тя, кла́няем Ти ся, славосло́вим Тя, благодари́м Тя вели́кия ра́ди сла́вы Твоея́." },
-
-    { "section": "Ектения сугубая", "role": "Диакон", "text": "Поми́луй нас, Бо́же, по вели́цей ми́лости Твое́й, мо́лим Ти ся, услы́ши и поми́луй." },
-    { "section": "Ектения сугубая", "role": "Лик", "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй." },
-    { "section": "Ектения сугубая", "role": "Диакон", "text": "Еще́ мо́лимся о Вели́ком Господи́не и отце́ на́шем Святе́йшем Патриа́рхе (имярек), и о господи́не на́шем преосвяще́ннейшем митрополи́те (или архиепи́скопе, или епи́скопе) (имярек), и о всей во Христе́ бра́тии на́шей." },
-    { "section": "Ектения сугубая", "role": "Лик", "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй." },
-    { "section": "Ектения сугубая", "role": "Диакон", "text": "Еще́ мо́лимся о Богохрани́мей стране́ на́шей, власте́х и во́инстве ея́, да ти́хое и безмо́лвное житие́ поживе́м во вся́ком благоче́стии и чистоте́." },
-    { "section": "Ектения сугубая", "role": "Лик", "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй." },
-    { "section": "Ектения сугубая", "role": "Диакон", "text": "Еще́ мо́лимся о блаже́нных и приснопа́мятных созда́телех свята́го хра́ма сего́, и о всех преждепочи́вших отце́х и бра́тиях, зде лежа́щих и повсю́ду, правосла́вных." },
-    { "section": "Ектения сугубая", "role": "Лик", "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй." },
-    { "section": "Ектения сугубая", "role": "Диакон", "text": "Еще́ мо́лимся о ми́лости, жи́зни, ми́ре, здра́вии, спасе́нии, посеще́нии, проще́нии и оставле́нии грехо́в рабо́в Бо́жиих, бра́тии свята́го хра́ма сего́." },
-    { "section": "Ектения сугубая", "role": "Лик", "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй." },
-    { "section": "Ектения сугубая", "role": "Диакон", "text": "Еще́ мо́лимся о плодонося́щих и доброде́ющих во святе́м и всечестне́м хра́ме сем, тружда́ющихся, пою́щих и предстоя́щих лю́дех, ожида́ющих от Тебе́ вели́кия и бога́тыя ми́лости." },
-    { "section": "Ектения сугубая", "role": "Лик", "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй." },
-    { "section": "Ектения сугубая", "role": "Иерей", "text": "Я́ко ми́лостив и человеколю́бец Бог еси́, и Тебе́ сла́ву возсыла́ем, Отцу́, и Сы́ну, и Свято́му Ду́ху, ны́не и при́сно, и во ве́ки веко́в." },
-    { "section": "Ектения сугубая", "role": "Лик", "text": "Ами́нь." },
-
-    { "section": "Ектения просительная", "role": "Диакон", "text": "Испо́лним у́треннюю моли́тву на́шу Го́сподеви." },
-    { "section": "Ектения просительная", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения просительная", "role": "Диакон", "text": "Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию." },
-    { "section": "Ектения просительная", "role": "Лик", "text": "Го́споди, поми́луй." },
-    { "section": "Ектения просительная", "role": "Диакон", "text": "Дне всего́ соверше́нна, свя́та, ми́рна и безгре́шна у Го́спода про́сим." },
-    { "section": "Ектения просительная", "role": "Лик", "text": "Пода́й, Го́споди." },
-    { "section": "Ектения просительная", "role": "Диакон", "text": "А́нгела ми́рна, ве́рна наста́вника, храни́теля душ и теле́с на́ших у Го́спода про́сим." },
-    { "section": "Ектения просительная", "role": "Лик", "text": "Пода́й, Го́споди." },
-    { "section": "Ектения просительная", "role": "Диакон", "text": "Проще́ния и оставле́ния грехо́в и прегреше́ний на́ших у Го́спода про́сим." },
-    { "section": "Ектения просительная", "role": "Лик", "text": "Пода́й, Го́споди." },
-    { "section": "Ектения просительная", "role": "Диакон", "text": "До́брых и поле́зных душа́м на́шим и ми́ра ми́рови у Го́спода про́сим." },
-    { "section": "Ектения просительная", "role": "Лик", "text": "Пода́й, Го́споди." },
-    { "section": "Ектения просительная", "role": "Диакон", "text": "Про́чее вре́мя живота́ на́шего в ми́ре и покая́нии сконча́ти у Го́спода про́сим." },
-    { "section": "Ектения просительная", "role": "Лик", "text": "Пода́й, Го́споди." },
-    { "section": "Ектения просительная", "role": "Диакон", "text": "Христиа́нския кончи́ны живота́ на́шего, безболе́зненны, непосты́дны, ми́рны и до́браго отве́та на Стра́шнем Суди́щи Христо́ве про́сим." },
-    { "section": "Ектения просительная", "role": "Лик", "text": "Пода́й, Го́споди." },
-    { "section": "Ектения просительная", "role": "Диакон", "text": "Пресвяту́ю, пречи́стую, преблагослове́нную, сла́вную Влады́чицу на́шу Богоро́дицу и Присноде́ву Мари́ю, со все́ми святы́ми помяну́вше, са́ми себе́ и друг дру́га, и весь живо́т наш Христу́ Бо́гу предади́м." },
-    { "section": "Ектения просительная", "role": "Лик", "text": "Тебе́, Го́споди." },
-    { "section": "Ектения просительная", "role": "Иерей", "text": "Я́ко Бог ми́лости, щедро́т и человеколю́бия еси́, и Тебе́ сла́ву возсыла́ем, Отцу́, и Сы́ну, и Свято́му Ду́ху, ны́не и при́сно, и во ве́ки веко́в." },
-    { "section": "Ектения просительная", "role": "Лик", "text": "Ами́нь." },
-
+    {
+      "section": "Стихиры на хвалитех",
+      "role": "Лик",
+      "text": "И ны́не и при́сно, и во ве́ки веко́в. Ами́нь.",
+      "only_if_any": [
+        "minea.hvalitny_stichiry_4",
+        "minea.hvalitny_stichiry_3",
+        "minea.hvalitny_stichiry_6",
+        "minea.hvalitny_stichiry_8",
+        "minea.hvalitny_stichiry"
+      ]
+    },
+    {
+      "section": "Стихиры на хвалитех",
+      "role": "Богородичен",
+      "text": "{{minea.hvalitny_bogorodichen}}",
+      "variable_type": "minea",
+      "variable_key": "hvalitny_bogorodichen",
+      "fallback": "",
+      "only_if": "minea.hvalitny_bogorodichen"
+    },
+    {
+      "section": "Стихиры на хвалитех",
+      "role": "Богородичен",
+      "text": "{{minea.hvalitny_i_nyne}}",
+      "variable_type": "minea",
+      "variable_key": "hvalitny_i_nyne",
+      "fallback": "",
+      "only_if": "minea.hvalitny_i_nyne",
+      "only_if_not": [
+        "minea.hvalitny_bogorodichen"
+      ]
+    },
+    {
+      "section": "Стихиры на хвалитех",
+      "role": "Богородичен",
+      "text": "Богоро́дичен — по Мине́и (текст в приложе́ние ещё не внесён).",
+      "only_if_any": [
+        "minea.hvalitny_stichiry_4",
+        "minea.hvalitny_stichiry_3",
+        "minea.hvalitny_stichiry_6",
+        "minea.hvalitny_stichiry_8",
+        "minea.hvalitny_stichiry"
+      ],
+      "only_if_not": [
+        "minea.hvalitny_bogorodichen",
+        "minea.hvalitny_i_nyne"
+      ]
+    },
+    {
+      "section": "Славословие",
+      "role": "Иерей",
+      "text": "Тебе́ сла́ва подоба́ет, Го́споду Бо́гу на́шему, и Тебе́ сла́ву возсыла́ем, Отцу́, и Сы́ну, и Свято́му Ду́ху, ны́не и при́сно, и во ве́ки веко́в."
+    },
+    {
+      "section": "Славословие",
+      "role": "Лик",
+      "text": "Ами́нь."
+    },
+    {
+      "section": "Славословие",
+      "role": "Предуведомление",
+      "text": "На шестери́чной слу́жбе вели́кое славосло́вие чита́ется, а не поётся. Пред ним: «Тебе́ сла́ва подоба́ет...»."
+    },
+    {
+      "section": "Славословие",
+      "role": "Чтец",
+      "text": "Сла́ва в вы́шних Бо́гу, и на земли́ мир, в челове́цех благоволе́ние. Хва́лим Тя, благослови́м Тя, кла́няем Ти ся, славосло́вим Тя, благодари́м Тя вели́кия ра́ди сла́вы Твоея́."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Диакон",
+      "text": "Испо́лним у́треннюю моли́тву на́шу Го́сподеви."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Диакон",
+      "text": "Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Диакон",
+      "text": "Дне всего́ соверше́нна, свя́та, ми́рна и безгре́шна у Го́спода про́сим."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Лик",
+      "text": "Пода́й, Го́споди."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Диакон",
+      "text": "А́нгела ми́рна, ве́рна наста́вника, храни́теля душ и теле́с на́ших у Го́спода про́сим."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Лик",
+      "text": "Пода́й, Го́споди."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Диакон",
+      "text": "Проще́ния и оставле́ния грехо́в и прегреше́ний на́ших у Го́спода про́сим."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Лик",
+      "text": "Пода́й, Го́споди."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Диакон",
+      "text": "До́брых и поле́зных душа́м на́шим и ми́ра ми́рови у Го́спода про́сим."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Лик",
+      "text": "Пода́й, Го́споди."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Диакон",
+      "text": "Про́чее вре́мя живота́ на́шего в ми́ре и покая́нии сконча́ти у Го́спода про́сим."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Лик",
+      "text": "Пода́й, Го́споди."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Диакон",
+      "text": "Христиа́нския кончи́ны живота́ на́шего, безболе́зненны, непосты́дны, ми́рны и до́браго отве́та на Стра́шнем Суди́щи Христо́ве про́сим."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Лик",
+      "text": "Пода́й, Го́споди."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Диакон",
+      "text": "Пресвяту́ю, пречи́стую, преблагослове́нную, сла́вную Влады́чицу на́шу Богоро́дицу и Присноде́ву Мари́ю, со все́ми святы́ми помяну́вше, са́ми себе́ и друг дру́га, и весь живо́т наш Христу́ Бо́гу предади́м."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Лик",
+      "text": "Тебе́, Го́споди."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Иерей",
+      "text": "Я́ко Бог ми́лости, щедро́т и человеколю́бия еси́, и Тебе́ сла́ву возсыла́ем, Отцу́, и Сы́ну, и Свято́му Ду́ху, ны́не и при́сно, и во ве́ки веко́в."
+    },
+    {
+      "section": "Ектения просительная",
+      "role": "Лик",
+      "text": "Ами́нь."
+    },
     {
       "section": "Стиховны",
       "role": "Стихиры Октоиха",
@@ -272,7 +1877,11 @@
       "variable_key": "matins_stikhovna",
       "fallback": "Стихи́ры стихо́вны Окто́иха на у́трени (текст будет добавлен)."
     },
-    { "section": "Стиховны", "role": "Лик", "text": "Сла́ва, и ны́не:" },
+    {
+      "section": "Стиховны",
+      "role": "Лик",
+      "text": "Сла́ва, и ны́не:"
+    },
     {
       "section": "Стиховны",
       "role": "Богородичен/Крестобогородичен",
@@ -281,8 +1890,11 @@
       "variable_key": "matins_stikhovna_crestobogorodichen",
       "fallback": "Богоро́дичен (или Крестобогоро́дичен) стихо́вны у́трени (текст будет добавлен)."
     },
-
-    { "section": "Завершение Утрени", "role": "Чтец", "text": "Благо́ есть исповедатися Господеви... Трисвятое, по Отче наш:" },
+    {
+      "section": "Завершение Утрени",
+      "role": "Чтец",
+      "text": "Благо́ есть исповедатися Господеви... Трисвятое, по Отче наш:"
+    },
     {
       "section": "Завершение Утрени",
       "role": "Лик",
@@ -291,8 +1903,99 @@
       "variable_key": "tropar",
       "fallback": "Тропа́рь святому (повторяется)."
     },
-    { "section": "Завершение Утрени", "role": "Иерей", "text": "Сла́ва Тебе́, Христе́ Бо́же, упова́ние на́ше, сла́ва Тебе́." },
-    { "section": "Завершение Утрени", "role": "Лик", "text": "Сла́ва, и ны́не: Го́споди поми́луй (Трижды), благослови́." },
+    {
+      "section": "Завершение Утрени",
+      "role": "Лик",
+      "text": "Сла́ва Отцу́, и Сы́ну, и Свято́му Ду́ху, и ны́не и при́сно, и во ве́ки веко́в. Ами́нь."
+    },
+    {
+      "section": "Завершение Утрени",
+      "role": "Богородичен",
+      "text": "{{oktoih.tropar_bogorodichen_otpustitelny}}",
+      "variable_type": "oktoih",
+      "variable_key": "tropar_bogorodichen_otpustitelny",
+      "fallback": "Богоро́дичен отпусти́тельный, по гла́су тропаря́ (текст будет добавлен)."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Диакон",
+      "text": "Поми́луй нас, Бо́же, по вели́цей ми́лости Твое́й, мо́лим Ти ся, услы́ши и поми́луй."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Диакон",
+      "text": "Еще́ мо́лимся о Вели́ком Господи́не и отце́ на́шем Святе́йшем Патриа́рхе (имярек), и о господи́не на́шем преосвяще́ннейшем митрополи́те (или архиепи́скопе, или епи́скопе) (имярек), и о всей во Христе́ бра́тии на́шей."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Диакон",
+      "text": "Еще́ мо́лимся о Богохрани́мей стране́ на́шей, власте́х и во́инстве ея́, да ти́хое и безмо́лвное житие́ поживе́м во вся́ком благоче́стии и чистоте́."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Диакон",
+      "text": "Еще́ мо́лимся о блаже́нных и приснопа́мятных созда́телех свята́го хра́ма сего́, и о всех преждепочи́вших отце́х и бра́тиях, зде лежа́щих и повсю́ду, правосла́вных."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Диакон",
+      "text": "Еще́ мо́лимся о ми́лости, жи́зни, ми́ре, здра́вии, спасе́нии, посеще́нии, проще́нии и оставле́нии грехо́в рабо́в Бо́жиих, бра́тии свята́го хра́ма сего́."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Диакон",
+      "text": "Еще́ мо́лимся о плодонося́щих и доброде́ющих во святе́м и всечестне́м хра́ме сем, тружда́ющихся, пою́щих и предстоя́щих лю́дех, ожида́ющих от Тебе́ вели́кия и бога́тыя ми́лости."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Лик",
+      "text": "Го́споди, поми́луй. Го́споди, поми́луй. Го́споди, поми́луй."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Иерей",
+      "text": "Я́ко ми́лостив и человеколю́бец Бог еси́, и Тебе́ сла́ву возсыла́ем, Отцу́, и Сы́ну, и Свято́му Ду́ху, ны́не и при́сно, и во ве́ки веко́в."
+    },
+    {
+      "section": "Ектения сугубая",
+      "role": "Лик",
+      "text": "Ами́нь."
+    },
+    {
+      "section": "Завершение Утрени",
+      "role": "Иерей",
+      "text": "Сла́ва Тебе́, Христе́ Бо́же, упова́ние на́ше, сла́ва Тебе́."
+    },
+    {
+      "section": "Завершение Утрени",
+      "role": "Лик",
+      "text": "Сла́ва, и ны́не: Го́споди поми́луй (Трижды), благослови́."
+    },
     {
       "section": "Завершение Утрени",
       "role": "Иерей",
@@ -301,6 +2004,10 @@
       "variable_key": "otpust",
       "fallback": "Христо́с, и́стинный Бог наш, моли́твами Пречи́стыя Своея́ Ма́тере, и святы́м [и́мя святого], и всех святы́х, поми́лует и спасе́т нас, я́ко Благ и Человеколю́бец."
     },
-    { "section": "Завершение Утрени", "role": "Лик", "text": "Ами́нь." }
+    {
+      "section": "Завершение Утрени",
+      "role": "Лик",
+      "text": "Ами́нь."
+    }
   ]
 }

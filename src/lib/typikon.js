@@ -70,9 +70,9 @@ export function periodLabel(date) {
 // Знаки в data/minea сверены с месяцесловом azbyka.ru (октябрь 2026; см.
 // _meta.rank_source). "simple" — святой без знака: по Типикону это
 // простая служба (на «Господи, воззвах» стихиры Октоиха 3 и святому 3,
-// канон святому на 4). Вечерня — по своему шаблону vespers-ferial-simple;
-// утреня пока по шаблону шестеричной службы (каноны Октоиха на 4 + святому
-// на 6 вместо 6 + 4 + 4 по уставу). "ferial" — день,
+// каноны Октоиха 6 + 4 и святому 4) — шаблоны vespers-ferial-simple и
+// matins-ferial-simple (утреня генерируется scripts/generate-ferial-matins.mjs).
+// "ferial" — день,
 // у которого в Минее нет ни стихир, ни канона (только тропарь/кондак).
 export const RANK_ORDER = ["ferial", "simple", "six-verse", "doxology", "polyeleos", "vigil"];
 
@@ -93,10 +93,9 @@ const FERIAL_SERVICE_SETS = {
     liturgy: "liturgy-ferial-six-verse",
     hours: hoursSet("ferial"),
   },
-  // Вечерня — своя (Октоих 3 + святому 3); утреня пока как шестеричная.
   "simple": {
     vespers: "vespers-ferial-simple",
-    matins: "matins-ferial-six-verse",
+    matins: "matins-ferial-simple",
     liturgy: "liturgy-ferial-six-verse",
     hours: hoursSet("ferial"),
   },
