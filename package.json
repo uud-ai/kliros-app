@@ -12,6 +12,9 @@
     "verify-typikon": "node scripts/verify-typikon.mjs"
   },
   "dependencies": {
+    "@fontsource/bitter": "^5.3.0",
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/pt-serif": "^5.3.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },

@@ -5,14 +5,35 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@400;500;600&family=Bitter:wght@400;600&display=swap" rel="stylesheet">
 
     <title>Клирос — богослужебный помощник</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- Возврат на главную сайта храма, если сюда попали переходом оттуда
+         (document.referrer, без хардкода домена — не ломается при прямом
+         заходе/PWA-установке). Вставлен ДО того, как React смонтируется в
+         #root (этот inline-скрипт — классический, выполняется сразу при
+         парсинге, а бандл приложения — type="module", он всегда
+         откладывается до конца парсинга документа), поэтому React об этом
+         узле ничего не знает и не трогает его при любых ре-рендерах.
+         См. аналогичную кнопку в Благовесте (gospel-navigator/index.html). -->
+    <script>
+      (function () {
+        var ref;
+        try { ref = new URL(document.referrer); } catch (e) { return; }
+        if (ref.origin !== location.origin || ref.href === location.href) return;
+        var bar = document.createElement("a");
+        bar.href = ref.href;
+        bar.textContent = "‹ Назад на сайт";
+        bar.style.cssText = "display:block;padding:10px 20px;" +
+          "font:500 0.95rem var(--font-ui,Bitter,system-ui,sans-serif);" +
+          "color:var(--red,#9c1c1c);background:var(--bg-panel,#fbf7ec);" +
+          "border-bottom:1px solid var(--rule,#d9cfb8);text-decoration:none;";
+        document.body.insertBefore(bar, document.body.firstChild);
+      })();
+    </script>
+
   </body>
 </html>
