@@ -3,7 +3,7 @@
   "feastName": "Мч. Вонифатий",
   "period": "Минея. Январь",
   "tone": 4,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

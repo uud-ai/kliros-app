@@ -3,11 +3,11 @@
   "feastName": "Воспомина́ние бы́вшаго чудесе́ в Колосса́ех, е́же есть в Хо́нех, от Архистрати́га Михаи́ла",
   "period": "Минея. Сентябрь",
   "tone": 6,
-  "rank": "doxology",
+  "rank": "six-verse",
   "services": {
     "vespers": "vespers-ferial-six-verse",
-    "matins": "matins-ferial-doxology",
-    "liturgy": "liturgy-ferial-polyeleos",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
     "hours": {
       "1": "hours-1-ferial",
       "3": "hours-3-ferial",

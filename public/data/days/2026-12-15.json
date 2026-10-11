@@ -3,7 +3,7 @@
   "feastName": "Св. прор. Аввакум",
   "period": "Минея. Декабрь",
   "tone": 3,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

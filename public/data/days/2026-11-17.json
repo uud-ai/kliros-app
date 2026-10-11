@@ -3,7 +3,7 @@
   "feastName": "Прп. Иоанни́кия Вели́каго. Мч. Ника́ндра, епи́скопа Ми́рскаго, и Ерме́я пресви́тера",
   "period": "Минея. Ноябрь",
   "tone": 7,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

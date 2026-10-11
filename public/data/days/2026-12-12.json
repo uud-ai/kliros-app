@@ -6,7 +6,7 @@
   "feastName": "Мч. Парамо́н и с ним 370 му́чеников",
   "period": "Минея. Ноябрь",
   "tone": 2,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

@@ -3,7 +3,7 @@
   "feastName": "Св. прор. Оси́и. Прмч. Андре́я Кри́тскаго. Пренесе́ние моще́й прав. Ла́заря Четверодне́внаго",
   "period": "Минея. Октябрь",
   "tone": 4,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

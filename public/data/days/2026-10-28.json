@@ -3,7 +3,7 @@
   "feastName": "Прп. Евфи́мия Но́ваго. Прмч. Лукиа́на, пресви́тера Антиохи́йскаго. Свт. Иоа́нна, еп. Су́ждальскаго",
   "period": "Минея. Октябрь",
   "tone": 4,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

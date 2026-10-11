@@ -3,7 +3,7 @@
   "feastName": "Мчч. Мина, Ермоген и Евграф",
   "period": "Минея. Декабрь",
   "tone": 4,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",
