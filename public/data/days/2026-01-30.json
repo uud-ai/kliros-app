@@ -3,10 +3,10 @@
   "feastName": "Прп. Антоний Великий",
   "period": "Минея. Январь",
   "tone": 8,
-  "rank": "polyeleos",
+  "rank": "vigil",
   "services": {
-    "vespers": "vespers-ferial-polyeleos",
-    "matins": "matins-ferial-polyeleos",
+    "vespers": "vespers-vigil",
+    "matins": "matins-vigil",
     "liturgy": "liturgy-ferial-polyeleos",
     "hours": {
       "1": "hours-1-ferial",

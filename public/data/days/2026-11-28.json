@@ -3,7 +3,7 @@
   "feastName": "Мчч. и испп. Гу́рия, Само́на и Ави́ва",
   "period": "Минея. Ноябрь",
   "tone": 8,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

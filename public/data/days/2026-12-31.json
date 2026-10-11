@@ -3,11 +3,11 @@
   "feastName": "Свт. Модест, архиеп. Иерусалимский",
   "period": "Минея. Декабрь",
   "tone": 5,
-  "rank": "polyeleos",
+  "rank": "simple",
   "services": {
-    "vespers": "vespers-ferial-polyeleos",
-    "matins": "matins-ferial-polyeleos",
-    "liturgy": "liturgy-ferial-polyeleos",
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
     "hours": {
       "1": "hours-1-ferial",
       "3": "hours-3-ferial",

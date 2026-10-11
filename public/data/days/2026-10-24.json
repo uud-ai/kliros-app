@@ -6,7 +6,7 @@
   "feastName": "Св. ап. Фили́ппа диа́кона. Прп. Феофа́на Испове́дника, еп. Ники́йскаго. Свв. отец Седьма́го Вселе́нскаго Собо́ра",
   "period": "Минея. Октябрь",
   "tone": 3,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

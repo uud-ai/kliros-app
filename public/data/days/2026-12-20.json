@@ -9,10 +9,10 @@
     "matins": "matins-sunday-with-saint",
     "liturgy": "liturgy-sunday-with-variables",
     "hours": {
-      "1": "hours-1-sunday-featured",
-      "3": "hours-3-sunday-featured",
-      "6": "hours-6-sunday-featured",
-      "9": "hours-9-sunday-featured"
+      "1": "hours-1-sunday-with-saint",
+      "3": "hours-3-sunday-with-saint",
+      "6": "hours-6-sunday-with-saint",
+      "9": "hours-9-sunday-with-saint"
     }
   },
   "variables": {

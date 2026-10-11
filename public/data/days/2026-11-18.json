@@ -3,10 +3,10 @@
   "feastName": "Свт. Ио́ны, архиепи́скопа Новгоро́дскаго, чудотво́рца",
   "period": "Минея. Ноябрь",
   "tone": 7,
-  "rank": "polyeleos",
+  "rank": "doxology",
   "services": {
-    "vespers": "vespers-ferial-polyeleos",
-    "matins": "matins-ferial-polyeleos",
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-doxology",
     "liturgy": "liturgy-ferial-polyeleos",
     "hours": {
       "1": "hours-1-ferial",

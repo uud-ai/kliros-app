@@ -3,11 +3,11 @@
   "feastName": "Собо́р преподо́бных оте́ц Пече́рских, в Да́льних пеще́рах почива́ющих",
   "period": "Минея. Сентябрь",
   "tone": 5,
-  "rank": "doxology",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
-    "matins": "matins-ferial-doxology",
-    "liturgy": "liturgy-ferial-polyeleos",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
     "hours": {
       "1": "hours-1-ferial",
       "3": "hours-3-ferial",

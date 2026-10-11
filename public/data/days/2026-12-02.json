@@ -3,7 +3,7 @@
   "feastName": "Прор. Авди́я и мч. Варлаа́ма",
   "period": "Минея. Ноябрь",
   "tone": 1,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

@@ -3,11 +3,11 @@
   "feastName": "Свт. Спиридон Тримифунтский, чудотворец",
   "period": "Минея. Декабрь",
   "tone": 4,
-  "rank": "doxology",
+  "rank": "six-verse",
   "services": {
     "vespers": "vespers-ferial-six-verse",
-    "matins": "matins-ferial-doxology",
-    "liturgy": "liturgy-ferial-polyeleos",
+    "matins": "matins-ferial-six-verse",
+    "liturgy": "liturgy-ferial-six-verse",
     "hours": {
       "1": "hours-1-ferial",
       "3": "hours-3-ferial",

@@ -3,7 +3,7 @@
   "feastName": "Свв. 33 му́чеников в Мелити́не. Прп. Ла́заря Галиси́йского",
   "period": "Минея. Ноябрь",
   "tone": 7,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

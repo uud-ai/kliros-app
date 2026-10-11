@@ -66,7 +66,15 @@ export function periodLabel(date) {
 // недели число выпало в конкретном году. См. RANK_ORDER — это "рядовые"
 // (соединяемые с Октоихом) ранги; всё, что выше — уже не соединение,
 // а полное самостоятельное последование праздника (см. FIXED_GREAT_FEASTS).
-export const RANK_ORDER = ["ferial", "six-verse", "doxology", "polyeleos", "vigil"];
+//
+// Знаки в data/minea сверены с месяцесловом azbyka.ru (октябрь 2026; см.
+// _meta.rank_source). "simple" — святой без знака: по Типикону это
+// простая служба (на «Господи, воззвах» стихиры Октоиха 3 и святому 3,
+// канон святому на 4). Отдельных шаблонов для неё пока нет, поэтому она
+// временно собирается по шаблонам шестеричной службы — так святой не
+// теряется, но Октоих на «Господи, воззвах» не поётся. "ferial" — день,
+// у которого в Минее нет ни стихир, ни канона (только тропарь/кондак).
+export const RANK_ORDER = ["ferial", "simple", "six-verse", "doxology", "polyeleos", "vigil"];
 
 function isKnownRank(rank) {
   return RANK_ORDER.includes(rank);
@@ -82,6 +90,13 @@ const FERIAL_SERVICE_SETS = {
   "ferial": {
     vespers: "vespers-ferial",
     matins: "matins-ferial",
+    liturgy: "liturgy-ferial-six-verse",
+    hours: hoursSet("ferial"),
+  },
+  // Временно — как шестеричная (см. комментарий к RANK_ORDER).
+  "simple": {
+    vespers: "vespers-ferial-six-verse",
+    matins: "matins-ferial-six-verse",
     liturgy: "liturgy-ferial-six-verse",
     hours: hoursSet("ferial"),
   },
@@ -150,7 +165,7 @@ function hoursSet(suffix) {
 }
 
 // Ранги, соединяемые с воскресеньем по обычной схеме "with-saint".
-const SUNDAY_ORDINARY_RANKS = new Set(["six-verse", "doxology", "polyeleos"]);
+const SUNDAY_ORDINARY_RANKS = new Set(["simple", "six-verse", "doxology", "polyeleos"]);
 
 // ===== Особые переопределения источника Октоиха =====
 // Изредка печатная Минея даёт для числа не общий будничный Октоих по

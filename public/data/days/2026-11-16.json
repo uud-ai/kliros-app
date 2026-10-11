@@ -3,7 +3,7 @@
   "feastName": "Мчч. Акепси́мы, Ио́сифа и Аифа́ла. Обновле́ние хра́ма вмч. Гео́ргия в Ли́де",
   "period": "Минея. Ноябрь",
   "tone": 7,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

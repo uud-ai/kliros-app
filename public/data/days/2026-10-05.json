@@ -3,7 +3,7 @@
   "feastName": "Сщмч. Фо́ки, еп. Синопи́йскаго. Ап. от 70-ти Кодра́та. Прор. Ио́ны. Прп. Ио́ны пресви́тера. Прп. Мака́рия Жабы́нскаго. Прп. Ио́ны Яшезе́рскаго",
   "period": "Минея. Октябрь",
   "tone": 1,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

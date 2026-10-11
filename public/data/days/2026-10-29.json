@@ -3,7 +3,7 @@
   "feastName": "Мч. Ло́нгина со́тника, и́же при Кресте́ Госпо́дни",
   "period": "Минея. Октябрь",
   "tone": 4,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
     "vespers": "vespers-ferial-six-verse",
     "matins": "matins-ferial-six-verse",

@@ -6,10 +6,10 @@
   "feastName": "Обре́тение моще́й свт. Гу́рия, архиеп. Каза́нскаго, и Варсоно́фия, еп. Тверска́го, чудотво́рцев",
   "period": "Минея. Октябрь",
   "tone": 2,
-  "rank": "polyeleos",
+  "rank": "doxology",
   "services": {
-    "vespers": "vespers-ferial-polyeleos",
-    "matins": "matins-ferial-polyeleos",
+    "vespers": "vespers-ferial-six-verse",
+    "matins": "matins-ferial-doxology",
     "liturgy": "liturgy-ferial-polyeleos",
     "hours": {
       "1": "hours-1-ferial",
