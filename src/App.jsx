@@ -56,9 +56,24 @@ function buildServiceSequence(services) {
 
 // Строки шаблона с only_if / only_if_not показываются, только если в
 // источнике есть (или нет) указанный текст: "minea.vespers_slava" и т. п.
+// Можно перечислить несколько путей массивом:
+//   only_if: [...]      — нужны все перечисленные тексты;
+//   only_if_any: [...]  — нужен хотя бы один;
+//   only_if_not: [...]  — строка скрывается, если есть хотя бы один.
+// Так из нескольких вариантов ключа (vespers_stichiry_3 / _6 / _8 …)
+// показывается ровно первый найденный.
 function hasVariable(path, sourcesByType) {
   const [type, key] = (path || "").split(".");
   return !!(sourcesByType?.[type]?.[key]);
+}
+
+function passesConditions(item, sourcesByType) {
+  const list = (v) => (v === undefined ? [] : Array.isArray(v) ? v : [v]);
+  if (list(item.only_if).some((p) => !hasVariable(p, sourcesByType))) return false;
+  const any = list(item.only_if_any);
+  if (any.length && !any.some((p) => hasVariable(p, sourcesByType))) return false;
+  if (list(item.only_if_not).some((p) => hasVariable(p, sourcesByType))) return false;
+  return true;
 }
 
 // Формат даты для имени файла: "YYYY-MM-DD"
@@ -619,7 +634,9 @@ function App() {
     return (
       <div key={ode.ode} className="canon-ode">
         <h4 className="canon-ode-title" id={anchor}>{ode.title}</h4>
-        {ode.parts && ode.parts.map((part, idx) => renderCanonPart(part, idx, canonVariables))}
+        {ode.parts && ode.parts
+          .filter((part) => passesConditions(part, canonVariables))
+          .map((part, idx) => renderCanonPart(part, idx, canonVariables))}
       </div>
     );
   };
@@ -681,8 +698,7 @@ function App() {
   const buildItems = (template) => {
     if (!template?.items) return [];
     return template.items.flatMap((item) => {
-      if (item.only_if && !hasVariable(item.only_if, sourcesByType)) return [];
-      if (item.only_if_not && hasVariable(item.only_if_not, sourcesByType)) return [];
+      if (!passesConditions(item, sourcesByType)) return [];
 
       // Канон обрабатывается отдельно — не трогаем его поля
       if (item.is_canon) return [item];
