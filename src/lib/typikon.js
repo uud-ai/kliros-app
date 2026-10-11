@@ -17,6 +17,7 @@
 
 import { computeGlas } from "./paschalion.js";
 import { describeTriodionDay, paschaOffset, planPaschaService, planPentecostarionSunday, planLentenSundayService, planFixedProperService } from "./triodion.js";
+import { planAnnunciation, annunciationNeighbour } from "./mark-chapters.js";
 
 // ===== Общие календарные утилиты =====
 
@@ -463,6 +464,12 @@ export function planDayService(date, mineaMeta) {
   if (mmdd === "02-15") {
     return planSretenie(date);
   }
+  // Благовещение всегда приходится на Великий пост, Страстную или Светлую
+  // седмицу — служба по Марковым главам (см. src/lib/mark-chapters.js).
+  if (mmdd === "04-07") {
+    const plan = planAnnunciation(date);
+    if (plan) return { ok: true, plan };
+  }
 
   // Переходящий цикл Постной/Цветной Триоди (от Недели о мытаре и фарисее
   // до Недели всех русских святых) живёт по другому уставу — см.
@@ -479,7 +486,7 @@ export function planDayService(date, mineaMeta) {
     // и, например, Пятидесятница получала Октоих, которого в этот день нет.
     const plan = planPaschaService(date) || planFixedProperService(date) || planLentenSundayService(date) || planPentecostarionSunday(date);
     if (plan) return { ok: true, plan };
-    return { ok: false, reason: "triod-not-implemented", triodDay };
+    return annunciationNeighbour(date, mmdd) || { ok: false, reason: "triod-not-implemented", triodDay };
   }
 
   const feastPeriod = feastPeriodFor(mmdd);
