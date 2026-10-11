@@ -204,6 +204,56 @@ function highlightMatch(text, searchTerm) {
   return text.replace(regex, '<mark>$1</mark>');
 }
 
+// Пояснение для дня, на который служба пока не составляется. Лучше честно
+// сказать, почему службы нет, чем показать собранную не по уставу.
+function emptyMessage(reason) {
+  const fallback = (
+    <>
+      В базе пока нет данных для этой даты.
+      <br />
+      Попробуйте выбрать другой день.
+    </>
+  );
+  if (!reason) return fallback;
+  switch (reason.reason) {
+    case "feast-period":
+      return (
+        <>
+          {reason.feast}: предпразднство, праздник или попразднство.
+          <br />
+          В эти дни Октоих не поётся, а песнопения праздника в приложение ещё
+          не внесены — служба пока не составляется. Пользуйтесь Минеей.
+        </>
+      );
+    case "triod-not-implemented":
+      return (
+        <>
+          День Постной или Цветной Триоди — служба этого дня в приложение ещё
+          не внесена.
+          <br />
+          Пользуйтесь Триодью и Минеей.
+        </>
+      );
+    case "sretenie-triodion-coincidence":
+      return (
+        <>
+          Сретение Господне совпадает с днём Триоди — служба составляется по
+          особому указанию Типикона и в приложение ещё не внесена.
+        </>
+      );
+    case "no-minea-data":
+      return (
+        <>
+          Служба святому этого дня в приложение ещё не внесена.
+          <br />
+          Пользуйтесь Минеей.
+        </>
+      );
+    default:
+      return fallback;
+  }
+}
+
 function App() {
   // ===== Состояние =====
   const [selectedDate, setSelectedDate] = useState(() => dateFromUrl() || new Date());
@@ -211,6 +261,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [day, setDay] = useState(null);
+  // Почему для даты нет службы (результат planDayService с ok: false).
+  const [emptyReason, setEmptyReason] = useState(null);
   const [templates, setTemplates] = useState({});
   const [variables, setVariables] = useState({});
   const [zachala, setZachala] = useState({ apostle: null, gospel: null });
@@ -285,6 +337,7 @@ function App() {
       setLoading(true);
       setError(null);
       setDay(null);
+      setEmptyReason(null);
 
       try {
         const docId = toDocId(selectedDate);
@@ -308,6 +361,8 @@ function App() {
           const result = planDayService(selectedDate, mineaMeta);
           if (result.ok) {
             dayData = { ...result.plan, computed: true };
+          } else {
+            setEmptyReason(result);
           }
         }
 
@@ -929,9 +984,7 @@ function App() {
       <div className="service-body">
         {!day ? (
           <div className="empty-service">
-            В базе пока нет данных для этой даты.
-            <br />
-            Попробуйте выбрать другой день.
+            {emptyMessage(emptyReason)}
           </div>
         ) : groups.length === 0 ? (
           <div className="empty-service">

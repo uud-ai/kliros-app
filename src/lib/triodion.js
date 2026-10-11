@@ -104,6 +104,15 @@ export const MENAION_SCHEME = {
   // целиком заупокойная, Минея святого дня, как правило, переносится на
   // повечерие накануне или полностью опускается.
   SATURDAY_MEMORIAL_UNIVERSAL: "saturday-memorial-universal",
+  // Сырная седмица (между Неделями мясопустной и сыропустной): на будни
+  // уже поются трипеснцы Триоди, среда и пятница — по чину постных дней.
+  // Рядовым соединением Октоиха и Минеи эти дни не являются.
+  CHEESEFARE_WEEK: "cheesefare-week",
+  // Будни Цветной Триоди (от Фомина понедельника до субботы перед Неделей
+  // всех святых): Октоих на седмичных службах НЕ поётся — служба
+  // составляется из Цветной Триоди и Минеи (azbyka.ru/oktoix: Октоих не
+  // поётся «во время Цветной Триоди»). Рядовое соединение здесь неприменимо.
+  PENTECOSTARION_WEEKDAY: "pentecostarion-weekday",
   // День с полностью самостоятельным последованием Господского праздника
   // (Неделя ваий, Страстная седмица, Светлая седмица, Вознесение,
   // Пятидесятница, Отдание Пасхи) — Октоих и Минея не поются вовсе.
@@ -173,18 +182,18 @@ const NAMED_DAYS = [
   { offset: 14, kind: "sunday", name: "Неде́ля 3-я по Па́сце, святы́х жён-мироно́сиц", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 2, services: { matins: "matins-myronositsy", liturgy: "liturgy-myronositsy" }, fasting: "Разреше́ние на вся" },
   { offset: 20, kind: "saturday", name: "Суббо́та 3-й седми́цы по Па́сце", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 3, services: { vespers: "vespers-rasslablennogo" }, fasting: "Разреше́ние на вся" },
   { offset: 21, kind: "sunday", name: "Неде́ля 4-я по Па́сце, о разсла́бленном", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 3, services: { matins: "matins-rasslablennogo", liturgy: "liturgy-rasslablennogo" }, fasting: "Разреше́ние на вся" },
-  { offset: 24, kind: "weekday", name: "Преполове́ние Пятидеся́тницы", period: "Пентикоста́рий", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-prepolovenie", matins: "matins-prepolovenie", liturgy: "liturgy-prepolovenie" } },
+  { offset: 24, kind: "weekday", name: "Преполове́ние Пятидеся́тницы", period: "Пентикоста́рий", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-prepolovenie", matins: "matins-prepolovenie", liturgy: "liturgy-prepolovenie" }, fasting: "Разреше́ние на ры́бу" },
   { offset: 27, kind: "saturday", name: "Суббо́та 4-й седми́цы по Па́сце", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 4, services: { vespers: "vespers-samaryanyni" }, fasting: "Разреше́ние на вся" },
   { offset: 28, kind: "sunday", name: "Неде́ля 5-я по Па́сце, о самаряны́не", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 4, services: { matins: "matins-samaryanyni", liturgy: "liturgy-samaryanyni" }, fasting: "Разреше́ние на вся" },
   { offset: 34, kind: "saturday", name: "Суббо́та 5-й седми́цы по Па́сце", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 5, services: { vespers: "vespers-slepom" }, fasting: "Разреше́ние на вся" },
   { offset: 35, kind: "sunday", name: "Неде́ля 6-я по Па́сце, о слепо́м", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 5, services: { matins: "matins-slepom", liturgy: "liturgy-slepom" }, fasting: "Разреше́ние на вся" },
   { offset: 38, kind: "weekday", name: "Отда́ние Па́схи", period: "Пентикоста́рий", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER },
-  { offset: 39, kind: "weekday", name: "Вознесе́ние Госпо́дне", period: "Пентикоста́рий", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-voznesenie", matins: "matins-voznesenie", liturgy: "liturgy-voznesenie" } },
+  { offset: 39, kind: "weekday", name: "Вознесе́ние Госпо́дне", period: "Пентикоста́рий", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { vespers: "vespers-voznesenie", matins: "matins-voznesenie", liturgy: "liturgy-voznesenie" }, fasting: "Поста́ нет" },
   { offset: 41, kind: "saturday", name: "Суббо́та 6-й седми́цы по Па́сце", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 6, services: { vespers: "vespers-otcev" }, fasting: "Разреше́ние на вся" },
   { offset: 42, kind: "sunday", name: "Неде́ля 7-я по Па́сце, святы́х отце́в I Вселе́нскаго Собо́ра", period: "Пентикоста́рий", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 6, services: { matins: "matins-otcev", liturgy: "liturgy-otcev" }, fasting: "Разреше́ние на вся" },
   { offset: 48, kind: "saturday", name: "Тро́ицкая роди́тельская суббо́та", period: "Пентикоста́рий", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL, tone: 6, services: { vespers: "vespers-troitskaya-roditelskaya", matins: "matins-troitskaya-roditelskaya", liturgy: "liturgy-troitskaya-roditelskaya" }, fasting: "Разреше́ние на вся" },
-  { offset: 49, kind: "sunday", name: "Святая Пятидеся́тница. День Святы́я Тро́ицы", period: "Пятидеся́тница", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, specialService: "pentecost", services: { vespers: "vespers-pentecost", matins: "matins-pentecost", liturgy: "liturgy-pentecost", vespersKneeling: "vespers-pentecost-kneeling" } },
-  { offset: 50, kind: "weekday", name: "День Свята́го Ду́ха", period: "Пятидеся́тница", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { matins: "matins-svyatogo-dukha", liturgy: "liturgy-svyatogo-dukha" } },
+  { offset: 49, kind: "sunday", name: "Святая Пятидеся́тница. День Святы́я Тро́ицы", period: "Пятидеся́тница", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, specialService: "pentecost", services: { vespers: "vespers-pentecost", matins: "matins-pentecost", liturgy: "liturgy-pentecost", vespersKneeling: "vespers-pentecost-kneeling" }, fasting: "Разреше́ние на вся" },
+  { offset: 50, kind: "weekday", name: "День Свята́го Ду́ха", period: "Пятидеся́тница", scheme: MENAION_SCHEME.EXCLUDED_OWN_PROPER, services: { matins: "matins-svyatogo-dukha", liturgy: "liturgy-svyatogo-dukha" }, fasting: "Разреше́ние на вся" },
   { offset: 55, kind: "saturday", name: "Суббо́та по Пятидеся́тнице", period: "По Пятидеся́тнице", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 8, services: { vespers: "vespers-vsekh-svyatykh" }, fasting: "Разреше́ние на вся" },
   { offset: 56, kind: "sunday", name: "Неде́ля 1-я по Пятидеся́тнице, всех святы́х", period: "По Пятидеся́тнице", scheme: MENAION_SCHEME.ORDINARY_COMBINATION, tone: 8, services: { matins: "matins-vsekh-svyatykh", liturgy: "liturgy-vsekh-svyatykh" }, fasting: "Разреше́ние на вся" },
   { offset: 63, kind: "sunday", name: "Неде́ля 2-я по Пятидеся́тнице, всех святы́х, в земле́ Росси́йской просия́вших", period: "По Пятидеся́тнице", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
@@ -224,9 +233,21 @@ const UPPER_BOUND = 63; // Неделя всех русских святых
  * если дата вне цикла Постной/Цветной Триоди — тогда действует обычный
  * устав рядового времени (typikon.js), Триодь тут ни при чём.
  */
+// Дни внутри границ, которые на самом деле относятся к рядовому времени:
+// Триодь на них ничего не даёт, служба — обычное соединение Октоиха и
+// Минеи (typikon.js). Это будни седмиц мытаря и фарисея и блудного сына
+// (Постная Триодь в эти седмицы даёт только воскресные службы) и седмица
+// по Неделе всех святых (Цветная Триодь заканчивается этой Неделей).
+const ORDINARY_TIME_RANGES = [
+  [-69, -64], // пн–сб седмицы мытаря и фарисея
+  [-62, -58], // пн–пт седмицы блудного сына (сб -57 — мясопустная родительская)
+  [57, 62], // пн–сб седмицы по Неделе всех святых
+];
+
 export function describeTriodionDay(date) {
   const offset = paschaOffset(date);
   if (offset < LOWER_BOUND || offset > UPPER_BOUND) return null;
+  if (ORDINARY_TIME_RANGES.some(([from, to]) => offset >= from && offset <= to)) return null;
 
   const named = NAMED_DAYS_BY_OFFSET.get(offset);
   if (named) {
@@ -251,9 +272,11 @@ export function describeTriodionDay(date) {
     scheme = kind === "saturday"
       ? MENAION_SCHEME.LENTEN_SATURDAY_REDUCED
       : MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY;
+  } else if (offset >= -55 && offset <= -50) {
+    scheme = MENAION_SCHEME.CHEESEFARE_WEEK;
+  } else if (offset > 0) {
+    scheme = MENAION_SCHEME.PENTECOSTARION_WEEKDAY;
   } else {
-    // Подготовительные недели или седмицы Цветной Триоди — рядовое
-    // соединение, Триодь ничего не отменяет.
     scheme = MENAION_SCHEME.ORDINARY_COMBINATION;
   }
 
@@ -408,11 +431,10 @@ export function planPentecostarionSunday(date) {
   const glas = computeGlas(date);
   const isOwnProper = named.scheme === MENAION_SCHEME.EXCLUDED_OWN_PROPER;
 
-  // От Пасхи до Недели всех святых включительно (offset 56) — полное
-  // разрешение поста на всю седмицу без исключений (Пасхальный устав,
-  // действует и в среды/пятницы). Со следующего воскресенья (offset 63,
-  // уже внутри Петрова поста) — обычная воскресная заметка о посте.
-  const fasting = offset <= 56 ? "Разреше́ние на вся" : "Поста́ нет";
+  // Воскресенья до Недели всех святых включительно — поста нет. Неделя
+  // всех русских святых (offset 63) уже внутри Петрова поста: в воскресенье
+  // поста разрешается рыба.
+  const fasting = offset <= 56 ? "Разреше́ние на вся" : "Разреше́ние на ры́бу";
 
   return {
     dateLabel: formatDateLabel(date),
