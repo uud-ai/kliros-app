@@ -16,7 +16,7 @@
 // той же формы, что и рукописные файлы data/days/*.json.
 
 import { computeGlas } from "./paschalion.js";
-import { describeTriodionDay, planPaschaService, planPentecostarionSunday, planLentenSundayService, planFixedProperService } from "./triodion.js";
+import { describeTriodionDay, paschaOffset, planPaschaService, planPentecostarionSunday, planLentenSundayService, planFixedProperService } from "./triodion.js";
 
 // ===== Общие календарные утилиты =====
 
@@ -328,6 +328,74 @@ function planFixedGreatFeast(date, feast) {
   };
 }
 
+// ===== Сретение Господне (15 февраля) =====
+// Единственный непереходящий двунадесятый праздник, который часто попадает
+// в подготовительные седмицы Триоди. Шаблоны есть для двух случаев:
+// праздник вне Триоди (или в будний день седмиц мытаря и блудного сына,
+// где Триодь на будни ничего не даёт) и совпадение с Неделей мясопустной.
+// Остальные совпадения (с Неделей мытаря / блудного сына, мясопустной
+// субботой, Сырной седмицей, Неделей сыропустной, началом поста) решаются
+// особыми указаниями Типикона, которых в проекте пока нет, — для них
+// честный отказ, а не догадка.
+const SRETENIE = {
+  feastName: "Сре́тение Го́спода Бо́га и Спа́са на́шего Иису́са Христа́",
+};
+
+function planSretenie(date) {
+  const offset = paschaOffset(date);
+  const inTriodion = offset >= -70 && offset <= -1;
+  if (offset === -56) {
+    return {
+      ok: true,
+      plan: {
+        dateLabel: formatDateLabel(date),
+        feastName: `${SRETENIE.feastName} (совпада́ет с Неде́лей мясопу́стной, о Стра́шном Суде́)`,
+        period: `${periodLabel(date)} / По́стная Три́одь`,
+        // Глас седмицы указывается, хотя воскресный Октоих в Господский
+        // праздник не поётся (шаблоны этого дня не содержат Октоиха).
+        tone: computeGlas(date),
+        services: {
+          vespers: "vespers-sretenie-myasopustnaya",
+          matins: "matins-sretenie-myasopustnaya",
+          liturgy: "liturgy-sretenie-myasopustnaya",
+        },
+      },
+    };
+  }
+  const isSunday = date.getDay() === 0;
+  if (inTriodion && (isSunday || offset >= -57)) {
+    return { ok: false, reason: "sretenie-triodion-coincidence" };
+  }
+  return { ok: true, plan: planFixedGreatFeast(date, { slug: "sretenie", feastName: SRETENIE.feastName }) };
+}
+
+// ===== Пред- и попразднства двунадесятых праздников =====
+// В эти дни Октоих на седмичных службах не поётся: служба составляется из
+// песнопений праздника (Минея) и святого дня — см. «Употребление Октоиха
+// в уставном богослужении» (azbyka.ru/oktoix) и Типикон. Песнопений
+// праздника для этих дней в data/minea пока нет, поэтому собрать службу
+// правильно нельзя; прежде движок подставлял будничный Октоих, что
+// противоречит уставу. Теперь — честный отказ с понятной причиной.
+// Рождество Христово и Богоявление сюда не входят: их пред- и попразднства
+// уже собраны отдельными шаблонами (см. FIXED_GREAT_FEASTS).
+// Воскресенья в эти периоды не отклоняются: в воскресенье воскресный Октоих
+// поётся и в попразднство (не хватает лишь песнопений праздника — как и
+// раньше). Исключение — сам день Преображения (feastDay): для него нет
+// шаблонов, а Господский праздник в воскресенье отменяет воскресный Октоих.
+// Даты — гражданские (новый стиль), включительно; отдание — последний день.
+export const FEAST_PERIODS = [
+  { from: "02-14", to: "02-22", feast: "Сре́тение Госпо́дне", skip: ["02-15"] },
+  { from: "08-18", to: "08-26", feast: "Преображе́ние Госпо́дне", feastDay: "08-19" },
+  { from: "08-27", to: "09-05", feast: "Успе́ние Пресвяты́я Богоро́дицы", skip: ["08-28"] },
+  { from: "09-20", to: "09-25", feast: "Рождество́ Пресвяты́я Богоро́дицы", skip: ["09-21"] },
+  { from: "09-26", to: "10-04", feast: "Воздви́жение Креста́ Госпо́дня", skip: ["09-27"] },
+  { from: "12-03", to: "12-08", feast: "Введе́ние во храм Пресвяты́я Богоро́дицы", skip: ["12-04"] },
+];
+
+export function feastPeriodFor(mmdd) {
+  return FEAST_PERIODS.find((p) => mmdd >= p.from && mmdd <= p.to && !(p.skip || []).includes(mmdd)) || null;
+}
+
 /**
  * Приводит значение rank из Минеи к одному из известных рядовых рангов.
  * Возвращает null, если ранг неизвестен/испорчен — в этом случае соединять
@@ -359,6 +427,9 @@ export function planDayService(date, mineaMeta) {
   if (feast) {
     return { ok: true, plan: planFixedGreatFeast(date, feast) };
   }
+  if (mmdd === "02-15") {
+    return planSretenie(date);
+  }
 
   // Переходящий цикл Постной/Цветной Триоди (от Недели о мытаре и фарисее
   // до Недели всех русских святых) живёт по другому уставу — см.
@@ -368,9 +439,19 @@ export function planDayService(date, mineaMeta) {
   // ещё не подкреплено готовыми шаблонами.
   const triodDay = describeTriodionDay(date);
   if (triodDay) {
-    const plan = planPaschaService(date) || planPentecostarionSunday(date) || planLentenSundayService(date) || planFixedProperService(date);
+    // Порядок важен: дни с полным собственным последованием (Пятидесятница,
+    // недели Цветной Триоди, для которых есть шаблоны вечерни/утрени/
+    // литургии) должны проверяться РАНЬШЕ заглушки planPentecostarionSunday —
+    // иначе заглушка «воскресная литургия с Октоихом» перехватывала их,
+    // и, например, Пятидесятница получала Октоих, которого в этот день нет.
+    const plan = planPaschaService(date) || planFixedProperService(date) || planLentenSundayService(date) || planPentecostarionSunday(date);
     if (plan) return { ok: true, plan };
     return { ok: false, reason: "triod-not-implemented", triodDay };
+  }
+
+  const feastPeriod = feastPeriodFor(mmdd);
+  if (feastPeriod && (date.getDay() !== 0 || feastPeriod.feastDay === mmdd)) {
+    return { ok: false, reason: "feast-period", feast: feastPeriod.feast };
   }
 
   const glas = computeGlas(date);

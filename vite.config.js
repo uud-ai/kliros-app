@@ -53,9 +53,14 @@ export default defineConfig({
             // как текст без замыкания на модуль, внешняя переменная внутри
             // была бы ReferenceError в самом service worker'е.
             urlPattern: ({ url }) => url.pathname.startsWith('/kliros/data/'),
-            handler: 'CacheFirst',
+            // Сначала сеть, кэш — только без связи (или если сеть не
+            // ответила за 4 с). При CacheFirst исправления в данных (планы
+            // дней, Минея, шаблоны) никогда не доходили бы до тех, кто уже
+            // открывал эту дату.
+            handler: 'NetworkFirst',
             options: {
               cacheName: 'kliros-data',
+              networkTimeoutSeconds: 4,
               expiration: {
                 maxEntries: 2000,
                 maxAgeSeconds: 60 * 60 * 24 * 365,
