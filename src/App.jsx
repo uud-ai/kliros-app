@@ -18,24 +18,31 @@ const SAME_DAY_VESPERS = /^vespers-(pascha|bright-|antipascha|great-|pentecost-k
 
 // Строит последовательность служб дня по плану day.services.
 // Элемент: { key, title, templateId, note } либо { key, title, missing: true }.
-function buildServiceSequence(services) {
+// labels — подписи из плана дня (Марковы главы и т. п.):
+// { vespers: { title, note }, matins: {...}, hours: {...}, liturgy: {...} };
+// vespersSameDay — вечерня совершается в сам день (после Литургии или с ней).
+function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false) {
   if (!services) return [];
   const seq = [];
   const hours = services.hours && typeof services.hours === "object" ? services.hours : null;
   const hourIds = hours ? ["1", "3", "6", "9"].map((h) => hours[h]).filter(Boolean) : [];
   // Пасхальные часы: один и тот же краткий чин вместо всех четырёх часов.
   const uniformHours = hourIds.length > 1 && hourIds.every((id) => id === hourIds[0]);
-  const vespersSameDay = typeof services.vespers === "string" && SAME_DAY_VESPERS.test(services.vespers);
+  const vespersSameDay = vespersSameDayFlag || (typeof services.vespers === "string" && SAME_DAY_VESPERS.test(services.vespers));
 
+  const label = (key, title, note) => {
+    const base = key.startsWith("hour") ? "hours" : key;
+    return { title: labels[key]?.title || labels[base]?.title || title, note: labels[key]?.note ?? labels[base]?.note ?? note };
+  };
   const add = (key, title, templateId, note) => {
-    if (templateId) seq.push({ key, title, templateId, note });
+    if (templateId) seq.push({ key, ...label(key, title, note), templateId });
   };
   const addOrMissing = (key, title, templateId, note) => {
-    if (templateId) seq.push({ key, title, templateId, note });
-    else seq.push({ key, title, missing: true });
+    if (templateId) seq.push({ key, ...label(key, title, note), templateId });
+    else seq.push({ key, ...label(key, title, note), missing: true });
   };
 
-  if (!uniformHours) add("hour9", "Девя́тый час", hours?.["9"]);
+  if (!uniformHours) add("hour9", "Девя́тый час", hours?.["9"], labels.hour9?.note);
   if (!vespersSameDay) addOrMissing("vespers", "Вече́рня", services.vespers, "накану́не ве́чером");
   add("midnightOffice", "Полуно́щница", services.midnightOffice);
   addOrMissing("matins", "У́треня", services.matins);
@@ -46,7 +53,7 @@ function buildServiceSequence(services) {
     add("hour3", "Тре́тий час", hours["3"]);
     add("hour6", "Шесто́й час", hours["6"]);
   } else {
-    seq.push({ key: "hours", title: "Часы́", missing: true });
+    seq.push({ key: "hours", ...label("hours", "Часы́"), missing: true });
   }
   addOrMissing("liturgy", "Литурги́я", services.liturgy);
   if (vespersSameDay) add("vespers", "Вече́рня", services.vespers, "ве́чером в э́тот день");
@@ -266,6 +273,33 @@ function highlightMatch(text, searchTerm) {
 
 // Пояснение для дня, на который служба пока не составляется. Лучше честно
 // сказать, почему службы нет, чем показать собранную не по уставу.
+// ===== Начальная буква =====
+// Каждый текст (стихира, тропарь, возглас, абзац с новой стихирой) начинается
+// с большой красной буквы, как в богослужебных книгах. Подпись перед текстом
+// («Стихи́ра 1:», «Мученичен:») остаётся обычной — красится первая буква
+// самого песнопения. Ударение (U+0301) остаётся при букве.
+const LABEL_WORDS = /^(стихир|мученичен|богородичен|крестобогородичен|троичен|тропар|ирмос|седален|кондак|икос|светилен|ексапостиларий|задостойник|глас|подобен|запев|стих)/;
+function splitLabel(paragraph) {
+  const m = paragraph.match(/^([^:.!?«»\n]{1,40}:)\s+(?=\S)/u);
+  if (!m) return ["", paragraph];
+  const plain = m[1].normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  return LABEL_WORDS.test(plain) ? [m[0], paragraph.slice(m[0].length)] : ["", paragraph];
+}
+function renderWithInitial(paragraph) {
+  const [label, rest] = splitLabel(paragraph);
+  const m = rest.match(/^([«"„([]*)(\p{L}\p{M}*)/u);
+  if (!m) return paragraph;
+  return (
+    <>
+      {label && <span className="text-label">{label}</span>}
+      {m[1]}
+      <span className="initial">{m[2]}</span>
+      {rest.slice(m[0].length)}
+    </>
+  );
+}
+const NO_INITIAL_ROLES = new Set(["Предуведомление"]);
+
 function emptyMessage(reason) {
   const fallback = (
     <>
@@ -283,6 +317,17 @@ function emptyMessage(reason) {
           <br />
           В эти дни Октоих не поётся, а песнопения праздника в приложение ещё
           не внесены — служба пока не составляется. Пользуйтесь Минеей.
+        </>
+      );
+    case "annunciation-forefeast":
+    case "annunciation-afterfeast":
+      return (
+        <>
+          {reason.reason === "annunciation-forefeast" ? "Предпразднство" : "Отдание"} Благовещения
+          в Великий пост — служба соединяется с постной по Марковым главам
+          Типикона (под {reason.reason === "annunciation-forefeast" ? "24" : "26"} марта).
+          <br />
+          Тексты постной службы в приложение ещё не внесены — пользуйтесь Триодью, Минеей и Типиконом.
         </>
       );
     case "triod-not-implemented":
@@ -623,7 +668,7 @@ function App() {
       <div key={idx} className={`prayer ${className}`}>
         <span className="prayer-role">{part.label}</span>
         {(text || "").split(/\n\n+/).map((paragraph, pIdx) => (
-          <p key={pIdx} className="prayer-text">{paragraph}</p>
+          <p key={pIdx} className="prayer-text">{renderWithInitial(paragraph)}</p>
         ))}
       </div>
     );
@@ -663,7 +708,10 @@ function App() {
   const dateLabel = day?.dateLabel || humanLabel(selectedDate);
 
   // ===== Службы дня: последовательность и реплики =====
-  const serviceSequence = useMemo(() => buildServiceSequence(day?.services), [day]);
+  const serviceSequence = useMemo(
+    () => buildServiceSequence(day?.services, day?.serviceLabels, day?.vespersSameDay),
+    [day]
+  );
 
   // Источники переменных по пространствам имён ({{oktoih.x}}, {{minea.x}}).
   // variables.oktoih_source — старое поле, поддерживается как алиас sources.oktoih.
@@ -933,6 +981,19 @@ function App() {
                 </span>
               )}
             </div>
+            {day.ustav && (
+              <details className="day-ustav" open>
+                <summary>{day.ustav.title || "Устав дня"}</summary>
+                <ul>
+                  {day.ustav.lines.map((line, i) => (
+                    <li key={i}>{line}</li>
+                  ))}
+                </ul>
+                {day.ustav.sources && (
+                  <div className="day-ustav-sources">Источники: {day.ustav.sources.join("; ")}</div>
+                )}
+              </details>
+            )}
           </>
         ) : (
           <h1 className="day-feast day-missing">Служба этого дня ещё не добавлена</h1>
@@ -1107,7 +1168,9 @@ function App() {
                         <div key={flatIndex} className="prayer" data-item-index={flatIndex}>
                           {showRole && <span className="prayer-role">{item.role}</span>}
                           {(item.text || "").split(/\n\n+/).map((paragraph, pIdx) => (
-                            <p key={pIdx} className="prayer-text">{paragraph}</p>
+                            <p key={pIdx} className="prayer-text">
+                              {NO_INITIAL_ROLES.has(item.role) ? paragraph : renderWithInitial(paragraph)}
+                            </p>
                           ))}
                         </div>
                       );
