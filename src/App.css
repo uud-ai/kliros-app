@@ -202,6 +202,20 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Начальная буква текста — крупная, красная (как в богослужебных книгах) */
+.prayer-text .initial {
+  color: var(--red);
+  font-family: var(--font-body);
+  font-size: 1.6em;
+  font-weight: 700;
+  line-height: 0.8;
+  margin-right: 0.02em;
+}
+.prayer-text .text-label {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
 /* Последний абзац внутри реплики — без нижнего отступа,
    чтобы не было лишнего места перед следующей секцией */
 .prayer .prayer-text:last-child {

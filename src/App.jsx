@@ -273,6 +273,33 @@ function highlightMatch(text, searchTerm) {
 
 // Пояснение для дня, на который служба пока не составляется. Лучше честно
 // сказать, почему службы нет, чем показать собранную не по уставу.
+// ===== Начальная буква =====
+// Каждый текст (стихира, тропарь, возглас, абзац с новой стихирой) начинается
+// с большой красной буквы, как в богослужебных книгах. Подпись перед текстом
+// («Стихи́ра 1:», «Мученичен:») остаётся обычной — красится первая буква
+// самого песнопения. Ударение (U+0301) остаётся при букве.
+const LABEL_WORDS = /^(стихир|мученичен|богородичен|крестобогородичен|троичен|тропар|ирмос|седален|кондак|икос|светилен|ексапостиларий|задостойник|глас|подобен|запев|стих)/;
+function splitLabel(paragraph) {
+  const m = paragraph.match(/^([^:.!?«»\n]{1,40}:)\s+(?=\S)/u);
+  if (!m) return ["", paragraph];
+  const plain = m[1].normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  return LABEL_WORDS.test(plain) ? [m[0], paragraph.slice(m[0].length)] : ["", paragraph];
+}
+function renderWithInitial(paragraph) {
+  const [label, rest] = splitLabel(paragraph);
+  const m = rest.match(/^([«"„([]*)(\p{L}\p{M}*)/u);
+  if (!m) return paragraph;
+  return (
+    <>
+      {label && <span className="text-label">{label}</span>}
+      {m[1]}
+      <span className="initial">{m[2]}</span>
+      {rest.slice(m[0].length)}
+    </>
+  );
+}
+const NO_INITIAL_ROLES = new Set(["Предуведомление"]);
+
 function emptyMessage(reason) {
   const fallback = (
     <>
@@ -641,7 +668,7 @@ function App() {
       <div key={idx} className={`prayer ${className}`}>
         <span className="prayer-role">{part.label}</span>
         {(text || "").split(/\n\n+/).map((paragraph, pIdx) => (
-          <p key={pIdx} className="prayer-text">{paragraph}</p>
+          <p key={pIdx} className="prayer-text">{renderWithInitial(paragraph)}</p>
         ))}
       </div>
     );
@@ -1141,7 +1168,9 @@ function App() {
                         <div key={flatIndex} className="prayer" data-item-index={flatIndex}>
                           {showRole && <span className="prayer-role">{item.role}</span>}
                           {(item.text || "").split(/\n\n+/).map((paragraph, pIdx) => (
-                            <p key={pIdx} className="prayer-text">{paragraph}</p>
+                            <p key={pIdx} className="prayer-text">
+                              {NO_INITIAL_ROLES.has(item.role) ? paragraph : renderWithInitial(paragraph)}
+                            </p>
                           ))}
                         </div>
                       );
