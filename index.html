@@ -2,6 +2,8 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <!-- CSP: скрипты, стили, шрифты и данные — только с этого сайта. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 
@@ -19,21 +21,7 @@
          откладывается до конца парсинга документа), поэтому React об этом
          узле ничего не знает и не трогает его при любых ре-рендерах.
          См. аналогичную кнопку в Благовесте (gospel-navigator/index.html). -->
-    <script>
-      (function () {
-        var ref;
-        try { ref = new URL(document.referrer); } catch (e) { return; }
-        if (ref.origin !== location.origin || ref.href === location.href) return;
-        var bar = document.createElement("a");
-        bar.href = ref.href;
-        bar.textContent = "‹ Назад на сайт";
-        bar.style.cssText = "display:block;padding:10px 20px;" +
-          "font:500 0.95rem var(--font-ui,Bitter,system-ui,sans-serif);" +
-          "color:var(--red,#9c1c1c);background:var(--bg-panel,#fbf7ec);" +
-          "border-bottom:1px solid var(--rule,#d9cfb8);text-decoration:none;";
-        document.body.insertBefore(bar, document.body.firstChild);
-      })();
-    </script>
+    <script src="back-to-site.js"></script>
 
   </body>
 </html>
