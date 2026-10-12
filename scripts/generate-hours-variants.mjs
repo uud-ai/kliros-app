@@ -63,13 +63,19 @@ for (const n of hours) {
       ` (воскресе́нье + рядово́й свято́й: два тропаря́, конда́к воскре́сный) — читается`
     );
 
-    const tIdx = findIdx(d.items, "Тропарь дня");
+    let tIdx = findIdx(d.items, "Тропарь дня");
+    // В базовом шаблоне перед тропарём стоит «Сла́ва:» (один тропарь дня);
+    // в Неделю со святым «Сла́ва:» ставится между воскресным тропарём и тропарём святого.
+    if (d.items[tIdx - 1]?.section === "Слава") {
+      d.items.splice(tIdx - 1, 1);
+      tIdx -= 1;
+    }
     const resurrectionalTropar = d.items[tIdx];
     d.items.splice(
       tIdx,
       1,
       resurrectionalTropar,
-      { section: "Тропарь дня", role: "Лик", text: "Сла́ва:" },
+      { section: "Тропарь дня", role: "Чтец", text: "Сла́ва:" },
       {
         section: "Тропарь дня",
         role: "Чтец",
@@ -96,13 +102,19 @@ for (const n of hours) {
       ` (воскресе́нье + славосло́вный/полиеле́йный/бде́нный свято́й: два тропаря́, конда́к чередyется по часа́м) — читается`
     );
 
-    const tIdx = findIdx(d.items, "Тропарь дня");
+    let tIdx = findIdx(d.items, "Тропарь дня");
+    // В базовом шаблоне перед тропарём стоит «Сла́ва:» (один тропарь дня);
+    // в Неделю со святым «Сла́ва:» ставится между воскресным тропарём и тропарём святого.
+    if (d.items[tIdx - 1]?.section === "Слава") {
+      d.items.splice(tIdx - 1, 1);
+      tIdx -= 1;
+    }
     const resurrectionalTropar = d.items[tIdx];
     d.items.splice(
       tIdx,
       1,
       resurrectionalTropar,
-      { section: "Тропарь дня", role: "Лик", text: "Сла́ва:" },
+      { section: "Тропарь дня", role: "Чтец", text: "Сла́ва:" },
       {
         section: "Тропарь дня",
         role: "Чтец",
