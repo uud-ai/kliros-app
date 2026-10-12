@@ -3,10 +3,10 @@
   "feastName": "Свв. апо́столов Ера́ста, Оли́мпа, Родио́на, Сосипа́тра, Куа́рта и Те́ртия",
   "period": "Минея. Ноябрь",
   "tone": 8,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
-    "vespers": "vespers-ferial-six-verse",
-    "matins": "matins-ferial-six-verse",
+    "vespers": "vespers-ferial-simple",
+    "matins": "matins-ferial-simple",
     "liturgy": "liturgy-ferial-six-verse",
     "hours": {
       "1": "hours-1-ferial",

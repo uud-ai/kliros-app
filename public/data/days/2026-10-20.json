@@ -3,10 +3,10 @@
   "feastName": "Мчч. Се́ргия и Ва́кха. Прп. Се́ргия Обно́рскаго. Обре́тение моще́й прп. Мартиниа́на Белоезе́рскаго",
   "period": "Минея. Октябрь",
   "tone": 3,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
-    "vespers": "vespers-ferial-six-verse",
-    "matins": "matins-ferial-six-verse",
+    "vespers": "vespers-ferial-simple",
+    "matins": "matins-ferial-simple",
     "liturgy": "liturgy-ferial-six-verse",
     "hours": {
       "1": "hours-1-ferial",

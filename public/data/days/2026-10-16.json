@@ -3,10 +3,10 @@
   "feastName": "Сщмч. Диони́сия Ареопаги́та, еп. Афи́нскаго. Прп. Диони́сия Затво́рника Пече́рскаго",
   "period": "Минея. Октябрь",
   "tone": 2,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
-    "vespers": "vespers-ferial-six-verse",
-    "matins": "matins-ferial-six-verse",
+    "vespers": "vespers-ferial-simple",
+    "matins": "matins-ferial-simple",
     "liturgy": "liturgy-ferial-six-verse",
     "hours": {
       "1": "hours-1-ferial",

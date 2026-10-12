@@ -3,10 +3,10 @@
   "feastName": "Мчч. Плато́на и Рома́на",
   "period": "Минея. Ноябрь",
   "tone": 1,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
-    "vespers": "vespers-ferial-six-verse",
-    "matins": "matins-ferial-six-verse",
+    "vespers": "vespers-ferial-simple",
+    "matins": "matins-ferial-simple",
     "liturgy": "liturgy-ferial-six-verse",
     "hours": {
       "1": "hours-1-ferial",
