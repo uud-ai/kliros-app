@@ -130,10 +130,12 @@
             "title": "Песнь 1",
             "parts": [
               { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode1_irmos}}", "fallback": "Ирмо́с 1-й пе́сни кано́на Кресту́, гла́са дне́." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_cross_refrain}}", "fallback": "", "only_if": ["oktoih.canon_cross_refrain"] },
               { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode1_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́." },
               { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode1_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́." },
               { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode1_bogorodichen}}", "fallback": "Богоро́дичен 1-й пе́сни кано́на Кресту́." },
               { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode1_irmos}}", "fallback": "Ирмо́с 1-й пе́сни кано́на Богоро́дице." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_theotokos_refrain}}", "fallback": "", "only_if": ["oktoih.canon_theotokos_refrain"] },
               { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode1_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице." },
               { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode1_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице." },
               { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode1_bogorodichen}}", "fallback": "Богоро́дичен 1-й пе́сни кано́на Богоро́дице." }
@@ -144,10 +146,12 @@
             "title": "Песнь 3",
             "parts": [
               { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode3_irmos}}", "fallback": "Ирмо́с 3-й пе́сни кано́на Кресту́." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_cross_refrain}}", "fallback": "", "only_if": ["oktoih.canon_cross_refrain"] },
               { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode3_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 3-й пе́сни." },
               { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode3_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 3-й пе́сни." },
               { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode3_bogorodichen}}", "fallback": "Богоро́дичен 3-й пе́сни кано́на Кресту́." },
               { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode3_irmos}}", "fallback": "Ирмо́с 3-й пе́сни кано́на Богоро́дице." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_theotokos_refrain}}", "fallback": "", "only_if": ["oktoih.canon_theotokos_refrain"] },
               { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode3_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 3-й пе́сни." },
               { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode3_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 3-й пе́сни." },
               { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode3_bogorodichen}}", "fallback": "Богоро́дичен 3-й пе́сни кано́на Богоро́дице." }
@@ -174,10 +178,12 @@
             "title": "Песнь 9",
             "parts": [
               { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode9_irmos}}", "fallback": "Ирмо́с 9-й пе́сни кано́на Кресту́." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_cross_refrain}}", "fallback": "", "only_if": ["oktoih.canon_cross_refrain"] },
               { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode9_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 9-й пе́сни." },
               { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode9_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 9-й пе́сни." },
               { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode9_bogorodichen}}", "fallback": "Богоро́дичен 9-й пе́сни кано́на Кресту́." },
               { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode9_irmos}}", "fallback": "Ирмо́с 9-й пе́сни кано́на Богоро́дице." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_theotokos_refrain}}", "fallback": "", "only_if": ["oktoih.canon_theotokos_refrain"] },
               { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode9_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 9-й пе́сни." },
               { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode9_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 9-й пе́сни." },
               { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode9_bogorodichen}}", "fallback": "Богоро́дичен 9-й пе́сни кано́на Богоро́дице." }

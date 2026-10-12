@@ -3,10 +3,10 @@
   "feastName": "Прп. Пелаги́и. Прп. Три́фона Вя́тскаго. Прп. Досифе́я Верхнеостро́вскаго",
   "period": "Минея. Октябрь",
   "tone": 3,
-  "rank": "six-verse",
+  "rank": "simple",
   "services": {
-    "vespers": "vespers-ferial-six-verse",
-    "matins": "matins-ferial-six-verse",
+    "vespers": "vespers-ferial-simple",
+    "matins": "matins-ferial-simple",
     "liturgy": "liturgy-ferial-six-verse",
     "hours": {
       "1": "hours-1-ferial",
