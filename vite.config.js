@@ -1,9 +1,14 @@
+/* global process */
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
+// На Vercel приложение открывается с корня домена, в остальных местах
+// (Firebase, приходской сайт) — по пути /kliros/.
+const BASE = process.env.VERCEL ? '/' : '/kliros/'
+
 export default defineConfig({
-  base: '/kliros/',
+  base: BASE,
   plugins: [
     react(),
     VitePWA({
@@ -18,8 +23,8 @@ export default defineConfig({
         background_color: '#f5efe1',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/kliros/',
-        scope: '/kliros/',
+        start_url: BASE,
+        scope: BASE,
         icons: [
           {
             src: 'icon-192.png',
@@ -52,7 +57,7 @@ export default defineConfig({
             // Литерал, не `base` — generateSW сериализует эту функцию в sw.js
             // как текст без замыкания на модуль, внешняя переменная внутри
             // была бы ReferenceError в самом service worker'е.
-            urlPattern: ({ url }) => url.pathname.startsWith('/kliros/data/'),
+            urlPattern: ({ url }) => url.pathname.startsWith(`${BASE}data/`),
             // Сначала сеть, кэш — только без связи (или если сеть не
             // ответила за 4 с). При CacheFirst исправления в данных (планы
             // дней, Минея, шаблоны) никогда не доходили бы до тех, кто уже
