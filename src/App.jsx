@@ -736,6 +736,10 @@ function App() {
     Object.entries(variableSources).forEach(([type, id]) => {
       if (id && variables[id]) result[type] = variables[id];
     });
+    // Признаки дня из плана (variables.flags), для условий only_if: "day.<флаг>".
+    // Например, day.alleluia — на утрене «Аллилуиа» вместо «Бог Господь»
+    // (будни Великого поста): на часах читается тропарь часа со стихами.
+    result.day = { ...(day?.variables?.flags || {}) };
     return result;
   }, [day, variables]);
 

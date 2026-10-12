@@ -11,6 +11,20 @@ import fs from "node:fs";
 import path from "node:path";
 
 const dir = path.join(process.cwd(), "public", "data", "templates");
+
+// Ветки «Бог Господь» и «Аллилуиа» на часах: строки тропаря дня видны,
+// кроме дней с «Аллилуиа» (флаг плана variables.flags.alleluia); тропарь
+// часа со стихами — только в эти дни.
+const BOG_GOSPOD = new Set(["Слава", "Тропарь дня", "Богородичен"]);
+const ALLELUIA = new Set(["Тропарь часа", "Богородичен часа"]);
+function markBranches(d) {
+  for (const it of d.items) {
+    if (BOG_GOSPOD.has(it.section)) it.only_if_not = ["day.alleluia"];
+    if (ALLELUIA.has(it.section)) it.only_if = ["day.alleluia"];
+  }
+  return d;
+}
+
 const hours = [1, 3, 6, 9];
 
 for (const n of hours) {
@@ -50,7 +64,7 @@ for (const n of hours) {
 
     fs.writeFileSync(
       path.join(dir, `hours-${n}-ferial.json`),
-      JSON.stringify(d, null, 2) + "\n"
+      JSON.stringify(markBranches(d), null, 2) + "\n"
     );
   }
 
@@ -89,7 +103,7 @@ for (const n of hours) {
 
     fs.writeFileSync(
       path.join(dir, `hours-${n}-sunday-with-saint.json`),
-      JSON.stringify(d, null, 2) + "\n"
+      JSON.stringify(markBranches(d), null, 2) + "\n"
     );
   }
 
@@ -140,7 +154,7 @@ for (const n of hours) {
 
     fs.writeFileSync(
       path.join(dir, `hours-${n}-sunday-featured.json`),
-      JSON.stringify(d, null, 2) + "\n"
+      JSON.stringify(markBranches(d), null, 2) + "\n"
     );
   }
 }
