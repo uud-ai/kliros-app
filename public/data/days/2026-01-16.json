@@ -1,12 +1,25 @@
 {
   "dateLabel": "Пятница, 16 января 2026",
-  "feastName": "Предпразднство Богоявления. Мч. Гордий",
+  "feastName": "Предпра́зднство Богоявле́ния. Мч. Горди́й",
   "period": "Минея. Январь",
   "tone": null,
   "services": {
     "vespers": "vespers-forefeast-theophany",
     "matins": "matins-forefeast-theophany",
-    "liturgy": "liturgy-forefeast-theophany"
+    "liturgy": "liturgy-forefeast-theophany",
+    "hours": {
+      "1": "hours-1-navechernie-bogoyavleniya",
+      "3": "hours-3-navechernie-bogoyavleniya",
+      "6": "hours-6-navechernie-bogoyavleniya",
+      "9": "hours-9-navechernie-bogoyavleniya"
+    },
+    "royalHours": true
+  },
+  "serviceLabels": {
+    "hours": {
+      "title": "Ца́рские часы́ навече́рия Богоявле́ния",
+      "note": "перенесены́ на пя́ток: навече́рие прихо́дится на суббо́ту и́ли неде́лю"
+    }
   },
   "variables": {
     "sources": {

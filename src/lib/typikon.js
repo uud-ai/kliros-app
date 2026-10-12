@@ -346,7 +346,57 @@ export const FIXED_GREAT_FEASTS = {
   },
 };
 
+// ===== Царские часы навечерия Богоявления =====
+// Минея, 5 января (юл.): «Аще ли прилучится Богоявление в неделю или в
+// понедельник, часы поем в пяток» (т. е. навечерие — в субботу или неделю).
+// Служится ли в этот пяток Литургия, рубрика не говорит — шаблон Литургии
+// дня не трогаем. В пн–пт Царские часы — в сам день
+// навечерия (гражд. 18 января), в сб/вс — в предшествующую пятницу
+// (гражд. 16 или 17 января). Царские часы заменяют обычные часы дня.
+const THEOPHANY_EVE_MMDD = "01-18";
+const ROYAL_HOURS_THEOPHANY = {
+  "1": "hours-1-navechernie-bogoyavleniya",
+  "3": "hours-3-navechernie-bogoyavleniya",
+  "6": "hours-6-navechernie-bogoyavleniya",
+  "9": "hours-9-navechernie-bogoyavleniya",
+};
+
+// День, в который читаются Царские часы Богоявления, — по году даты.
+function theophanyRoyalHoursDate(year) {
+  const eve = new Date(year, 0, 18);
+  const dow = eve.getDay();
+  if (dow === 6) return new Date(year, 0, 17);
+  if (dow === 0) return new Date(year, 0, 16);
+  return eve;
+}
+
+function royalHoursFor(date) {
+  if (date.getMonth() !== 0) return null;
+  const target = theophanyRoyalHoursDate(date.getFullYear());
+  if (date.getDate() !== target.getDate()) return null;
+  const moved = toMonthDayKey(date) !== THEOPHANY_EVE_MMDD;
+  return {
+    hours: { ...ROYAL_HOURS_THEOPHANY },
+    royalHours: true,
+    label: {
+      title: "Ца́рские часы́ навече́рия Богоявле́ния",
+      ...(moved ? { note: "перенесены́ на пя́ток: навече́рие прихо́дится на суббо́ту и́ли неде́лю" } : {}),
+    },
+  };
+}
+
 function planFixedGreatFeast(date, feast) {
+  const royal = royalHoursFor(date);
+  if (royal) {
+    const plan = planFixedGreatFeastBase(date, feast);
+    plan.services = { ...plan.services, hours: royal.hours, royalHours: true };
+    plan.serviceLabels = { ...(plan.serviceLabels || {}), hours: royal.label };
+    return plan;
+  }
+  return planFixedGreatFeastBase(date, feast);
+}
+
+function planFixedGreatFeastBase(date, feast) {
   return {
     dateLabel: formatDateLabel(date),
     feastName: feast.feastName,
