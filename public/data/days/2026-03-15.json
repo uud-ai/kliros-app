@@ -9,6 +9,9 @@
     "matins": "matins-lenten-sunday",
     "liturgy": "liturgy-lenten-sunday"
   },
+  "serviceLabels": {
+    "liturgy": { "title": "Литурги́я свт. Васи́лия Вели́кого" }
+  },
   "variables": {
     "glas": 7,
     "sources": {

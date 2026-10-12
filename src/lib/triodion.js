@@ -367,6 +367,9 @@ export function planLentenSundayService(date) {
     tone: glas,
     fasting: "Стро́гий пост",
     services: { ...LENTEN_SUNDAY_SERVICE_SET },
+    // В Недели 1–5-ю Великого поста — Литургия свт. Василия Великого
+    // (Типикон, гл. 49), а не Иоанна Златоуста.
+    serviceLabels: { liturgy: { title: "Литурги́я свт. Васи́лия Вели́кого" } },
     variables: {
       glas,
       sources: { oktoih: `oktoih-variables-glas${glas}`, triod: named.contentKey },
