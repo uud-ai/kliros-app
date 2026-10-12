@@ -83,6 +83,8 @@ function octoechosCanon(prefix, n, label, withIrmos) {
   const k = (s) => `${prefix}_ode${n}_${s}`;
   return [
     ...(withIrmos ? [{ type: "irmos", label: `Ирмос (${label})`, text: `{{oktoih.${k("irmos")}}}`, fallback: "", only_if: o(k("irmos")) }] : []),
+    // Припев к тропарям канона Октоиха (свой у каждого канона дня).
+    { type: "refrain_heading", label: "Припев:", text: `{{oktoih.${prefix}_refrain}}`, fallback: "", only_if: [o(`${prefix}_refrain`), o(k("tropar_1"))] },
     { type: "tropar", label: `Тропарь (${label})`, text: `{{oktoih.${k("tropar_1")}}}`, fallback: "", only_if: o(k("tropar_1")) },
     { type: "tropar", label: `Тропарь (${label})`, text: `{{oktoih.${k("tropar_2")}}}`, fallback: "", only_if: o(k("tropar_2")) },
     { type: "tropar", label: `Тропарь (${label})`, text: `{{oktoih.${k("tropar_3")}}}`, fallback: "", only_if: o(k("tropar_3")) },
