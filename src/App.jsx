@@ -21,7 +21,9 @@ const SAME_DAY_VESPERS = /^vespers-(pascha|bright-|antipascha|great-|pentecost-k
 // labels — подписи из плана дня (Марковы главы и т. п.):
 // { vespers: { title, note }, matins: {...}, hours: {...}, liturgy: {...} };
 // vespersSameDay — вечерня совершается в сам день (после Литургии или с ней).
-function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false) {
+// royalHours — Царские часы: 9-й час поётся утром вместе с 1, 3 и 6-м, а не
+// накануне перед вечерней.
+function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false, royalHours = false) {
   if (!services) return [];
   const seq = [];
   const hours = services.hours && typeof services.hours === "object" ? services.hours : null;
@@ -42,7 +44,7 @@ function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false)
     else seq.push({ key, ...label(key, title, note), missing: true });
   };
 
-  if (!uniformHours) add("hour9", "Девя́тый час", hours?.["9"], labels.hour9?.note);
+  if (!uniformHours && !royalHours) add("hour9", "Девя́тый час", hours?.["9"], labels.hour9?.note);
   if (!vespersSameDay) addOrMissing("vespers", "Вече́рня", services.vespers, "накану́не ве́чером");
   add("midnightOffice", "Полуно́щница", services.midnightOffice);
   addOrMissing("matins", "У́треня", services.matins);
@@ -52,6 +54,7 @@ function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false)
     add("hour1", "Пе́рвый час", hours["1"]);
     add("hour3", "Тре́тий час", hours["3"]);
     add("hour6", "Шесто́й час", hours["6"]);
+    if (royalHours) add("hour9", "Девя́тый час", hours["9"]);
   } else {
     seq.push({ key: "hours", ...label("hours", "Часы́"), missing: true });
   }
@@ -709,7 +712,7 @@ function App() {
 
   // ===== Службы дня: последовательность и реплики =====
   const serviceSequence = useMemo(
-    () => buildServiceSequence(day?.services, day?.serviceLabels, day?.vespersSameDay),
+    () => buildServiceSequence(day?.services, day?.serviceLabels, day?.vespersSameDay, day?.royalHours),
     [day]
   );
 

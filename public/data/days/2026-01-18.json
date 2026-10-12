@@ -1,17 +1,20 @@
 {
   "dateLabel": "Воскресенье, 18 января 2026",
-  "feastName": "Навечерие Богоявления (Крещенский сочельник). Сщмч. Феопемпт и мч. Феона",
+  "feastName": "Навече́рие Богоявле́ния (Креще́нский соче́льник). Сщмч. Феопе́мпт и мч. Фео́на",
   "period": "Минея. Январь",
   "tone": null,
   "services": {
     "vespers": "vespers-navechernie-bogoyavleniya",
     "matins": "matins-navechernie-bogoyavleniya",
-    "liturgy": "liturgy-navechernie-bogoyavleniya",
-    "hours": {
-      "1": "hours-1-navechernie-bogoyavleniya",
-      "3": "hours-3-navechernie-bogoyavleniya",
-      "6": "hours-6-navechernie-bogoyavleniya",
-      "9": "hours-9-navechernie-bogoyavleniya"
-    }
+    "liturgy": "liturgy-navechernie-bogoyavleniya"
+  },
+  "ustav": {
+    "title": "Ца́рские часы́ навече́рия Богоявле́ния",
+    "lines": [
+      "Навече́рие в э́тот год прихо́дится на воскресе́нье: Ца́рские часы́ пе́лись зара́нее, в пя́тницу (16 января), поста́ в э́тот день нет."
+    ],
+    "sources": [
+      "Минея, 5 января (юл.): «Аще случится навечерие Богоявления в субботу или неделю, пост не бывает… часы поем прежде в пяток»"
+    ]
   }
 }

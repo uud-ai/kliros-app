@@ -346,7 +346,69 @@ export const FIXED_GREAT_FEASTS = {
   },
 };
 
+// ===== Царские часы навечерия Богоявления =====
+// Минея, 5 января (юл.): «Аще случится навечерие Богоявления в субботу или
+// неделю... часы поем прежде в пяток». В будни Царские часы поются в самое
+// навечерие (гражд. 18 января), в субботу и воскресенье — в предшествующую
+// пятницу (17 или 16 января).
+const THEOPHANY_ROYAL_HOURS = {
+  "1": "hours-1-navechernie-bogoyavleniya",
+  "3": "hours-3-navechernie-bogoyavleniya",
+  "6": "hours-6-navechernie-bogoyavleniya",
+  "9": "hours-9-navechernie-bogoyavleniya",
+};
+
+function theophanyRoyalHoursDate(year) {
+  const eve = new Date(year, 0, 18);
+  const weekday = eve.getDay();
+  if (weekday === 6) return new Date(year, 0, 17);
+  if (weekday === 0) return new Date(year, 0, 16);
+  return eve;
+}
+
+function sameDay(a, b) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+}
+
+function theophanyRoyalHours(date) {
+  if (date.getMonth() !== 0 || date.getDate() < 16 || date.getDate() > 18) return {};
+  const hoursDate = theophanyRoyalHoursDate(date.getFullYear());
+  const transferred = hoursDate.getDate() !== 18;
+  const eveWeekday = transferred ? (hoursDate.getDate() === 17 ? "суббо́ту" : "воскресе́нье") : null;
+  if (sameDay(date, hoursDate)) {
+    return {
+      services: { hours: THEOPHANY_ROYAL_HOURS },
+      serviceLabels: { hours: { title: "Ца́рские часы́", note: "навече́рия Богоявле́ния" } },
+      royalHours: true,
+      ...(transferred
+        ? {
+            ustav: {
+              title: "Ца́рские часы́ навече́рия Богоявле́ния",
+              lines: [
+                `Навече́рие Богоявле́ния (18 января) в э́тот год прихо́дится на ${eveWeekday}, поэ́тому Ца́рские часы́ пою́тся зара́нее — в пя́тницу.`,
+              ],
+              sources: ["Минея, 5 января (юл.): «Аще случится навечерие Богоявления в субботу или неделю… часы поем прежде в пяток»"],
+            },
+          }
+        : {}),
+    };
+  }
+  if (date.getDate() === 18 && transferred) {
+    return {
+      ustav: {
+        title: "Ца́рские часы́ навече́рия Богоявле́ния",
+        lines: [
+          `Навече́рие в э́тот год прихо́дится на ${eveWeekday}: Ца́рские часы́ пе́лись зара́нее, в пя́тницу (${hoursDate.getDate()} января), поста́ в э́тот день нет.`,
+        ],
+        sources: ["Минея, 5 января (юл.): «Аще случится навечерие Богоявления в субботу или неделю, пост не бывает… часы поем прежде в пяток»"],
+      },
+    };
+  }
+  return {};
+}
+
 function planFixedGreatFeast(date, feast) {
+  const royal = theophanyRoyalHours(date);
   return {
     dateLabel: formatDateLabel(date),
     feastName: feast.feastName,
@@ -357,8 +419,12 @@ function planFixedGreatFeast(date, feast) {
       vespers: `vespers-${feast.slug}`,
       matins: `matins-${feast.slug}`,
       liturgy: `liturgy-${feast.slug}`,
+      ...royal.services,
     },
     ...(feast.minea ? { variables: { sources: { minea: feast.minea } } } : {}),
+    ...(royal.serviceLabels ? { serviceLabels: royal.serviceLabels } : {}),
+    ...(royal.royalHours ? { royalHours: true } : {}),
+    ...(royal.ustav ? { ustav: royal.ustav } : {}),
   };
 }
 
