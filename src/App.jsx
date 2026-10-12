@@ -42,11 +42,21 @@ function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false)
     else seq.push({ key, ...label(key, title, note), missing: true });
   };
 
-  if (!uniformHours) add("hour9", "Девя́тый час", hours?.["9"], labels.hour9?.note);
+  // Царские часы (навечерие Богоявления): 1, 3, 6 и 9-й часы читаются
+  // подряд утром, поэтому 9-й час не переносится на канун перед вечерней.
+  const royalHours = !!services.royalHours && !!hours;
+
+  if (!uniformHours && !royalHours) add("hour9", "Девя́тый час", hours?.["9"], labels.hour9?.note);
   if (!vespersSameDay) addOrMissing("vespers", "Вече́рня", services.vespers, "накану́не ве́чером");
   add("midnightOffice", "Полуно́щница", services.midnightOffice);
   addOrMissing("matins", "У́треня", services.matins);
-  if (uniformHours) {
+  if (royalHours) {
+    const royalNote = labels.hours?.note;
+    [["1", "Ца́рский пе́рвый час"], ["3", "Ца́рский тре́тий час"], ["6", "Ца́рский шесто́й час"], ["9", "Ца́рский девя́тый час"]]
+      .forEach(([h, title], i) => {
+        if (hours[h]) seq.push({ key: `hour${h}`, title, note: i === 0 ? royalNote : undefined, templateId: hours[h] });
+      });
+  } else if (uniformHours) {
     add("hours", "Часы́ пасха́льные", hourIds[0], "вме́сто 1-го, 3-го, 6-го и 9-го часо́в");
   } else if (hours) {
     add("hour1", "Пе́рвый час", hours["1"]);
@@ -278,7 +288,7 @@ function highlightMatch(text, searchTerm) {
 // с большой красной буквы, как в богослужебных книгах. Подпись перед текстом
 // («Стихи́ра 1:», «Мученичен:») остаётся обычной — красится первая буква
 // самого песнопения. Ударение (U+0301) остаётся при букве.
-const LABEL_WORDS = /^(стихир|мученичен|богородичен|крестобогородичен|троичен|тропар|ирмос|седален|кондак|икос|светилен|ексапостиларий|задостойник|глас|подобен|запев|стих)/;
+const LABEL_WORDS = /^(псалом|стихир|мученичен|богородичен|крестобогородичен|троичен|тропар|ирмос|седален|кондак|икос|светилен|ексапостиларий|задостойник|глас|подобен|запев|стих)/;
 function splitLabel(paragraph) {
   const m = paragraph.match(/^([^:.!?«»\n]{1,40}:)\s+(?=\S)/u);
   if (!m) return ["", paragraph];
