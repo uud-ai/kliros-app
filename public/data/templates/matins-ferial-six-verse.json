@@ -355,6 +355,13 @@
                 "only_if": "oktoih.canon_cross_ode1_bogorodichen"
               },
               {
+                "type": "irmos",
+                "label": "Ирмос (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode1_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode1_irmos"
+              },
+              {
                 "type": "refrain_heading",
                 "label": "Припев:",
                 "text": "{{oktoih.canon_theotokos_refrain}}",
@@ -524,6 +531,13 @@
                 "text": "{{oktoih.canon_cross_ode3_bogorodichen}}",
                 "fallback": "",
                 "only_if": "oktoih.canon_cross_ode3_bogorodichen"
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode3_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode3_irmos"
               },
               {
                 "type": "refrain_heading",
@@ -765,6 +779,13 @@
                 "only_if": "oktoih.canon_cross_ode4_bogorodichen"
               },
               {
+                "type": "irmos",
+                "label": "Ирмос (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode4_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode4_irmos"
+              },
+              {
                 "type": "refrain_heading",
                 "label": "Припев:",
                 "text": "{{oktoih.canon_theotokos_refrain}}",
@@ -936,6 +957,13 @@
                 "only_if": "oktoih.canon_cross_ode5_bogorodichen"
               },
               {
+                "type": "irmos",
+                "label": "Ирмос (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode5_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode5_irmos"
+              },
+              {
                 "type": "refrain_heading",
                 "label": "Припев:",
                 "text": "{{oktoih.canon_theotokos_refrain}}",
@@ -1105,6 +1133,13 @@
                 "text": "{{oktoih.canon_cross_ode6_bogorodichen}}",
                 "fallback": "",
                 "only_if": "oktoih.canon_cross_ode6_bogorodichen"
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode6_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode6_irmos"
               },
               {
                 "type": "refrain_heading",
@@ -1322,6 +1357,13 @@
                 "only_if": "oktoih.canon_cross_ode7_bogorodichen"
               },
               {
+                "type": "irmos",
+                "label": "Ирмос (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode7_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode7_irmos"
+              },
+              {
                 "type": "refrain_heading",
                 "label": "Припев:",
                 "text": "{{oktoih.canon_theotokos_refrain}}",
@@ -1491,6 +1533,13 @@
                 "text": "{{oktoih.canon_cross_ode8_bogorodichen}}",
                 "fallback": "",
                 "only_if": "oktoih.canon_cross_ode8_bogorodichen"
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode8_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode8_irmos"
               },
               {
                 "type": "refrain_heading",
@@ -1726,6 +1775,13 @@
                 "text": "{{oktoih.canon_cross_ode9_bogorodichen}}",
                 "fallback": "",
                 "only_if": "oktoih.canon_cross_ode9_bogorodichen"
+              },
+              {
+                "type": "irmos",
+                "label": "Ирмос (второй канон Октоиха)",
+                "text": "{{oktoih.canon_theotokos_ode9_irmos}}",
+                "fallback": "",
+                "only_if": "oktoih.canon_theotokos_ode9_irmos"
               },
               {
                 "type": "refrain_heading",

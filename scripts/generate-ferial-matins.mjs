@@ -79,10 +79,10 @@ const ODES = [1, 3, 4, 5, 6, 7, 8, 9];
 const KATAVASIA_AFTER = new Set([3, 6, 8, 9]);
 const PETITION = "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию.";
 
-function octoechosCanon(prefix, n, label, withIrmos) {
+function octoechosCanon(prefix, n, label) {
   const k = (s) => `${prefix}_ode${n}_${s}`;
   return [
-    ...(withIrmos ? [{ type: "irmos", label: `Ирмос (${label})`, text: `{{oktoih.${k("irmos")}}}`, fallback: "", only_if: o(k("irmos")) }] : []),
+    { type: "irmos", label: `Ирмос (${label})`, text: `{{oktoih.${k("irmos")}}}`, fallback: "", only_if: o(k("irmos")) },
     // Припев к тропарям канона Октоиха (свой у каждого канона дня).
     { type: "refrain_heading", label: "Припев:", text: `{{oktoih.${prefix}_refrain}}`, fallback: "", only_if: [o(`${prefix}_refrain`), o(k("tropar_1"))] },
     { type: "tropar", label: `Тропарь (${label})`, text: `{{oktoih.${k("tropar_1")}}}`, fallback: "", only_if: o(k("tropar_1")) },
@@ -100,8 +100,8 @@ function buildOde(n) {
   const irmosKey = `canon_ode${n}_irmos`;
   const parts = [
     { type: "refrain_heading", label: "Октоих:", text: `Тропари́ кано́нов Окто́иха ${n}-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Окто́иху.`, only_if_not: octoechosKeys },
-    ...octoechosCanon("canon_cross", n, "первый канон Октоиха", true),
-    ...octoechosCanon("canon_theotokos", n, "второй канон Октоиха", false),
+    ...octoechosCanon("canon_cross", n, "первый канон Октоиха"),
+    ...octoechosCanon("canon_theotokos", n, "второй канон Октоиха"),
     { type: "refrain_heading", label: "Припев:", text: SAINT_REFRAIN, only_if_any: tropKeys.map(m) },
     ...tropKeys.map((key) => ({ type: "tropar", label: "Тропарь святому", text: `{{minea.${key}}}`, fallback: "", only_if: m(key) })),
     { type: "refrain_heading", label: "Канон святому:", text: `Тропари́ кано́на свято́му ${n}-й пе́сни в приложе́ние ещё не внесены́ — пою́тся по Мине́и.`, only_if_not: tropKeys.map(m) },
