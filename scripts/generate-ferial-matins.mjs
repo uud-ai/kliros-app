@@ -88,6 +88,7 @@ function octoechosCanon(prefix, n, label, withIrmos) {
     { type: "tropar", label: `Тропарь (${label})`, text: `{{oktoih.${k("tropar_1")}}}`, fallback: "", only_if: o(k("tropar_1")) },
     { type: "tropar", label: `Тропарь (${label})`, text: `{{oktoih.${k("tropar_2")}}}`, fallback: "", only_if: o(k("tropar_2")) },
     { type: "tropar", label: `Тропарь (${label})`, text: `{{oktoih.${k("tropar_3")}}}`, fallback: "", only_if: o(k("tropar_3")) },
+    { type: "tropar", label: `Тропарь (${label})`, text: `{{oktoih.${k("tropar_4")}}}`, fallback: "", only_if: o(k("tropar_4")) },
     { type: "bogorodichen", label: `Богородичен (${label})`, text: `{{oktoih.${k("bogorodichen")}}}`, fallback: "", only_if: o(k("bogorodichen")) },
   ];
 }
