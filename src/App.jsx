@@ -427,6 +427,17 @@ function App() {
     });
   }, []);
 
+  // Богородичны отпустительные по гласам (общий справочник, не зависит от
+  // даты) — выбираются по гласу тропаря святого (minea.tropar_glas), а не
+  // по седмичному гласу Октоиха, см. sourcesByType ниже.
+  useEffect(() => {
+    getDocData("templates", "bogorodichny-otpustitelnye").then((data) => {
+      if (data) {
+        setTemplates((prev) => ({ ...prev, "bogorodichny-otpustitelnye": data }));
+      }
+    });
+  }, []);
+
   // Таблица зачал (номер → главы/стихи) — общий справочник, не зависит от
   // даты. Сам текст чтения (public/data/bible/*) подгружается отдельно,
   // только для книг, реально нужных текущему дню (см. ниже).
@@ -740,8 +751,27 @@ function App() {
     // Например, day.alleluia — на утрене «Аллилуиа» вместо «Бог Господь»
     // (будни Великого поста): на часах читается тропарь часа со стихами.
     result.day = { ...(day?.variables?.flags || {}) };
+    // Богородичен отпустительный выбирается по гласу тропаря СВЯТОГО дня
+    // (minea.tropar_glas), а не по седмичному гласу Октоиха: если он известен,
+    // подменяем oktoih.tropar_bogorodichen_otpustitelny вычисленным значением.
+    // Без minea.tropar_glas (пока не внесён для дня) — остаётся как было,
+    // значение из файла Октоиха по умолчанию.
+    const bogorodichnyTable = templates["bogorodichny-otpustitelnye"];
+    const tropGlas = result.minea?.tropar_glas;
+    if (bogorodichnyTable && tropGlas) {
+      const weekday = selectedDate.getDay();
+      const group = weekday === 1 ? "monday"
+        : weekday === 2 || weekday === 4 ? "tue_thu"
+        : weekday === 3 || weekday === 5 ? "wed_fri"
+        : weekday === 6 ? "saturday"
+        : null;
+      const text = group && bogorodichnyTable[`glas${tropGlas}`]?.[group];
+      if (text) {
+        result.oktoih = { ...result.oktoih, tropar_bogorodichen_otpustitelny: text };
+      }
+    }
     return result;
-  }, [day, variables]);
+  }, [day, variables, templates, selectedDate]);
 
   // Тропари/кондаки по входе на будничной Литургии — вычисляются по уставу
   // (день седмицы + Минея + настройка храма), а не берутся из шаблона.
