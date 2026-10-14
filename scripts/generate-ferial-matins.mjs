@@ -190,10 +190,11 @@ function buildMatins(base, sundayBase, variant, v) {
   const iSvet = findIndex(items, (it) => it.section === "Светилен", "светилен");
   const SV = "Светилен";
   items.splice(iSvet, 1,
-    { section: SV, role: "Предуведомление", text: "Свети́лен Окто́иха дне; «Сла́ва» — свети́лен свято́му (е́сли есть), «И ны́не» — Богоро́дичен." },
+    variable(SV, "Светилен дне", "oktoih", "svetilen", "Свети́лен Окто́иха дне (текст будет добавлен)."),
     { section: SV, role: "Лик", text: GLORY, only_if: m("svetilen") },
     variable(SV, "Светилен святому", "minea", "svetilen", "", { only_if: m("svetilen") }),
-    { section: SV, role: "Лик", text: NOW, only_if: m("svetilen") },
+    { section: SV, role: "Лик", text: NOW },
+    variable(SV, "Богородичен светильна", "oktoih", "svetilen_bogorodichen", "Богоро́дичен свети́льна (текст будет добавлен)."),
   );
 
   // Хвалитны: на простой службе стихир нет; на шестеричной — если есть в Минее.
