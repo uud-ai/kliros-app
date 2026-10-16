@@ -1,0 +1,685 @@
+{
+  "_meta": {
+    "id": "great-compline-canon-andrew-part1",
+    "serviceType": "greatCompline",
+    "description": "Великое повечерие с 1-й частью Великого канона прп. Андрея Критского (понедельник 1-й седмицы Великого поста вечером).",
+    "source": "Триодь Постная, издание Московской Патриархии (Великий канон читается по частям в пн-чт вечера 1-й седмицы)",
+    "version": 1,
+    "supports_variables": true,
+    "status": "in_progress",
+    "note": "Неизменяемые части (псалмы, начальные молитвы) даны рубрикой — точный состав Великого повечерия сверяется по источнику при внесении текста (см. CHROME_TODO.md: текст не вносится по памяти). Канон дан на все 9 песней структурно — пустые (не заполненные источником) тропари этой части сами скрываются по only_if, реальное распределение троп по дням уточняется при внесении текста."
+  },
+  "items": [
+    {
+      "section": "Начало повечерия",
+      "role": "Иерей",
+      "text": "Благослове́н Бог наш, всегда́, ны́не и при́сно, и во ве́ки веко́в."
+    },
+    {
+      "section": "Начало повечерия",
+      "role": "Чтец",
+      "text": "Ами́нь. Прииди́те, поклони́мся..."
+    },
+    {
+      "section": "Псалмы повечерия",
+      "role": "Предуведомление",
+      "text": "Чита́ются псалмы́ 4, 6, 12, 24, 30 и 90 (пе́рвая часть), зате́м псалмы́ 69 и 142 (втора́я часть) — обы́чным чи́ном Вели́кого пове́черия."
+    },
+    {
+      "section": "Слава в вышних Богу",
+      "role": "Чтец",
+      "text": "Сла́ва в вы́шних Бо́гу, и на земли́ мир, в челове́цех благоволе́ние. (Трижды)"
+    },
+    {
+      "section": "Символ веры",
+      "role": "Чтец",
+      "text": "Ве́рую во еди́наго Бо́га Отца́, Вседержи́теля..."
+    },
+    {
+      "section": "Канон",
+      "role": "Канон",
+      "is_canon": true,
+      "canon": {
+        "title": "Великий канон прп. Андрея Критского — часть 1-я (понедельник)",
+        "structure": [
+          {
+            "ode": 1,
+            "title": "Песнь 1",
+            "parts": [
+              {
+                "type": "irmos",
+                "label": "Ирмос",
+                "text": "{{triod.great_canon_part1_ode1_irmos}}",
+                "fallback": "Ирмо́с 1-й пе́сни Вели́кого кано́на.",
+                "only_if": [
+                  "triod.great_canon_part1_ode1_irmos"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode1_tropar_1}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode1_tropar_1"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode1_tropar_2}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode1_tropar_2"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode1_tropar_3}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode1_tropar_3"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Марии Египетской",
+                "text": "{{triod.great_canon_part1_ode1_maria}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode1_maria"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Андрею",
+                "text": "{{triod.great_canon_part1_ode1_andrew}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode1_andrew"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{triod.great_canon_part1_ode1_bogorodichen}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode1_bogorodichen"
+                ]
+              }
+            ]
+          },
+          {
+            "ode": 2,
+            "title": "Песнь 2",
+            "parts": [
+              {
+                "type": "irmos",
+                "label": "Ирмос",
+                "text": "{{triod.great_canon_part1_ode2_irmos}}",
+                "fallback": "Ирмо́с 2-й пе́сни Вели́кого кано́на.",
+                "only_if": [
+                  "triod.great_canon_part1_ode2_irmos"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode2_tropar_1}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode2_tropar_1"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode2_tropar_2}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode2_tropar_2"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode2_tropar_3}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode2_tropar_3"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Марии Египетской",
+                "text": "{{triod.great_canon_part1_ode2_maria}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode2_maria"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Андрею",
+                "text": "{{triod.great_canon_part1_ode2_andrew}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode2_andrew"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{triod.great_canon_part1_ode2_bogorodichen}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode2_bogorodichen"
+                ]
+              }
+            ]
+          },
+          {
+            "ode": 3,
+            "title": "Песнь 3",
+            "parts": [
+              {
+                "type": "irmos",
+                "label": "Ирмос",
+                "text": "{{triod.great_canon_part1_ode3_irmos}}",
+                "fallback": "Ирмо́с 3-й пе́сни Вели́кого кано́на.",
+                "only_if": [
+                  "triod.great_canon_part1_ode3_irmos"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode3_tropar_1}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode3_tropar_1"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode3_tropar_2}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode3_tropar_2"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode3_tropar_3}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode3_tropar_3"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Марии Египетской",
+                "text": "{{triod.great_canon_part1_ode3_maria}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode3_maria"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Андрею",
+                "text": "{{triod.great_canon_part1_ode3_andrew}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode3_andrew"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{triod.great_canon_part1_ode3_bogorodichen}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode3_bogorodichen"
+                ]
+              }
+            ]
+          },
+          {
+            "ode": 4,
+            "title": "Песнь 4",
+            "parts": [
+              {
+                "type": "irmos",
+                "label": "Ирмос",
+                "text": "{{triod.great_canon_part1_ode4_irmos}}",
+                "fallback": "Ирмо́с 4-й пе́сни Вели́кого кано́на.",
+                "only_if": [
+                  "triod.great_canon_part1_ode4_irmos"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode4_tropar_1}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode4_tropar_1"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode4_tropar_2}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode4_tropar_2"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode4_tropar_3}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode4_tropar_3"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Марии Египетской",
+                "text": "{{triod.great_canon_part1_ode4_maria}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode4_maria"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Андрею",
+                "text": "{{triod.great_canon_part1_ode4_andrew}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode4_andrew"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{triod.great_canon_part1_ode4_bogorodichen}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode4_bogorodichen"
+                ]
+              }
+            ]
+          },
+          {
+            "ode": 5,
+            "title": "Песнь 5",
+            "parts": [
+              {
+                "type": "irmos",
+                "label": "Ирмос",
+                "text": "{{triod.great_canon_part1_ode5_irmos}}",
+                "fallback": "Ирмо́с 5-й пе́сни Вели́кого кано́на.",
+                "only_if": [
+                  "triod.great_canon_part1_ode5_irmos"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode5_tropar_1}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode5_tropar_1"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode5_tropar_2}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode5_tropar_2"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode5_tropar_3}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode5_tropar_3"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Марии Египетской",
+                "text": "{{triod.great_canon_part1_ode5_maria}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode5_maria"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Андрею",
+                "text": "{{triod.great_canon_part1_ode5_andrew}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode5_andrew"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{triod.great_canon_part1_ode5_bogorodichen}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode5_bogorodichen"
+                ]
+              }
+            ]
+          },
+          {
+            "ode": 6,
+            "title": "Песнь 6",
+            "parts": [
+              {
+                "type": "irmos",
+                "label": "Ирмос",
+                "text": "{{triod.great_canon_part1_ode6_irmos}}",
+                "fallback": "Ирмо́с 6-й пе́сни Вели́кого кано́на.",
+                "only_if": [
+                  "triod.great_canon_part1_ode6_irmos"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode6_tropar_1}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode6_tropar_1"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode6_tropar_2}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode6_tropar_2"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode6_tropar_3}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode6_tropar_3"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Марии Египетской",
+                "text": "{{triod.great_canon_part1_ode6_maria}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode6_maria"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Андрею",
+                "text": "{{triod.great_canon_part1_ode6_andrew}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode6_andrew"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{triod.great_canon_part1_ode6_bogorodichen}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode6_bogorodichen"
+                ]
+              }
+            ]
+          },
+          {
+            "ode": 7,
+            "title": "Песнь 7",
+            "parts": [
+              {
+                "type": "irmos",
+                "label": "Ирмос",
+                "text": "{{triod.great_canon_part1_ode7_irmos}}",
+                "fallback": "Ирмо́с 7-й пе́сни Вели́кого кано́на.",
+                "only_if": [
+                  "triod.great_canon_part1_ode7_irmos"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode7_tropar_1}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode7_tropar_1"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode7_tropar_2}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode7_tropar_2"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode7_tropar_3}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode7_tropar_3"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Марии Египетской",
+                "text": "{{triod.great_canon_part1_ode7_maria}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode7_maria"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Андрею",
+                "text": "{{triod.great_canon_part1_ode7_andrew}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode7_andrew"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{triod.great_canon_part1_ode7_bogorodichen}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode7_bogorodichen"
+                ]
+              }
+            ]
+          },
+          {
+            "ode": 8,
+            "title": "Песнь 8",
+            "parts": [
+              {
+                "type": "irmos",
+                "label": "Ирмос",
+                "text": "{{triod.great_canon_part1_ode8_irmos}}",
+                "fallback": "Ирмо́с 8-й пе́сни Вели́кого кано́на.",
+                "only_if": [
+                  "triod.great_canon_part1_ode8_irmos"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode8_tropar_1}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode8_tropar_1"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode8_tropar_2}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode8_tropar_2"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode8_tropar_3}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode8_tropar_3"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Марии Египетской",
+                "text": "{{triod.great_canon_part1_ode8_maria}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode8_maria"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Андрею",
+                "text": "{{triod.great_canon_part1_ode8_andrew}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode8_andrew"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{triod.great_canon_part1_ode8_bogorodichen}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode8_bogorodichen"
+                ]
+              }
+            ]
+          },
+          {
+            "ode": 9,
+            "title": "Песнь 9",
+            "parts": [
+              {
+                "type": "irmos",
+                "label": "Ирмос",
+                "text": "{{triod.great_canon_part1_ode9_irmos}}",
+                "fallback": "Ирмо́с 9-й пе́сни Вели́кого кано́на.",
+                "only_if": [
+                  "triod.great_canon_part1_ode9_irmos"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode9_tropar_1}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode9_tropar_1"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode9_tropar_2}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode9_tropar_2"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь",
+                "text": "{{triod.great_canon_part1_ode9_tropar_3}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode9_tropar_3"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Марии Египетской",
+                "text": "{{triod.great_canon_part1_ode9_maria}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode9_maria"
+                ]
+              },
+              {
+                "type": "tropar",
+                "label": "Тропарь прп. Андрею",
+                "text": "{{triod.great_canon_part1_ode9_andrew}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode9_andrew"
+                ]
+              },
+              {
+                "type": "bogorodichen",
+                "label": "Богородичен",
+                "text": "{{triod.great_canon_part1_ode9_bogorodichen}}",
+                "fallback": "",
+                "only_if": [
+                  "triod.great_canon_part1_ode9_bogorodichen"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "Трисвятое",
+      "role": "Чтец",
+      "text": "Святы́й Бо́же, Святы́й Кре́пкий, Святы́й Безсме́ртный, поми́луй нас. (Трижды)\n\nСла́ва Отцу́, и Сы́ну, и Свято́му Ду́ху, и ны́не и при́сно, и во ве́ки веко́в. Ами́нь.\n\nПресвята́я Тро́ице, поми́луй нас; Го́споди, очи́сти грехи́ на́ша; Влады́ко, прости́ беззако́ния на́ша; Святы́й, посети́ и исцели́ не́мощи на́ша, и́мене Твоего́ ра́ди.\n\nГо́споди, поми́луй. (Трижды)\n\nСла́ва Отцу́, и Сы́ну, и Свято́му Ду́ху, и ны́не и при́сно, и во ве́ки веко́в. Ами́нь.\n\nО́тче наш, И́же еси́ на небесе́х..."
+    },
+    {
+      "section": "Молитва прп. Ефрема Сирина",
+      "role": "Иерей",
+      "text": "Го́споди и Влады́ко живота́ моего́, дух пра́здности, уны́ния, любонача́лия и праздносло́вия не да́ждь ми. (Покло́н вели́кий.)\n\nДух же целому́дрия, смиренному́дрия, терпе́ния и любви́ да́руй ми, рабу́ Твоему́. (Покло́н вели́кий.)\n\nЕй, Го́споди Царю́, да́руй ми зре́ти моя́ прегреше́ния и не осужда́ти бра́та моего́, я́ко благослове́н еси́ во ве́ки веко́в. Ами́нь. (Покло́н вели́кий.)"
+    },
+    {
+      "section": "Завершение",
+      "role": "Предуведомление",
+      "text": "Да́лее — моли́твы на сон гряду́щим и отпу́ст обы́чным чи́ном Вели́кого пове́черия."
+    }
+  ]
+}

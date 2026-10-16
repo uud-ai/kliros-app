@@ -1,0 +1,368 @@
+{
+  "_meta": {
+    "id": "matins-lenten-weekday",
+    "serviceType": "matins",
+    "description": "Будничная утреня Великого поста (понедельник/вторник/четверг — без Литургии; среда/пятница — перед Преждеосвященной). Общий скелет на 1-ю седмицу: канон Октоиха (Кресту/дню и Богородице) по будничному чину + трипеснец Триоди дня на тех песнях, где он положен источником.",
+    "source": "Часослов и Триодь Постная, издание Московской Патриархии; структура совмещения — по образцу уже собранной matins-ferial.json и matins-lenten-sunday.json",
+    "version": 1,
+    "supports_variables": true,
+    "status": "in_progress",
+    "note": "«Бог Господь» заменяется на «Аллилуиа» и тропарь Триоди — ветка выбирается по variables.flags.alleluia (см. planLentenWeekdayService в triodion.js), так же, как уже сделано в hours-{1,3,6,9}.json. Блоки трипеснца на каждой песни канона скрываются сами (only_if на первый тропарь), если в содержимом конкретного дня (great-lent-week1-*.json) эта песнь не заполнена — состав песней трипеснца у будних дней Триоди разный, задаётся источником, а не этим общим шаблоном."
+  },
+  "items": [
+    { "section": "Начало Утрени", "role": "Диакон", "text": "Благослови́, владыко." },
+    { "section": "Начало Утрени", "role": "Иерей", "text": "Сла́ва Святе́й, и Единосу́щней, и Животворя́щей, и Неразде́льней Тро́ице, всегда́, ны́не и при́сно, и во ве́ки веко́в." },
+    { "section": "Начало Утрени", "role": "Лик", "text": "Ами́нь." },
+    { "section": "Начало Утрени", "role": "Чтец", "text": "Сла́ва в вы́шних Бо́гу, и на земли́ мир, в челове́цех благоволе́ние. (Трижды)\n\nГо́споди, устне́ мои́ отве́рзеши, и уста́ моя́ возвестя́т хвалу́ Твою́. (Дважды)" },
+    { "section": "Шестопсалмие", "role": "Предуведомление", "text": "Чита́ется Шестопса́лмие — шесть избра́нных псалмо́в: 3, 37, 62, 87, 102 и 142." },
+
+    { "section": "Ектения великая", "role": "Диакон", "text": "Ми́ром Го́споду помо́лимся." },
+    { "section": "Ектения великая", "role": "Предуведомление", "text": "Ектения великая обычным чином." },
+
+    {
+      "section": "Аллилуиа",
+      "role": "Чтец",
+      "text": "Аллилу́иа, аллилу́иа, аллилу́иа.",
+      "only_if": ["day.alleluia"]
+    },
+    {
+      "section": "Тропарь Триоди",
+      "role": "Лик",
+      "text": "{{triod.matins_tropar}}",
+      "variable_type": "triod",
+      "variable_key": "matins_tropar",
+      "fallback": "Тропа́рь Триоди дня (текст будет добавлен).",
+      "only_if": ["day.alleluia"]
+    },
+    {
+      "section": "Тропарь Триоди",
+      "role": "Богородичен",
+      "text": "{{triod.matins_bogorodichen}}",
+      "variable_type": "triod",
+      "variable_key": "matins_bogorodichen",
+      "fallback": "Богоро́дичен по тропаре́ Триоди (текст будет добавлен).",
+      "only_if": ["day.alleluia"]
+    },
+
+    { "section": "Бог Господь", "role": "Диакон", "text": "Бог Госпо́дь, и яви́ся нам, благослове́н Гряды́й во и́мя Госпо́дне.", "only_if_not": ["day.alleluia"] },
+    { "section": "Бог Господь", "role": "Лик", "text": "Бог Госпо́дь, и яви́ся нам, благослове́н Гряды́й во и́мя Госпо́дне.", "only_if_not": ["day.alleluia"] },
+    {
+      "section": "Тропарь по «Бог Господь»",
+      "role": "Лик",
+      "text": "{{minea.tropar}}",
+      "variable_type": "minea",
+      "variable_key": "tropar",
+      "fallback": "Тропа́рь святому (текст будет добавлен).",
+      "only_if_not": ["day.alleluia"]
+    },
+    { "section": "Тропарь по «Бог Господь»", "role": "Лик", "text": "Сла́ва Отцу́, и Сы́ну, и Свято́му Ду́ху, и ны́не и при́сно, и во ве́ки веко́в. Ами́нь.", "only_if_not": ["day.alleluia"] },
+    {
+      "section": "Тропарь по «Бог Господь»",
+      "role": "Богородичен",
+      "text": "{{oktoih.tropar_bogorodichen_otpustitelny}}",
+      "variable_type": "oktoih",
+      "variable_key": "tropar_bogorodichen_otpustitelny",
+      "fallback": "Богоро́дичен отпусти́тельный, по гла́су тропаря́ (текст будет добавлен).",
+      "only_if_not": ["day.alleluia"]
+    },
+
+    { "section": "Кафизмы", "role": "Предуведомление", "text": "На буднич­ной у́трене Вели́кого поста́ чита́ются две или три рядовы́е кафи́змы по чреде́ Псалти́ри, с седа́льнами Окто́иха ме́жду ни́ми." },
+    {
+      "section": "Седальны по 1-й кафизме",
+      "role": "Лик",
+      "text": "{{oktoih.sedalen_after_kafisma_1}}",
+      "variable_type": "oktoih",
+      "variable_key": "sedalen_after_kafisma_1",
+      "fallback": "Седа́лен по 1-й кафи́зме, гла́са и дня седми́цы (текст будет добавлен)."
+    },
+    { "section": "Седальны по 1-й кафизме", "role": "Лик", "text": "Сла́ва, и ны́не:" },
+    {
+      "section": "Седальны по 1-й кафизме",
+      "role": "Богородичен",
+      "text": "{{oktoih.sedalen_after_kafisma_1_bogorodichen}}",
+      "variable_type": "oktoih",
+      "variable_key": "sedalen_after_kafisma_1_bogorodichen",
+      "fallback": "Богоро́дичен седа́льна по 1-й кафи́зме (текст будет добавлен)."
+    },
+    {
+      "section": "Седальны по 2-й кафизме",
+      "role": "Лик",
+      "text": "{{oktoih.sedalen_after_kafisma_2}}",
+      "variable_type": "oktoih",
+      "variable_key": "sedalen_after_kafisma_2",
+      "fallback": "Седа́лен по 2-й кафи́зме, гла́са и дня седми́цы (текст будет добавлен)."
+    },
+    { "section": "Седальны по 2-й кафизме", "role": "Лик", "text": "Сла́ва, и ны́не:" },
+    {
+      "section": "Седальны по 2-й кафизме",
+      "role": "Богородичен",
+      "text": "{{oktoih.sedalen_after_kafisma_2_bogorodichen}}",
+      "variable_type": "oktoih",
+      "variable_key": "sedalen_after_kafisma_2_bogorodichen",
+      "fallback": "Богоро́дичен седа́льна по 2-й кафи́зме (текст будет добавлен)."
+    },
+    {
+      "section": "Седальны по 3-й кафизме",
+      "role": "Лик",
+      "text": "{{oktoih.sedalen_after_kafisma_3}}",
+      "variable_type": "oktoih",
+      "variable_key": "sedalen_after_kafisma_3",
+      "fallback": "Седа́лен по 3-й кафи́зме, гла́са и дня седми́цы (текст будет добавлен)."
+    },
+    { "section": "Седальны по 3-й кафизме", "role": "Лик", "text": "Сла́ва, и ны́не:" },
+    {
+      "section": "Седальны по 3-й кафизме",
+      "role": "Богородичен",
+      "text": "{{oktoih.sedalen_after_kafisma_3_bogorodichen}}",
+      "variable_type": "oktoih",
+      "variable_key": "sedalen_after_kafisma_3_bogorodichen",
+      "fallback": "Богоро́дичен седа́льна по 3-й кафи́зме (текст будет добавлен)."
+    },
+
+    { "section": "Псалом 50", "role": "Чтец", "text": "Поми́луй мя, Бо́же, по вели́цей ми́лости Твое́й, и по мно́жеству щедро́т Твои́х очи́сти беззако́ние мое́." },
+
+    {
+      "section": "Канон",
+      "role": "Канон",
+      "is_canon": true,
+      "canon": {
+        "title": "Октоиха два канона (Кресту/дню и Пресвятей Богородице) + трипеснец Триоди дня на положенных песнях",
+        "structure": [
+          {
+            "ode": 1,
+            "title": "Песнь 1",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode1_irmos}}", "fallback": "Ирмо́с 1-й пе́сни кано́на Кресту́, гла́са дне́." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode1_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode1_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode1_bogorodichen}}", "fallback": "Богоро́дичен 1-й пе́сни кано́на Кресту́." },
+              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode1_irmos}}", "fallback": "Ирмо́с 1-й пе́сни кано́на Богоро́дице." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode1_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode1_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode1_bogorodichen}}", "fallback": "Богоро́дичен 1-й пе́сни кано́на Богоро́дице." },
+              { "type": "irmos", "label": "Ирмос трипеснца Триоди", "text": "{{triod.canon_ode1_irmos}}", "fallback": "Ирмо́с трипе́снца Триоди, 1-я песнь.", "only_if": ["triod.canon_ode1_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode1_tropar_1}}", "fallback": "", "only_if": ["triod.canon_ode1_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode1_tropar_2}}", "fallback": "", "only_if": ["triod.canon_ode1_tropar_2"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode1_tropar_3}}", "fallback": "", "only_if": ["triod.canon_ode1_tropar_3"] },
+              { "type": "bogorodichen", "label": "Богородичен трипеснца", "text": "{{triod.canon_ode1_bogorodichen}}", "fallback": "", "only_if": ["triod.canon_ode1_bogorodichen"] }
+            ]
+          },
+          {
+            "ode": 2,
+            "title": "Песнь 2",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос трипеснца Триоди", "text": "{{triod.canon_ode2_irmos}}", "fallback": "Ирмо́с трипе́снца Триоди, 2-я песнь.", "only_if": ["triod.canon_ode2_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode2_tropar_1}}", "fallback": "", "only_if": ["triod.canon_ode2_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode2_tropar_2}}", "fallback": "", "only_if": ["triod.canon_ode2_tropar_2"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode2_tropar_3}}", "fallback": "", "only_if": ["triod.canon_ode2_tropar_3"] },
+              { "type": "bogorodichen", "label": "Богородичен трипеснца", "text": "{{triod.canon_ode2_bogorodichen}}", "fallback": "", "only_if": ["triod.canon_ode2_bogorodichen"] }
+            ]
+          },
+          {
+            "ode": 3,
+            "title": "Песнь 3",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode3_irmos}}", "fallback": "Ирмо́с 3-й пе́сни кано́на Кресту́." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode3_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 3-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode3_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 3-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode3_bogorodichen}}", "fallback": "Богоро́дичен 3-й пе́сни кано́на Кресту́." },
+              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode3_irmos}}", "fallback": "Ирмо́с 3-й пе́сни кано́на Богоро́дице." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode3_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 3-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode3_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 3-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode3_bogorodichen}}", "fallback": "Богоро́дичен 3-й пе́сни кано́на Богоро́дице." },
+              { "type": "irmos", "label": "Ирмос трипеснца Триоди", "text": "{{triod.canon_ode3_irmos}}", "fallback": "Ирмо́с трипе́снца Триоди, 3-я песнь.", "only_if": ["triod.canon_ode3_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode3_tropar_1}}", "fallback": "", "only_if": ["triod.canon_ode3_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode3_tropar_2}}", "fallback": "", "only_if": ["triod.canon_ode3_tropar_2"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode3_tropar_3}}", "fallback": "", "only_if": ["triod.canon_ode3_tropar_3"] },
+              { "type": "bogorodichen", "label": "Богородичен трипеснца", "text": "{{triod.canon_ode3_bogorodichen}}", "fallback": "", "only_if": ["triod.canon_ode3_bogorodichen"] }
+            ]
+          },
+          {
+            "ode": "after_3",
+            "title": "Малая ектения и седален по 3-й песни",
+            "parts": [
+              { "type": "tropar", "label": "Диакон", "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию." },
+              { "type": "tropar", "label": "Седален Триоди", "text": "{{triod.sedalen_ode3}}", "fallback": "Седа́лен Триоди по 3-й пе́сни (текст будет добавлен).", "only_if": ["triod.sedalen_ode3"] }
+            ]
+          },
+          {
+            "ode": 4,
+            "title": "Песнь 4",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode4_irmos}}", "fallback": "Ирмо́с 4-й пе́сни кано́на Кресту́." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode4_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode4_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 4-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode4_bogorodichen}}", "fallback": "Богоро́дичен 4-й пе́сни кано́на Кресту́." },
+              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode4_irmos}}", "fallback": "Ирмо́с 4-й пе́сни кано́на Богоро́дице." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode4_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode4_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 4-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode4_bogorodichen}}", "fallback": "Богоро́дичен 4-й пе́сни кано́на Богоро́дице." },
+              { "type": "irmos", "label": "Ирмос трипеснца Триоди", "text": "{{triod.canon_ode4_irmos}}", "fallback": "Ирмо́с трипе́снца Триоди, 4-я песнь.", "only_if": ["triod.canon_ode4_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode4_tropar_1}}", "fallback": "", "only_if": ["triod.canon_ode4_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode4_tropar_2}}", "fallback": "", "only_if": ["triod.canon_ode4_tropar_2"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode4_tropar_3}}", "fallback": "", "only_if": ["triod.canon_ode4_tropar_3"] },
+              { "type": "bogorodichen", "label": "Богородичен трипеснца", "text": "{{triod.canon_ode4_bogorodichen}}", "fallback": "", "only_if": ["triod.canon_ode4_bogorodichen"] }
+            ]
+          },
+          {
+            "ode": 5,
+            "title": "Песнь 5",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode5_irmos}}", "fallback": "Ирмо́с 5-й пе́сни кано́на Кресту́." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode5_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode5_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 5-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode5_bogorodichen}}", "fallback": "Богоро́дичен 5-й пе́сни кано́на Кресту́." },
+              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode5_irmos}}", "fallback": "Ирмо́с 5-й пе́сни кано́на Богоро́дице." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode5_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode5_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 5-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode5_bogorodichen}}", "fallback": "Богоро́дичен 5-й пе́сни кано́на Богоро́дице." },
+              { "type": "irmos", "label": "Ирмос трипеснца Триоди", "text": "{{triod.canon_ode5_irmos}}", "fallback": "Ирмо́с трипе́снца Триоди, 5-я песнь.", "only_if": ["triod.canon_ode5_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode5_tropar_1}}", "fallback": "", "only_if": ["triod.canon_ode5_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode5_tropar_2}}", "fallback": "", "only_if": ["triod.canon_ode5_tropar_2"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode5_tropar_3}}", "fallback": "", "only_if": ["triod.canon_ode5_tropar_3"] },
+              { "type": "bogorodichen", "label": "Богородичен трипеснца", "text": "{{triod.canon_ode5_bogorodichen}}", "fallback": "", "only_if": ["triod.canon_ode5_bogorodichen"] }
+            ]
+          },
+          {
+            "ode": 6,
+            "title": "Песнь 6",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode6_irmos}}", "fallback": "Ирмо́с 6-й пе́сни кано́на Кресту́." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode6_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode6_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 6-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode6_bogorodichen}}", "fallback": "Богоро́дичен 6-й пе́сни кано́на Кресту́." },
+              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode6_irmos}}", "fallback": "Ирмо́с 6-й пе́сни кано́на Богоро́дице." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode6_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode6_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 6-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode6_bogorodichen}}", "fallback": "Богоро́дичен 6-й пе́сни кано́на Богоро́дице." },
+              { "type": "irmos", "label": "Ирмос трипеснца Триоди", "text": "{{triod.canon_ode6_irmos}}", "fallback": "Ирмо́с трипе́снца Триоди, 6-я песнь.", "only_if": ["triod.canon_ode6_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode6_tropar_1}}", "fallback": "", "only_if": ["triod.canon_ode6_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode6_tropar_2}}", "fallback": "", "only_if": ["triod.canon_ode6_tropar_2"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode6_tropar_3}}", "fallback": "", "only_if": ["triod.canon_ode6_tropar_3"] },
+              { "type": "bogorodichen", "label": "Богородичен трипеснца", "text": "{{triod.canon_ode6_bogorodichen}}", "fallback": "", "only_if": ["triod.canon_ode6_bogorodichen"] }
+            ]
+          },
+          {
+            "ode": "after_6",
+            "title": "Малая ектения, кондак и икос по 6-й песни",
+            "parts": [
+              { "type": "tropar", "label": "Диакон", "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию." },
+              { "type": "tropar", "label": "Кондак Триоди", "text": "{{triod.kondak}}", "fallback": "Конда́к Триоди дня (текст будет добавлен).", "only_if": ["triod.kondak"] },
+              { "type": "tropar", "label": "Кондак святому", "text": "{{minea.kondak}}", "fallback": "Конда́к святому (текст будет добавлен).", "only_if_not": ["triod.kondak"] }
+            ]
+          },
+          {
+            "ode": 7,
+            "title": "Песнь 7",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode7_irmos}}", "fallback": "Ирмо́с 7-й пе́сни кано́на Кресту́." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode7_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode7_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 7-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode7_bogorodichen}}", "fallback": "Богоро́дичен 7-й пе́сни кано́на Кресту́." },
+              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode7_irmos}}", "fallback": "Ирмо́с 7-й пе́сни кано́на Богоро́дице." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode7_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode7_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 7-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode7_bogorodichen}}", "fallback": "Богоро́дичен 7-й пе́сни кано́на Богоро́дице." },
+              { "type": "irmos", "label": "Ирмос трипеснца Триоди", "text": "{{triod.canon_ode7_irmos}}", "fallback": "Ирмо́с трипе́снца Триоди, 7-я песнь.", "only_if": ["triod.canon_ode7_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode7_tropar_1}}", "fallback": "", "only_if": ["triod.canon_ode7_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode7_tropar_2}}", "fallback": "", "only_if": ["triod.canon_ode7_tropar_2"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode7_tropar_3}}", "fallback": "", "only_if": ["triod.canon_ode7_tropar_3"] },
+              { "type": "bogorodichen", "label": "Богородичен трипеснца", "text": "{{triod.canon_ode7_bogorodichen}}", "fallback": "", "only_if": ["triod.canon_ode7_bogorodichen"] }
+            ]
+          },
+          {
+            "ode": 8,
+            "title": "Песнь 8",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode8_irmos}}", "fallback": "Ирмо́с 8-й пе́сни кано́на Кресту́." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode8_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode8_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 8-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode8_bogorodichen}}", "fallback": "Богоро́дичен 8-й пе́сни кано́на Кресту́." },
+              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode8_irmos}}", "fallback": "Ирмо́с 8-й пе́сни кано́на Богоро́дице." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode8_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode8_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 8-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode8_bogorodichen}}", "fallback": "Богоро́дичен 8-й пе́сни кано́на Богоро́дице." },
+              { "type": "irmos", "label": "Ирмос трипеснца Триоди", "text": "{{triod.canon_ode8_irmos}}", "fallback": "Ирмо́с трипе́снца Триоди, 8-я песнь.", "only_if": ["triod.canon_ode8_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode8_tropar_1}}", "fallback": "", "only_if": ["triod.canon_ode8_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode8_tropar_2}}", "fallback": "", "only_if": ["triod.canon_ode8_tropar_2"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode8_tropar_3}}", "fallback": "", "only_if": ["triod.canon_ode8_tropar_3"] },
+              { "type": "bogorodichen", "label": "Богородичен трипеснца", "text": "{{triod.canon_ode8_bogorodichen}}", "fallback": "", "only_if": ["triod.canon_ode8_bogorodichen"] }
+            ]
+          },
+          {
+            "ode": 9,
+            "title": "Песнь 9",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Кресту)", "text": "{{oktoih.canon_cross_ode9_irmos}}", "fallback": "Ирмо́с 9-й пе́сни кано́на Кресту́." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode9_tropar_1}}", "fallback": "1-й тропа́рь кано́на Кресту́, 9-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Кресту)", "text": "{{oktoih.canon_cross_ode9_tropar_2}}", "fallback": "2-й тропа́рь кано́на Кресту́, 9-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode9_bogorodichen}}", "fallback": "Богоро́дичен 9-й пе́сни кано́на Кресту́." },
+              { "type": "irmos", "label": "Ирмос (Богородице)", "text": "{{oktoih.canon_theotokos_ode9_irmos}}", "fallback": "Ирмо́с 9-й пе́сни кано́на Богоро́дице." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode9_tropar_1}}", "fallback": "1-й тропа́рь кано́на Богоро́дице, 9-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Богородице)", "text": "{{oktoih.canon_theotokos_ode9_tropar_2}}", "fallback": "2-й тропа́рь кано́на Богоро́дице, 9-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_theotokos_ode9_bogorodichen}}", "fallback": "Богоро́дичен 9-й пе́сни кано́на Богоро́дице." },
+              { "type": "irmos", "label": "Ирмос трипеснца Триоди", "text": "{{triod.canon_ode9_irmos}}", "fallback": "Ирмо́с трипе́снца Триоди, 9-я песнь.", "only_if": ["triod.canon_ode9_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode9_tropar_1}}", "fallback": "", "only_if": ["triod.canon_ode9_tropar_1"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode9_tropar_2}}", "fallback": "", "only_if": ["triod.canon_ode9_tropar_2"] },
+              { "type": "tropar", "label": "Тропарь трипеснца", "text": "{{triod.canon_ode9_tropar_3}}", "fallback": "", "only_if": ["triod.canon_ode9_tropar_3"] },
+              { "type": "bogorodichen", "label": "Богородичен трипеснца", "text": "{{triod.canon_ode9_bogorodichen}}", "fallback": "", "only_if": ["triod.canon_ode9_bogorodichen"] }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "section": "Светилен",
+      "role": "Лик",
+      "text": "{{triod.svetilen}}",
+      "variable_type": "triod",
+      "variable_key": "svetilen",
+      "fallback": "Свети́лен Триоди дня (текст будет добавлен)."
+    },
+
+    { "section": "Хвалитные псалмы", "role": "Предуведомление", "text": "Пса́лмы 148–150, «Вся́кое дыха́ние да хва́лит Го́спода», чита́ются (не пою́тся)." },
+
+    { "section": "Ектения сугубая", "role": "Предуведомление", "text": "Ектения сугубая и просительная обычным чином." },
+
+    {
+      "section": "Стиховны",
+      "role": "Стихиры Триоди",
+      "text": "{{triod.matins_stikhovna}}",
+      "variable_type": "triod",
+      "variable_key": "matins_stikhovna",
+      "fallback": "Стихи́ры стихо́вны Триоди на у́трени (текст будет добавлен)."
+    },
+    { "section": "Стиховны", "role": "Лик", "text": "Сла́ва, и ны́не:" },
+    {
+      "section": "Стиховны",
+      "role": "Богородичен",
+      "text": "{{triod.matins_stikhovna_bogorodichen}}",
+      "variable_type": "triod",
+      "variable_key": "matins_stikhovna_bogorodichen",
+      "fallback": "Богоро́дичен стихо́вны у́трени (текст будет добавлен)."
+    },
+
+    { "section": "Славословие", "role": "Предуведомление", "text": "Вели́кое славосло́вие чита́ется («Сла́ва в вы́шних Бо́гу...»), не поётся." },
+    { "section": "Славословие", "role": "Чтец", "text": "Сла́ва в вы́шних Бо́гу, и на земли́ мир, в челове́цех благоволе́ние. Хва́лим Тя, благослови́м Тя, кла́няем Ти ся, славосло́вим Тя, благодари́м Тя вели́кия ра́ди сла́вы Твоея́." },
+
+    { "section": "Завершение Утрени", "role": "Чтец", "text": "Благо́ есть исповедатися Господеви... Трисвятое, по Отче наш:" },
+    {
+      "section": "Завершение Утрени",
+      "role": "Лик",
+      "text": "{{triod.matins_tropar}}",
+      "variable_type": "triod",
+      "variable_key": "matins_tropar",
+      "fallback": "Тропа́рь Триоди дня (повторяется)."
+    },
+    {
+      "section": "Молитва прп. Ефрема Сирина",
+      "role": "Иерей",
+      "text": "Го́споди и Влады́ко живота́ моего́, дух пра́здности, уны́ния, любонача́лия и праздносло́вия не да́ждь ми. (Покло́н вели́кий.)\n\nДух же целому́дрия, смиренному́дрия, терпе́ния и любви́ да́руй ми, рабу́ Твоему́. (Покло́н вели́кий.)\n\nЕй, Го́споди Царю́, да́руй ми зре́ти моя́ прегреше́ния и не осужда́ти бра́та моего́, я́ко благослове́н еси́ во ве́ки веко́в. Ами́нь. (Покло́н вели́кий.)"
+    },
+    { "section": "Завершение Утрени", "role": "Иерей", "text": "Прему́дрость." },
+    { "section": "Завершение Утрени", "role": "Лик", "text": "Благослови́." },
+    { "section": "Завершение Утрени", "role": "Иерей", "text": "Сла́ва Тебе́, Христе́ Бо́же, упова́ние на́ше, сла́ва Тебе́." },
+    { "section": "Завершение Утрени", "role": "Лик", "text": "Сла́ва, и ны́не: Го́споди поми́луй (Трижды), благослови́." }
+  ]
+}

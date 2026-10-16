@@ -131,7 +131,11 @@ const NAMED_DAYS = [
   { offset: -57, kind: "saturday", name: "Суббо́та мясопу́стная (Вселе́нская роди́тельская)", period: "По́стная Три́одь", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL, services: { vespers: "vespers-myasopustnaya", matins: "matins-myasopustnaya", liturgy: "liturgy-myasopustnaya" }, fasting: "Разреше́ние на вся" },
   { offset: -56, kind: "sunday", name: "Неде́ля мясопу́стная, о Стра́шном Суде́", period: "По́стная Три́одь", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
   { offset: -49, kind: "sunday", name: "Неде́ля сыропу́стная. Воспомина́ние Ада́мова изгна́ния. Проще́ное воскресе́нье", period: "По́стная Три́одь", scheme: MENAION_SCHEME.ORDINARY_COMBINATION },
-  { offset: -48, kind: "weekday", name: "Чи́стый понеде́льник. Нача́ло Вели́кого поста́", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY },
+  { offset: -48, kind: "weekday", name: "Чи́стый понеде́льник. Нача́ло Вели́кого поста́", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY, contentKey: "great-lent-week1-mon" },
+  { offset: -47, kind: "weekday", name: "Вто́рник 1-й седми́цы Вели́кого поста́", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY, contentKey: "great-lent-week1-tue" },
+  { offset: -46, kind: "weekday", name: "Среда́ 1-й седми́цы Вели́кого поста́", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY, contentKey: "great-lent-week1-wed" },
+  { offset: -45, kind: "weekday", name: "Четве́рг 1-й седми́цы Вели́кого поста́", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY, contentKey: "great-lent-week1-thu" },
+  { offset: -44, kind: "weekday", name: "Пя́тница 1-й седми́цы Вели́кого поста́", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY, contentKey: "great-lent-week1-fri" },
   { offset: -43, kind: "saturday", name: "Суббо́та 1-й седми́цы, вмч. Фео́дора Ти́рона", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_SATURDAY_REDUCED },
   { offset: -42, kind: "sunday", name: "Неде́ля 1-я Вели́кого поста́. Торжество́ Правосла́вия", period: "Вели́кий пост", scheme: MENAION_SCHEME.LENTEN_SUNDAY_NO_MINEA, contentKey: "great-lent-sunday-1" },
   { offset: -36, kind: "saturday", name: "Суббо́та 2-й седми́цы — роди́тельская", period: "Вели́кий пост", scheme: MENAION_SCHEME.SATURDAY_MEMORIAL_UNIVERSAL, services: { vespers: "vespers-roditelskaya-2-sedmitsy", matins: "matins-roditelskaya-2-sedmitsy", liturgy: "liturgy-roditelskaya-2-sedmitsy" }, fasting: "Стро́гий пост" },
@@ -356,7 +360,7 @@ const LENTEN_SUNDAY_SERVICE_SET = {
 export function planLentenSundayService(date) {
   const offset = paschaOffset(date);
   const named = NAMED_DAYS_BY_OFFSET.get(offset);
-  if (!named || !named.contentKey) return null;
+  if (!named || !named.contentKey || named.kind !== "sunday") return null;
 
   const glas = computeGlas(date);
 
@@ -373,6 +377,63 @@ export function planLentenSundayService(date) {
     variables: {
       glas,
       sources: { oktoih: `oktoih-variables-glas${glas}`, triod: named.contentKey },
+    },
+  };
+}
+
+// ===== Будни Великого поста (1-я седмица) с уже готовыми шаблонами =====
+// В отличие от planLentenSundayService (одна Литургия на день), будний день
+// поста даёт набор служб, зависящий от дня седмицы: пн-чт вечером — часть
+// Великого канона прп. Андрея Критского на великом повечерии (4 части, по
+// одной на каждый из этих 4 дней); ст и пт днём, после часов — Литургия
+// Преждеосвященных Даров встроена в вечерню (см. vespers-great-monday.json
+// на Страстной — тот же приём), а не отдельная плановая вечерня. В среду,
+// таким образом, совершаются ОБЕ службы: Преждеосвященная днём и часть
+// канона на повечерии вечером — это не взаимоисключающие ветки. Точное
+// распределение частей канона по дням и состав служб — проверено на
+// источнике (Типикон/azbyka.ru) при внесении текста, здесь не
+// предполагается "по памяти".
+//
+// Часы 1, 3, 6, 9 — те же общие файлы hours-{1,3,6,9}.json, что и в рядовое
+// время (см. App.jsx:751-753): их ветка "Аллилуиа"/тропарь часа со стихами уже
+// готова и ждёт флага variables.flags.alleluia (ROADMAP.md, п.7) — для будней
+// поста он включается здесь.
+const WEEKDAY_KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+const LENTEN_HOURS = { "1": "hours-1", "3": "hours-3", "6": "hours-6", "9": "hours-9" };
+const GREAT_COMPLINE_CANON_PART_BY_DOW = { 1: 1, 2: 2, 3: 3, 4: 4 };
+
+function lentenWeekdayServiceSet(dow) {
+  const services = { hours: LENTEN_HOURS, matins: "matins-lenten-weekday" };
+  services.vespers = dow === 3 || dow === 5 ? "vespers-lenten-weekday-presanctified" : "vespers-lenten-weekday";
+  const part = GREAT_COMPLINE_CANON_PART_BY_DOW[dow];
+  if (part) services.greatCompline = `great-compline-canon-andrew-part${part}`;
+  return services;
+}
+
+export function planLentenWeekdayService(date) {
+  const offset = paschaOffset(date);
+  const named = NAMED_DAYS_BY_OFFSET.get(offset);
+  if (!named || !named.contentKey || named.scheme !== MENAION_SCHEME.LENTEN_WEEKDAY_COMMEMORATION_ONLY) return null;
+
+  const glas = computeGlas(date);
+  const dow = date.getDay();
+
+  return {
+    dateLabel: formatDateLabel(date),
+    feastName: named.name,
+    period: named.period,
+    tone: glas,
+    fasting: "Стро́гий пост",
+    // Часы и вечерня (± Преждеосвященная) в Вели́кий пост совершаются вместе
+    // днём того же гражданского дня (из-за постного распорядка трапезы), а не
+    // переносятся на вечер предыдущего дня, как обычная будничная вечерня.
+    vespersSameDay: true,
+    hour9AfterHours: true,
+    services: lentenWeekdayServiceSet(dow),
+    variables: {
+      glas,
+      flags: { alleluia: true },
+      sources: { oktoih: `oktoih-weekday-glas${glas}-${WEEKDAY_KEYS[dow]}`, triod: named.contentKey },
     },
   };
 }

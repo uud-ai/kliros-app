@@ -1,0 +1,12 @@
+{
+  "_meta": {
+    "id": "great-lent-week1-fri",
+    "name": "Пя́тница 1-й седми́цы Вели́кого поста́",
+    "offset": -44,
+    "description": "Переменные части службы этого дня (стихиры, трипеснец, паремии) — текст ещё не внесён, вносится дословно с azbyka.ru (см. CHROME_TODO.md).",
+    "source": null,
+    "version": 1,
+    "supports_variables": true,
+    "status": "not_started"
+  }
+}

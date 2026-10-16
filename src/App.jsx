@@ -21,7 +21,10 @@ const SAME_DAY_VESPERS = /^vespers-(pascha|bright-|antipascha|great-|pentecost-k
 // labels — подписи из плана дня (Марковы главы и т. п.):
 // { vespers: { title, note }, matins: {...}, hours: {...}, liturgy: {...} };
 // vespersSameDay — вечерня совершается в сам день (после Литургии или с ней).
-function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false) {
+// hour9AfterHours — 9-й час идёт не накануне (перед вечерней вчера), а вместе
+// с 1-м/3-м/6-м сего́дня утром, сразу перед вечерней того же дня (будни
+// Великого поста, где все часы читаются подряд перед постной трапезой).
+function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false, hour9AfterHours = false) {
   if (!services) return [];
   const seq = [];
   const hours = services.hours && typeof services.hours === "object" ? services.hours : null;
@@ -46,7 +49,7 @@ function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false)
   // подряд утром, поэтому 9-й час не переносится на канун перед вечерней.
   const royalHours = !!services.royalHours && !!hours;
 
-  if (!uniformHours && !royalHours) add("hour9", "Девя́тый час", hours?.["9"], labels.hour9?.note);
+  if (!uniformHours && !royalHours && !hour9AfterHours) add("hour9", "Девя́тый час", hours?.["9"], labels.hour9?.note);
   if (!vespersSameDay) addOrMissing("vespers", "Вече́рня", services.vespers, "накану́не ве́чером");
   add("midnightOffice", "Полуно́щница", services.midnightOffice);
   addOrMissing("matins", "У́треня", services.matins);
@@ -62,11 +65,13 @@ function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false)
     add("hour1", "Пе́рвый час", hours["1"]);
     add("hour3", "Тре́тий час", hours["3"]);
     add("hour6", "Шесто́й час", hours["6"]);
+    if (hour9AfterHours) add("hour9", "Девя́тый час", hours["9"], labels.hour9?.note);
   } else {
     seq.push({ key: "hours", ...label("hours", "Часы́"), missing: true });
   }
   addOrMissing("liturgy", "Литурги́я", services.liturgy);
   if (vespersSameDay) add("vespers", "Вече́рня", services.vespers, "ве́чером в э́тот день");
+  add("greatCompline", "Вели́кое пове́черие", services.greatCompline);
   add("vespersKneeling", "Коленопреклоне́нная вече́рня", services.vespersKneeling, "ве́чером в э́тот день, по Литурги́и");
   return seq;
 }
@@ -642,11 +647,12 @@ function App() {
       // Если элемент — канон, собираем песни как подзакладки
       if (item.is_canon && item.canon && item.canon.structure) {
         item.canon.structure.forEach((ode, odeIdx) => {
-          if (ode.title) {
+          const visiblePartsCount = (ode.parts || []).filter((part) => passesConditions(part, sourcesByType)).length;
+          if (ode.title && visiblePartsCount) {
             current.subBookmarks.push({
               title: ode.title,
               anchor: `ode-${flatIndex}-${odeIdx}`,
-              partsCount: (ode.parts || []).length,
+              partsCount: visiblePartsCount,
             });
           }
         });
@@ -697,12 +703,12 @@ function App() {
 
   // Рендер одной песни канона
   const renderCanonOde = (ode, canonVariables, anchor) => {
+    const visibleParts = (ode.parts || []).filter((part) => passesConditions(part, canonVariables));
+    if (!visibleParts.length) return null;
     return (
       <div key={ode.ode} className="canon-ode">
         <h4 className="canon-ode-title" id={anchor}>{ode.title}</h4>
-        {ode.parts && ode.parts
-          .filter((part) => passesConditions(part, canonVariables))
-          .map((part, idx) => renderCanonPart(part, idx, canonVariables))}
+        {visibleParts.map((part, idx) => renderCanonPart(part, idx, canonVariables))}
       </div>
     );
   };
@@ -730,7 +736,7 @@ function App() {
 
   // ===== Службы дня: последовательность и реплики =====
   const serviceSequence = useMemo(
-    () => buildServiceSequence(day?.services, day?.serviceLabels, day?.vespersSameDay),
+    () => buildServiceSequence(day?.services, day?.serviceLabels, day?.vespersSameDay, day?.hour9AfterHours),
     [day]
   );
 

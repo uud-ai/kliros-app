@@ -16,7 +16,7 @@
 // той же формы, что и рукописные файлы data/days/*.json.
 
 import { computeGlas } from "./paschalion.js";
-import { describeTriodionDay, paschaOffset, planPaschaService, planPentecostarionSunday, planLentenSundayService, planFixedProperService } from "./triodion.js";
+import { describeTriodionDay, paschaOffset, planPaschaService, planPentecostarionSunday, planLentenSundayService, planLentenWeekdayService, planFixedProperService } from "./triodion.js";
 import { planAnnunciation, annunciationNeighbour } from "./mark-chapters.js";
 
 // ===== Общие календарные утилиты =====
@@ -534,7 +534,7 @@ export function planDayService(date, mineaMeta) {
     // литургии) должны проверяться РАНЬШЕ заглушки planPentecostarionSunday —
     // иначе заглушка «воскресная литургия с Октоихом» перехватывала их,
     // и, например, Пятидесятница получала Октоих, которого в этот день нет.
-    const plan = planPaschaService(date) || planFixedProperService(date) || planLentenSundayService(date) || planPentecostarionSunday(date);
+    const plan = planPaschaService(date) || planFixedProperService(date) || planLentenSundayService(date) || planLentenWeekdayService(date) || planPentecostarionSunday(date);
     if (plan) return { ok: true, plan };
     return annunciationNeighbour(date, mmdd) || { ok: false, reason: "triod-not-implemented", triodDay };
   }
