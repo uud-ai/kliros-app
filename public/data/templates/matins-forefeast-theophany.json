@@ -157,8 +157,83 @@
             ]
           },
           {
+            "ode": 4,
+            "title": "Песнь 4",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос предпразднства", "text": "{{minea.canon_ode4_irmos_forefeast}}", "fallback": "Ирмо́с 4-й пе́сни кано́на предпра́зднства." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode4_tropar_1_forefeast}}", "fallback": "1-й тропа́рь кано́на предпра́зднства, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode4_tropar_2_forefeast}}", "fallback": "2-й тропа́рь кано́на предпра́зднства, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode4_tropar_3_forefeast}}", "fallback": "3-й тропа́рь кано́на предпра́зднства, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode4_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode4_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode4_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 4-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен святому", "text": "{{minea.canon_ode4_bogorodichen}}", "fallback": "Богоро́дичен 4-й пе́сни." },
+              { "type": "katavasia", "label": "Катавасия", "text": "{{minea.canon_ode4_irmos_forefeast}}", "fallback": "Катава́сия — ирмо́с 4-й пе́сни предпра́зднства (повторя́ется)." }
+            ]
+          },
+          {
+            "ode": 5,
+            "title": "Песнь 5",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос предпразднства", "text": "{{minea.canon_ode5_irmos_forefeast}}", "fallback": "Ирмо́с 5-й пе́сни кано́на предпра́зднства." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode5_tropar_1_forefeast}}", "fallback": "1-й тропа́рь кано́на предпра́зднства, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode5_tropar_2_forefeast}}", "fallback": "2-й тропа́рь кано́на предпра́зднства, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode5_tropar_3_forefeast}}", "fallback": "3-й тропа́рь кано́на предпра́зднства, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode5_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode5_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode5_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 5-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен святому", "text": "{{minea.canon_ode5_bogorodichen}}", "fallback": "Богоро́дичен 5-й пе́сни." },
+              { "type": "katavasia", "label": "Катавасия", "text": "{{minea.canon_ode5_irmos_forefeast}}", "fallback": "Катава́сия — ирмо́с 5-й пе́сни предпра́зднства (повторя́ется)." }
+            ]
+          },
+          {
+            "ode": 6,
+            "title": "Песнь 6",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос предпразднства", "text": "{{minea.canon_ode6_irmos_forefeast}}", "fallback": "Ирмо́с 6-й пе́сни кано́на предпра́зднства." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode6_tropar_1_forefeast}}", "fallback": "1-й тропа́рь кано́на предпра́зднства, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode6_tropar_2_forefeast}}", "fallback": "2-й тропа́рь кано́на предпра́зднства, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode6_tropar_3_forefeast}}", "fallback": "3-й тропа́рь кано́на предпра́зднства, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode6_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode6_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode6_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 6-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен святому", "text": "{{minea.canon_ode6_bogorodichen}}", "fallback": "Богоро́дичен 6-й пе́сни." },
+              { "type": "katavasia", "label": "Катавасия", "text": "{{minea.canon_ode6_irmos_forefeast}}", "fallback": "Катава́сия — ирмо́с 6-й пе́сни предпра́зднства (повторя́ется)." }
+            ]
+          },
+          {
+            "ode": 7,
+            "title": "Песнь 7",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос предпразднства", "text": "{{minea.canon_ode7_irmos_forefeast}}", "fallback": "Ирмо́с 7-й пе́сни кано́на предпра́зднства." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode7_tropar_1_forefeast}}", "fallback": "1-й тропа́рь кано́на предпра́зднства, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode7_tropar_2_forefeast}}", "fallback": "2-й тропа́рь кано́на предпра́зднства, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode7_tropar_3_forefeast}}", "fallback": "3-й тропа́рь кано́на предпра́зднства, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode7_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode7_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode7_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 7-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен святому", "text": "{{minea.canon_ode7_bogorodichen}}", "fallback": "Богоро́дичен 7-й пе́сни." },
+              { "type": "katavasia", "label": "Катавасия", "text": "{{minea.canon_ode7_irmos_forefeast}}", "fallback": "Катава́сия — ирмо́с 7-й пе́сни предпра́зднства (повторя́ется)." }
+            ]
+          },
+          {
+            "ode": 8,
+            "title": "Песнь 8",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос предпразднства", "text": "{{minea.canon_ode8_irmos_forefeast}}", "fallback": "Ирмо́с 8-й пе́сни кано́на предпра́зднства." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode8_tropar_1_forefeast}}", "fallback": "1-й тропа́рь кано́на предпра́зднства, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode8_tropar_2_forefeast}}", "fallback": "2-й тропа́рь кано́на предпра́зднства, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь предпразднства", "text": "{{minea.canon_ode8_tropar_3_forefeast}}", "fallback": "3-й тропа́рь кано́на предпра́зднства, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode8_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode8_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь святому", "text": "{{minea.canon_ode8_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 8-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен святому", "text": "{{minea.canon_ode8_bogorodichen}}", "fallback": "Богоро́дичен 8-й пе́сни." },
+              { "type": "katavasia", "label": "Катавасия", "text": "{{minea.canon_ode8_irmos_forefeast}}", "fallback": "Катава́сия — ирмо́с 8-й пе́сни предпра́зднства (повторя́ется)." }
+            ]
+          },
+          {
             "ode": "after_6",
-            "title": "Малая ектения, кондак и икос предпразднства по 6-й песни (песни 4–8 опущены показательно)",
+            "title": "Малая ектения, кондак и икос предпразднства по 6-й песни",
             "parts": [
               { "type": "tropar", "label": "Диакон", "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию." },
               { "type": "tropar", "label": "Кондак предпразднства", "text": "{{minea.kondak_forefeast}}", "fallback": "Конда́к предпра́зднства (текст будет добавлен)." },
