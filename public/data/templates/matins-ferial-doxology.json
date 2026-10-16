@@ -116,7 +116,7 @@
       "role": "Канон",
       "is_canon": true,
       "canon": {
-        "title": "Октоиха один канон (дня, без мученичнов) и святого канон на 8 — показаны песни 1, 3 и 9",
+        "title": "Октоиха один канон (дня, без мученичнов) и святого канон на 8",
         "structure": [
           {
             "ode": 1,
@@ -161,8 +161,93 @@
             ]
           },
           {
+            "ode": 4,
+            "title": "Песнь 4",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Октоих)", "text": "{{oktoih.canon_cross_ode4_irmos}}", "fallback": "Ирмо́с 4-й пе́сни кано́на Окто́иха." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_cross_refrain}}", "fallback": "", "only_if": ["oktoih.canon_cross_refrain"] },
+              { "type": "tropar", "label": "Тропарь (Октоих)", "text": "{{oktoih.canon_cross_ode4_tropar_1}}", "fallback": "1-й тропа́рь кано́на Окто́иха, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Октоих)", "text": "{{oktoih.canon_cross_ode4_tropar_2}}", "fallback": "2-й тропа́рь кано́на Окто́иха, 4-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode4_bogorodichen}}", "fallback": "Богоро́дичен 4-й пе́сни кано́на Окто́иха." },
+              { "type": "irmos", "label": "Ирмос (святому)", "text": "{{minea.canon_ode4_irmos}}", "fallback": "Ирмо́с 4-й пе́сни кано́на святому." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode4_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode4_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode4_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 4-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode4_tropar_4}}", "fallback": "4-й тропа́рь кано́на святому, 4-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{minea.canon_ode4_bogorodichen}}", "fallback": "Богоро́дичен 4-й пе́сни кано́на святому." }
+            ]
+          },
+          {
+            "ode": 5,
+            "title": "Песнь 5",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Октоих)", "text": "{{oktoih.canon_cross_ode5_irmos}}", "fallback": "Ирмо́с 5-й пе́сни кано́на Окто́иха." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_cross_refrain}}", "fallback": "", "only_if": ["oktoih.canon_cross_refrain"] },
+              { "type": "tropar", "label": "Тропарь (Октоих)", "text": "{{oktoih.canon_cross_ode5_tropar_1}}", "fallback": "1-й тропа́рь кано́на Окто́иха, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Октоих)", "text": "{{oktoih.canon_cross_ode5_tropar_2}}", "fallback": "2-й тропа́рь кано́на Окто́иха, 5-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode5_bogorodichen}}", "fallback": "Богоро́дичен 5-й пе́сни кано́на Окто́иха." },
+              { "type": "irmos", "label": "Ирмос (святому)", "text": "{{minea.canon_ode5_irmos}}", "fallback": "Ирмо́с 5-й пе́сни кано́на святому." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode5_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode5_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode5_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 5-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode5_tropar_4}}", "fallback": "4-й тропа́рь кано́на святому, 5-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{minea.canon_ode5_bogorodichen}}", "fallback": "Богоро́дичен 5-й пе́сни кано́на святому." }
+            ]
+          },
+          {
+            "ode": 6,
+            "title": "Песнь 6",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Октоих)", "text": "{{oktoih.canon_cross_ode6_irmos}}", "fallback": "Ирмо́с 6-й пе́сни кано́на Окто́иха." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_cross_refrain}}", "fallback": "", "only_if": ["oktoih.canon_cross_refrain"] },
+              { "type": "tropar", "label": "Тропарь (Октоих)", "text": "{{oktoih.canon_cross_ode6_tropar_1}}", "fallback": "1-й тропа́рь кано́на Окто́иха, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Октоих)", "text": "{{oktoih.canon_cross_ode6_tropar_2}}", "fallback": "2-й тропа́рь кано́на Окто́иха, 6-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode6_bogorodichen}}", "fallback": "Богоро́дичен 6-й пе́сни кано́на Окто́иха." },
+              { "type": "irmos", "label": "Ирмос (святому)", "text": "{{minea.canon_ode6_irmos}}", "fallback": "Ирмо́с 6-й пе́сни кано́на святому." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode6_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode6_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode6_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 6-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode6_tropar_4}}", "fallback": "4-й тропа́рь кано́на святому, 6-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{minea.canon_ode6_bogorodichen}}", "fallback": "Богоро́дичен 6-й пе́сни кано́на святому." }
+            ]
+          },
+          {
+            "ode": 7,
+            "title": "Песнь 7",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Октоих)", "text": "{{oktoih.canon_cross_ode7_irmos}}", "fallback": "Ирмо́с 7-й пе́сни кано́на Окто́иха." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_cross_refrain}}", "fallback": "", "only_if": ["oktoih.canon_cross_refrain"] },
+              { "type": "tropar", "label": "Тропарь (Октоих)", "text": "{{oktoih.canon_cross_ode7_tropar_1}}", "fallback": "1-й тропа́рь кано́на Окто́иха, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Октоих)", "text": "{{oktoih.canon_cross_ode7_tropar_2}}", "fallback": "2-й тропа́рь кано́на Окто́иха, 7-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode7_bogorodichen}}", "fallback": "Богоро́дичен 7-й пе́сни кано́на Окто́иха." },
+              { "type": "irmos", "label": "Ирмос (святому)", "text": "{{minea.canon_ode7_irmos}}", "fallback": "Ирмо́с 7-й пе́сни кано́на святому." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode7_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode7_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode7_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 7-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode7_tropar_4}}", "fallback": "4-й тропа́рь кано́на святому, 7-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{minea.canon_ode7_bogorodichen}}", "fallback": "Богоро́дичен 7-й пе́сни кано́на святому." }
+            ]
+          },
+          {
+            "ode": 8,
+            "title": "Песнь 8",
+            "parts": [
+              { "type": "irmos", "label": "Ирмос (Октоих)", "text": "{{oktoih.canon_cross_ode8_irmos}}", "fallback": "Ирмо́с 8-й пе́сни кано́на Окто́иха." },
+              { "type": "refrain_heading", "label": "Припев:", "text": "{{oktoih.canon_cross_refrain}}", "fallback": "", "only_if": ["oktoih.canon_cross_refrain"] },
+              { "type": "tropar", "label": "Тропарь (Октоих)", "text": "{{oktoih.canon_cross_ode8_tropar_1}}", "fallback": "1-й тропа́рь кано́на Окто́иха, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (Октоих)", "text": "{{oktoih.canon_cross_ode8_tropar_2}}", "fallback": "2-й тропа́рь кано́на Окто́иха, 8-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{oktoih.canon_cross_ode8_bogorodichen}}", "fallback": "Богоро́дичен 8-й пе́сни кано́на Окто́иха." },
+              { "type": "irmos", "label": "Ирмос (святому)", "text": "{{minea.canon_ode8_irmos}}", "fallback": "Ирмо́с 8-й пе́сни кано́на святому." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode8_tropar_1}}", "fallback": "1-й тропа́рь кано́на святому, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode8_tropar_2}}", "fallback": "2-й тропа́рь кано́на святому, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode8_tropar_3}}", "fallback": "3-й тропа́рь кано́на святому, 8-й пе́сни." },
+              { "type": "tropar", "label": "Тропарь (святому)", "text": "{{minea.canon_ode8_tropar_4}}", "fallback": "4-й тропа́рь кано́на святому, 8-й пе́сни." },
+              { "type": "bogorodichen", "label": "Богородичен", "text": "{{minea.canon_ode8_bogorodichen}}", "fallback": "Богоро́дичен 8-й пе́сни кано́на святому." }
+            ]
+          },
+          {
             "ode": "after_6",
-            "title": "Малая ектения, кондак и икос по 6-й песни (песни 4–8 опущены показательно)",
+            "title": "Малая ектения, кондак и икос по 6-й песни",
             "parts": [
               { "type": "tropar", "label": "Диакон", "text": "Па́ки и па́ки ми́ром Го́споду помо́лимся. ... Заступи́, спаси́, поми́луй и сохрани́ нас, Бо́же, Твое́ю благода́тию." },
               { "type": "tropar", "label": "Кондак святому", "text": "{{minea.kondak}}", "fallback": "Конда́к святому (текст будет добавлен)." },
