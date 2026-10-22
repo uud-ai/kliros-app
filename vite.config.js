@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // На Vercel приложение открывается с корня домена, в остальных местах
-// (Firebase, приходской сайт) — по пути /kliros/.
+// (например, приходской сайт) — по пути /kliros/.
 const BASE = process.env.VERCEL ? '/' : '/kliros/'
 
 export default defineConfig({
