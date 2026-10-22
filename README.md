@@ -40,7 +40,7 @@
 
 ## Быстрый старт
 
-Требуется Node.js 22 (версия из `.idx/dev.nix`) и npm.
+Требуется Node.js 22 и npm.
 
 ```bash
 git clone https://github.com/uud-ai/kliros-app.git
