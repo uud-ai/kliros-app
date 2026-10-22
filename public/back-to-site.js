@@ -3,7 +3,7 @@
 // могла запретить любые встроенные скрипты.
 (function () {
   var ref;
-  try { ref = new URL(document.referrer); } catch (e) { return; }
+  try { ref = new URL(document.referrer); } catch { return; }
   if (ref.origin !== location.origin || ref.href === location.href) return;
   var bar = document.createElement("a");
   bar.href = ref.href;

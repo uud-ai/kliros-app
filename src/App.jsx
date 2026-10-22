@@ -24,6 +24,41 @@ const SAME_DAY_VESPERS = /^vespers-(pascha|bright-|antipascha|great-|pentecost-k
 // hour9AfterHours — 9-й час идёт не накануне (перед вечерней вчера), а вместе
 // с 1-м/3-м/6-м сего́дня утром, сразу перед вечерней того же дня (будни
 // Великого поста, где все часы читаются подряд перед постной трапезой).
+function buildSourcesByType(day, variables, templates, selectedDate) {
+  const variableSources = { ...(day?.variables?.sources || {}) };
+  if (day?.variables?.oktoih_source && !variableSources.oktoih) {
+    variableSources.oktoih = day.variables.oktoih_source;
+  }
+  const result = {};
+  Object.entries(variableSources).forEach(([type, id]) => {
+    if (id && variables[id]) result[type] = variables[id];
+  });
+  // Признаки дня из плана (variables.flags), для условий only_if: "day.<флаг>".
+  // Например, day.alleluia — на утрене «Аллилуиа» вместо «Бог Господь»
+  // (будни Великого поста): на часах читается тропарь часа со стихами.
+  result.day = { ...(day?.variables?.flags || {}) };
+  // Богородичен отпустительный выбирается по гласу тропаря СВЯТОГО дня
+  // (minea.tropar_glas), а не по седмичному гласу Октоиха: если он известен,
+  // подменяем oktoih.tropar_bogorodichen_otpustitelny вычисленным значением.
+  // Без minea.tropar_glas (пока не внесён для дня) — остаётся как было,
+  // значение из файла Октоиха по умолчанию.
+  const bogorodichnyTable = templates["bogorodichny-otpustitelnye"];
+  const tropGlas = result.minea?.tropar_glas;
+  if (bogorodichnyTable && tropGlas) {
+    const weekday = selectedDate.getDay();
+    const group = weekday === 1 ? "monday"
+      : weekday === 2 || weekday === 4 ? "tue_thu"
+      : weekday === 3 || weekday === 5 ? "wed_fri"
+      : weekday === 6 ? "saturday"
+      : null;
+    const text = group && bogorodichnyTable[`glas${tropGlas}`]?.[group];
+    if (text) {
+      result.oktoih = { ...result.oktoih, tropar_bogorodichen_otpustitelny: text };
+    }
+  }
+  return result;
+}
+
 function buildServiceSequence(services, labels = {}, vespersSameDayFlag = false, hour9AfterHours = false) {
   if (!services) return [];
   const seq = [];
@@ -628,7 +663,7 @@ function App() {
   // items — реплики одной службы; offset — сквозной номер первой реплики
   // службы на странице (для поиска и прокрутки). Якоря разделов и песней
   // канона уникальны в пределах всей страницы.
-  const groupBySection = (items, offset, serviceKey) => {
+  const groupBySection = (items, offset, serviceKey, sourcesByType) => {
     const groups = [];
     let current = null;
     items.forEach((item, i) => {
@@ -744,40 +779,10 @@ function App() {
   // variables.oktoih_source — старое поле, поддерживается как алиас sources.oktoih.
   // Мемоизировано: пересчёт нужен только при смене дня или подгрузке
   // переменных, а не при каждом вводе в поиске/полях храма.
-  const sourcesByType = useMemo(() => {
-    const variableSources = { ...(day?.variables?.sources || {}) };
-    if (day?.variables?.oktoih_source && !variableSources.oktoih) {
-      variableSources.oktoih = day.variables.oktoih_source;
-    }
-    const result = {};
-    Object.entries(variableSources).forEach(([type, id]) => {
-      if (id && variables[id]) result[type] = variables[id];
-    });
-    // Признаки дня из плана (variables.flags), для условий only_if: "day.<флаг>".
-    // Например, day.alleluia — на утрене «Аллилуиа» вместо «Бог Господь»
-    // (будни Великого поста): на часах читается тропарь часа со стихами.
-    result.day = { ...(day?.variables?.flags || {}) };
-    // Богородичен отпустительный выбирается по гласу тропаря СВЯТОГО дня
-    // (minea.tropar_glas), а не по седмичному гласу Октоиха: если он известен,
-    // подменяем oktoih.tropar_bogorodichen_otpustitelny вычисленным значением.
-    // Без minea.tropar_glas (пока не внесён для дня) — остаётся как было,
-    // значение из файла Октоиха по умолчанию.
-    const bogorodichnyTable = templates["bogorodichny-otpustitelnye"];
-    const tropGlas = result.minea?.tropar_glas;
-    if (bogorodichnyTable && tropGlas) {
-      const weekday = selectedDate.getDay();
-      const group = weekday === 1 ? "monday"
-        : weekday === 2 || weekday === 4 ? "tue_thu"
-        : weekday === 3 || weekday === 5 ? "wed_fri"
-        : weekday === 6 ? "saturday"
-        : null;
-      const text = group && bogorodichnyTable[`glas${tropGlas}`]?.[group];
-      if (text) {
-        result.oktoih = { ...result.oktoih, tropar_bogorodichen_otpustitelny: text };
-      }
-    }
-    return result;
-  }, [day, variables, templates, selectedDate]);
+  const sourcesByType = useMemo(
+    () => buildSourcesByType(day, variables, templates, selectedDate),
+    [day, variables, templates, selectedDate]
+  );
 
   // Тропари/кондаки по входе на будничной Литургии — вычисляются по уставу
   // (день седмицы + Минея + настройка храма), а не берутся из шаблона.
@@ -855,7 +860,7 @@ function App() {
       out.push({
         ...svc,
         loaded: !!template,
-        groups: items ? groupBySection(items, offset, svc.key) : [],
+        groups: items ? groupBySection(items, offset, svc.key, sourcesByType) : [],
       });
     });
     return { renderedServices: out, allItems: all };
